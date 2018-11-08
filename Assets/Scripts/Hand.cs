@@ -17,6 +17,8 @@ public class Hand : MonoBehaviour {
 
     bool dragging;
 
+    public delegate void OnAdviceGiven(string advice);
+    public static event OnAdviceGiven adviceGiven;
 
     private void Start()
     {
@@ -50,6 +52,7 @@ public class Hand : MonoBehaviour {
         draggableComponent.StopDragging(draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()), d.gameObject);
         draggableComponent.SetDropAreaDestination(d.transform.position);
         draggableComponent.SetDroppableArea(d.gameObject);
+        d.SetContainedPiece(draggableComponent.gameObject);
         d.SetOccupied(true);
     }
 
@@ -78,6 +81,8 @@ public class Hand : MonoBehaviour {
             if (facePiece != null)
             {
                 DraggableObject draggableComponent = facePiece.GetComponent<DraggableObject>();
+                if (draggableComponent.GetDroppableArea() != null)
+                    draggableComponent.GetDroppableArea().SetOccupied(false);
 
                 //se sei sopra una droppable area 
                 if (droppableArea.Count > 0)
@@ -94,8 +99,9 @@ public class Hand : MonoBehaviour {
                         }
                     }
                     //se non ho trovato nessuna droppable area compatibile
-                    if (!found)
+                    if (!found) {
                         draggableComponent.StopDragging(false, null);
+                    }
                 }
                 else
                     //altrimenti semplicemente sei fuori da una droppable area 

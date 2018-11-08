@@ -12,10 +12,16 @@ public class DroppableArea : MonoBehaviour {
     [SerializeField]
     private GameObject pieceContained;
 
+    [SerializeField]
     private bool occupied;
 
     public void SetContainedPiece(GameObject piece) {
         pieceContained = piece;
+    }
+
+    public GameObject GetContainedPiece()
+    {
+        return pieceContained;
     }
 
     public DraggableObjectType GetMainType() {

@@ -12,11 +12,13 @@ public abstract class DraggableObject : MonoBehaviour {
 
     private Vector3 startingPosition;
 
+    [SerializeField]
     private GameObject droppableArea;
 
     //se il pezzo si sta muovendo o e' fermo
     private bool move;
 
+    [SerializeField]
     //se il pezzo e' stato droppato in un'area giusta
     bool inCorrectPlace;
 
@@ -45,9 +47,10 @@ public abstract class DraggableObject : MonoBehaviour {
 
     public void StartDragging(GameObject hand) {
 
+
         //disabilitare il composite collider che si crea parentando il game object come figlio della mano
         //il delay e' necessario altrimenti il collider fa scattare il trigget exit e annulla la reference all'oggetto draggato
-        Invoke("DisableCollider", 0.1f);
+        Invoke("DisableCollider", 0.01f);
 
         //non e' piu' dropped
         move = false;
@@ -60,7 +63,11 @@ public abstract class DraggableObject : MonoBehaviour {
 
         if (inCorrectPlace) {
             droppableArea.GetComponent<DroppableArea>().SetOccupied(false);
+            inCorrectPlace = false;
         }
+
+        droppableArea = null;
+
     }
 
     //stop dragging ti dice gia' se la posizione e' droppable o no e l'eventuale destinazione
@@ -79,7 +86,7 @@ public abstract class DraggableObject : MonoBehaviour {
         else {
             inCorrectPlace = false;
             dropAreaDestination = startingPosition;
-            move = true;
+            move = true;                
         }
     }
 
@@ -107,6 +114,12 @@ public abstract class DraggableObject : MonoBehaviour {
     public void SetDroppableArea(GameObject area)
     {
         droppableArea = area;
+    }
+
+    public DroppableArea GetDroppableArea() {
+        if (droppableArea != null)
+            return droppableArea.GetComponent<DroppableArea>();
+        else return null;
     }
 
     public void SetDropAreaDestination(Vector3 area) {
