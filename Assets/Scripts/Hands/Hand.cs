@@ -85,7 +85,7 @@ public class Hand : MonoBehaviour {
                     //se non ho trovato nessuna droppable area compatibile
                     if (!found)
                     {
-                        ChoseProperAdvice(draggableComponent.GetSubType());
+                        ChooseProperAdvice(draggableComponent.GetSubType());
                         draggableComponent.StopDragging(false, null);
                     }
                 }
@@ -104,7 +104,7 @@ public class Hand : MonoBehaviour {
     }
 
     //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
-    protected virtual void ChoseProperAdvice(string type) { }
+    protected virtual void ChooseProperAdvice(string type) { }
 
     //posso chiamare un evento solo da questa classe quindi aggiro chiamando un metodo che chiama l'evento
     protected void GiveAdvice(string advice) {

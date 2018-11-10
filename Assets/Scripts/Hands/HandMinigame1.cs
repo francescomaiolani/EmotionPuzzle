@@ -6,7 +6,7 @@ public class HandMinigame1 : Hand {
 
 
     //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
-    protected override void ChoseProperAdvice(string type)
+    protected override void ChooseProperAdvice(string type)
     {
         if (type == "EYES")
             GiveAdvice("Prova posizionando gli occhi sopra al naso");
