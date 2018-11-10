@@ -94,18 +94,14 @@ public abstract class DraggableObject : MonoBehaviour {
         GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
-    public virtual bool CheckIfCorrectDropArea(DraggableObjectType area, FaceParts subArea) {
-        return true;
-    }
+    public abstract bool CheckIfCorrectDropArea(DraggableObjectType area, FaceParts subArea);
+    public abstract string GetSubType();
 
     public void MovePieceToPosition(Vector3 destination) {
         Vector3 newPosition = new Vector2(Mathf.Lerp(transform.position.x, destination.x, lerpingFactor), Mathf.Lerp(transform.position.y, destination.y, lerpingFactor));
         transform.position = newPosition;
     }
 
-    public virtual string GetSubType() {
-        return  null;
-    }
 
     public bool GetInCorrectPlace() {
         return inCorrectPlace;

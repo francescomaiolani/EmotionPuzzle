@@ -16,8 +16,7 @@ public class Minigame1UIManager : MonoBehaviour {
     void GiveAdvice(string advice) {
         adviceText.text = advice;
         advicePanel.gameObject.SetActive(true);
-
-        Invoke("DisableAdvicePanel", 2f);
+        advicePanel.GetComponent<Animator>().Play("Advice");
     }
 
     void DisableAdvicePanel() {

@@ -7,7 +7,7 @@ public class Hand : MonoBehaviour {
     [Header("Vicinanza della mano con il mouse")]
     public float lerpingFactor;
     [Header("Reference al pezzo della faccia preso")]
-    public GameObject facePiece;
+    public GameObject pieceTaken;
     
     [SerializeField]
     public List<DroppableArea> droppableArea;
@@ -15,7 +15,7 @@ public class Hand : MonoBehaviour {
     public SpriteRenderer spriteRenderer;
     public Sprite[] hands;
 
-    bool dragging;
+    protected bool dragging;
 
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
@@ -40,24 +40,8 @@ public class Hand : MonoBehaviour {
         transform.position = newPosition;
     }
 
-    void ChangeHandSprite(string state) {
-        if (state == "closed")
-            spriteRenderer.sprite = hands[1];
-        else if (state == "open")
-            spriteRenderer.sprite = hands[0];
-    }
-
-    //droppa nella droppable area il droppable object trascinato
-    void DropItem(DroppableArea d, DraggableObject draggableComponent) {
-        draggableComponent.StopDragging(draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()), d.gameObject);
-        draggableComponent.SetDropAreaDestination(d.transform.position);
-        draggableComponent.SetDroppableArea(d.gameObject);
-        d.SetContainedPiece(draggableComponent.gameObject);
-        d.SetOccupied(true);
-    }
-
     //checka ogni frame se sto premendo qualcosa
-    void CheckInputs() {
+    protected virtual void CheckInputs() {
 
         //se sto cliccando >>> Inizia il drag
         if (Input.GetMouseButtonDown(0))
@@ -66,9 +50,9 @@ public class Hand : MonoBehaviour {
             //annulla el precedenti reference alle droppable area che avevi toccato
             droppableArea.Clear();
             //se ho un oggetto con cui ho colliso
-            if (facePiece != null)
+            if (pieceTaken != null)
             {
-                facePiece.GetComponent<DraggableObject>().StartDragging(this.gameObject);
+                pieceTaken.GetComponent<DraggableObject>().StartDragging(this.gameObject);
                 dragging = true;
             }
         }
@@ -78,9 +62,9 @@ public class Hand : MonoBehaviour {
         {
             ChangeHandSprite("open");
             // se sto effettivamente trascinando qualcosa
-            if (facePiece != null)
+            if (pieceTaken != null)
             {
-                DraggableObject draggableComponent = facePiece.GetComponent<DraggableObject>();
+                DraggableObject draggableComponent = pieceTaken.GetComponent<DraggableObject>();
                 if (draggableComponent.GetDroppableArea() != null)
                     draggableComponent.GetDroppableArea().SetOccupied(false);
 
@@ -99,49 +83,54 @@ public class Hand : MonoBehaviour {
                         }
                     }
                     //se non ho trovato nessuna droppable area compatibile
-                    if (!found) {
+                    if (!found)
+                    {
+                        ChoseProperAdvice(draggableComponent.GetSubType());
                         draggableComponent.StopDragging(false, null);
                     }
                 }
-                else
+                else {
                     //altrimenti semplicemente sei fuori da una droppable area 
                     draggableComponent.StopDragging(false, null);
+                    if (!draggableComponent.GetInCorrectPlace())
+                        adviceGiven("Posiziona il pezzo sopra la faccia del ragazzo!");
+                }
 
-                facePiece = null;
+
+                pieceTaken = null;
                 dragging = false;
             }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
+    protected virtual void ChoseProperAdvice(string type) { }
+
+    //posso chiamare un evento solo da questa classe quindi aggiro chiamando un metodo che chiama l'evento
+    protected void GiveAdvice(string advice) {
+        adviceGiven(advice);
+    }
+
+    //Cambia l'immagine della mano da aperta a ciusa e viceversa
+    void ChangeHandSprite(string state)
     {
-        if (!dragging)
-        {
-            if (collision.gameObject.tag == "FacePiece")
-                facePiece = collision.gameObject;
-        }
-
-        else {
-            //se sono entrato in una droppable area
-            if (collision.gameObject.tag == "DroppableArea") {
-                droppableArea.Add(collision.gameObject.GetComponent<DroppableArea>());
-            }
-        }
+        if (state == "closed")
+            spriteRenderer.sprite = hands[1];
+        else if (state == "open")
+            spriteRenderer.sprite = hands[0];
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    { 
-        //se non sto draggando nulla mi interessa sapere con che pezzo collido
-        if (!dragging)  {
-            if (facePiece == collision.gameObject)
-                facePiece = null;
-        }
-
-        //se invece sto draggando devo sapere se sono uscito da una droppable area
-        else  {
-            if (collision.gameObject.tag == "DroppableArea")
-                //rimuovi il primo elemento della lista per forza
-                droppableArea.Remove(collision.GetComponent<DroppableArea>());
-        }
+    //droppa nella droppable area il droppable object trascinato
+    void DropItem(DroppableArea d, DraggableObject draggableComponent)
+    {
+        draggableComponent.StopDragging(draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()), d.gameObject);
+        draggableComponent.SetDropAreaDestination(d.transform.position);
+        draggableComponent.SetDroppableArea(d.gameObject);
+        d.SetContainedPiece(draggableComponent.gameObject);
+        d.SetOccupied(true);
     }
+
+    //Check delle collisioni va fatto nelle classi derivate perche' ogni minigioco ha bisogno di input diversi
+    protected virtual void OnTriggerEnter2D(Collider2D collision) { }
+    protected virtual void OnTriggerExit2D(Collider2D collision) { }
 }
