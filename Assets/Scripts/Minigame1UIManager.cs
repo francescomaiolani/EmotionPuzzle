@@ -8,6 +8,8 @@ public class Minigame1UIManager : MonoBehaviour {
     public Image advicePanel;
     public Text adviceText;
 
+    public Text emotionText;
+
     private void Start()
     {
         Hand.adviceGiven += GiveAdvice;
@@ -22,5 +24,10 @@ public class Minigame1UIManager : MonoBehaviour {
     void DisableAdvicePanel() {
         advicePanel.gameObject.SetActive(false);
     }
+
+    public void UpdateUI(MinigameManager manager) {
+        emotionText.text = manager.GetEmotionString();
+    }
+
 }
 
