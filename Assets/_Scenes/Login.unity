@@ -544,8 +544,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 389003164}
   m_TextComponent: {fileID: 817467314}
   m_Placeholder: {fileID: 1865232549}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1276,8 +1276,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1103874446}
   m_TextComponent: {fileID: 1387339197}
   m_Placeholder: {fileID: 1474395095}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
@@ -1768,6 +1768,7 @@ GameObject:
   - component: {fileID: 1522645663}
   - component: {fileID: 1522645664}
   - component: {fileID: 1522645662}
+  - component: {fileID: 1522645665}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1818,6 +1819,21 @@ MonoBehaviour:
   usernameField: {fileID: 164828510}
   passwordField: {fileID: 1103874445}
   confirmPasswordField: {fileID: 389003163}
+--- !u!114 &1522645665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1522645661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cafc028adb14df4589c9493171b3dc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputFields:
+  - {fileID: 164828510}
+  - {fileID: 1103874445}
+  - {fileID: 389003163}
 --- !u!1 &1865232547
 GameObject:
   m_ObjectHideFlags: 0
