@@ -21,6 +21,8 @@ public abstract class DraggableObject : MonoBehaviour {
     [SerializeField]
     //se il pezzo e' stato droppato in un'area giusta
     bool inCorrectPlace;
+    //se il pezzo e' comunque stato posizionato prima in una zona giusta
+    bool comesFromCorrectPosition;
 
     //lerping del movimento nella destinazione assegnata
     private float lerpingFactor = 0.4f;
@@ -81,11 +83,13 @@ public abstract class DraggableObject : MonoBehaviour {
         if (correct)  {
             move = true;
             inCorrectPlace = true;
+            comesFromCorrectPosition = true;
             dropAreaDestination = destination.transform.position;
         }
         else {
             inCorrectPlace = false;
             dropAreaDestination = startingPosition;
+            comesFromCorrectPosition = false;
             move = true;                
         }
     }
@@ -105,6 +109,11 @@ public abstract class DraggableObject : MonoBehaviour {
 
     public bool GetInCorrectPlace() {
         return inCorrectPlace;
+    }
+
+    public bool GetComesFromCorrectPosition()
+    {
+        return comesFromCorrectPosition;
     }
 
     public void SetDroppableArea(GameObject area)

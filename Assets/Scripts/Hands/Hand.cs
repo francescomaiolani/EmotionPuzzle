@@ -90,10 +90,11 @@ public class Hand : MonoBehaviour {
                     }
                 }
                 else {
+                    if (!draggableComponent.GetInCorrectPlace() && !draggableComponent.GetComesFromCorrectPosition())
+                        adviceGiven("Posiziona il pezzo sopra la faccia del ragazzo!");
                     //altrimenti semplicemente sei fuori da una droppable area 
                     draggableComponent.StopDragging(false, null);
-                    if (!draggableComponent.GetInCorrectPlace())
-                        adviceGiven("Posiziona il pezzo sopra la faccia del ragazzo!");
+                   
                 }
 
 
