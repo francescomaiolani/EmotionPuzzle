@@ -11,17 +11,32 @@ public class Minigame1Manager : MinigameManager {
 
     Minigame1UIManager UIManager;
 
+    public DroppableArea[] droppableArea;
+
     private bool[] mouthPositioned = new bool[2];
     private bool[] eyesPositioned = new bool[2];
     readonly int maxPiecesNumber = 4;
 
-   
-    void Start()
-    {
+
+    void Start() {
+        UIManager = FindObjectOfType<Minigame1UIManager>();
+        Hand.piecePositioned += CheckIfMinigameCompleted;
+        StartNewGame();
+    }
+
+    public void StartNewGame() {
+        //distruggi i vecchi pezzi 
+        DestroyOldPieces();
         PickNewEmotion();
         SpawnDraggableObject();
-        UIManager = FindObjectOfType<Minigame1UIManager>();
         UIManager.UpdateUI(this);
+        UIManager.StartGame();
+    }
+
+    void DestroyOldPieces() {
+        DraggableObject[] draggableObjects = FindObjectsOfType<DraggableObject>();
+        foreach (DraggableObject d in draggableObjects)
+            Destroy(d.gameObject);
     }
 
     protected void PickNewEmotion() {
@@ -32,7 +47,17 @@ public class Minigame1Manager : MinigameManager {
 
     protected override void CheckIfMinigameCompleted()
     {
-        
+        foreach (DroppableArea d in droppableArea) {
+            if (!d.GetOccupied())
+                return;
+        }
+        ShowEndingScreen();           
+    }
+
+
+    void ShowEndingScreen() {
+        UIManager.EndGame();
+        Invoke("StartNewGame", 3f);
     }
 
     protected override void SpawnDraggableObject()

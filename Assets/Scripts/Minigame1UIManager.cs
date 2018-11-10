@@ -12,10 +12,20 @@ public class Minigame1UIManager : MonoBehaviour {
 
     Dictionary<Emotion, string> fumettoPhrase = new Dictionary<Emotion, string>();
 
+    public Animator endGameAnimator;
+
     private void Start()
     {
         Hand.adviceGiven += GiveAdvice;
         PopulateDictionary();
+    }
+
+    public void EndGame() {
+        endGameAnimator.SetTrigger("EndGame");
+    }
+
+    public void StartGame() {
+        endGameAnimator.SetTrigger("StartGame");
     }
 
     void PopulateDictionary() {

@@ -19,6 +19,8 @@ public class Hand : MonoBehaviour {
 
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
+    public delegate void OnPiecePositioned();
+    public static event OnPiecePositioned piecePositioned;
 
     private void Start()
     {
@@ -79,6 +81,7 @@ public class Hand : MonoBehaviour {
                         if (draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()) && !d.GetOccupied())
                         {
                             DropItem(d, draggableComponent);
+                            piecePositioned();
                             found = true;
                         }
                     }

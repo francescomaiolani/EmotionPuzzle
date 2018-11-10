@@ -567,6 +567,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &297906472 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114874971436217430, guid: 187d9249851f4fe4780296b678a565e7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1741496527}
+  m_Script: {fileID: 11500000, guid: 4195d614e75273f49a27009e11fd1258, type: 3}
 --- !u!1 &354787499
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,9 +607,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 209, y: 93.075}
+  m_AnchoredPosition: {x: 403, y: 4}
   m_SizeDelta: {x: 388.8, y: 186.15}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0}
 --- !u!95 &354787501
 Animator:
   serializedVersion: 3
@@ -656,6 +662,12 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 354787499}
   m_CullTransparentMesh: 0
+--- !u!114 &478321314 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114090543447667156, guid: 4196a4840343c804faba56191823adc1,
+    type: 2}
+  m_PrefabInternal: {fileID: 1245738890}
+  m_Script: {fileID: 11500000, guid: 4195d614e75273f49a27009e11fd1258, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +926,9 @@ MonoBehaviour:
   - {fileID: 1601628652}
   - {fileID: 1411686609}
   - {fileID: 197795902}
+  droppableArea:
+  - {fileID: 478321314}
+  - {fileID: 297906472}
 --- !u!4 &691601487
 Transform:
   m_ObjectHideFlags: 0
@@ -1846,6 +1861,7 @@ MonoBehaviour:
   advicePanel: {fileID: 1869333303}
   adviceText: {fileID: 104321536}
   emotionText: {fileID: 1394090222}
+  endGameAnimator: {fileID: 156561005}
 --- !u!4 &2023385031
 Transform:
   m_ObjectHideFlags: 0
