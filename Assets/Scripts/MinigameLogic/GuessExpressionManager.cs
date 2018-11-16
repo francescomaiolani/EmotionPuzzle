@@ -16,7 +16,8 @@ public class GuessExpressionManager : MinigameManager {
 
     private void StartNewRound()
     {
-
+        PickNewEmotion();
+        Debug.Log(mainEmotion.ToString());
     }
 
     public override string GetEmotionString()
