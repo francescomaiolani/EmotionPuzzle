@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Minigame1Manager : MinigameManager {
+public class CompositionManager : MinigameManager {
 
-    //ogni match avra' un'emozione da comporre, per evitare di essere ripetitivi si tiene traccia dell'ultima fatta
-    protected Emotion mainEmotion;
-    private Emotion previousChosenEmotion;
-
-    Minigame1UIManager UIManager;
+    UICompositionManager UIManager;
 
     public DroppableArea[] droppableArea;
 
@@ -19,30 +15,25 @@ public class Minigame1Manager : MinigameManager {
 
 
     void Start() {
-        UIManager = FindObjectOfType<Minigame1UIManager>();
+        UIManager = FindObjectOfType<UICompositionManager>();
         Hand.piecePositioned += CheckIfMinigameCompleted;
         StartNewGame();
     }
 
     public void StartNewGame() {
         //distruggi i vecchi pezzi 
-        DestroyOldPieces();
+        DestroySceneObjects();
         PickNewEmotion();
-        SpawnDraggableObject();
+        SpawnSceneObjects();
         UIManager.UpdateUI(this);
         UIManager.StartGame();
     }
 
-    void DestroyOldPieces() {
+    protected override void DestroySceneObjects()
+    {
         DraggableObject[] draggableObjects = FindObjectsOfType<DraggableObject>();
         foreach (DraggableObject d in draggableObjects)
             Destroy(d.gameObject);
-    }
-
-    protected void PickNewEmotion() {
-        //seleziona un'emozione a caso
-        int randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-        mainEmotion = (Emotion)randomEmotion;
     }
 
     protected override void CheckIfMinigameCompleted()
@@ -60,7 +51,7 @@ public class Minigame1Manager : MinigameManager {
         Invoke("StartNewGame", 3f);
     }
 
-    protected override void SpawnDraggableObject()
+    protected override void SpawnSceneObjects()
     {
         SpawnCorrectPieces();
         FillOtherPieces();

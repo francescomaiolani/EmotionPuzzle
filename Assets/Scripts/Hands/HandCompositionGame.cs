@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandMinigame1 : Hand {
+public class HandCompositionGame : Hand {
 
 
     //disambigua la scelta tra bocca e occhi e da' un consiglio giusto

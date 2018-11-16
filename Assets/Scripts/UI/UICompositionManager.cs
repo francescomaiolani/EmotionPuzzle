@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Minigame1UIManager : MonoBehaviour {
+public class UICompositionManager : MonoBehaviour {
 
     public Image advicePanel;
     public Text adviceText;

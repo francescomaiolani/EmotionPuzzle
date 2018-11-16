@@ -904,7 +904,7 @@ GameObject:
   - component: {fileID: 691601487}
   - component: {fileID: 691601486}
   m_Layer: 0
-  m_Name: Minigame1Manager
+  m_Name: CompositionGameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
