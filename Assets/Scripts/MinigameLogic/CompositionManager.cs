@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class CompositionManager : MinigameManager {
 
-    UICompositionManager UIManager;
-
     public DroppableArea[] droppableArea;
 
+    private UICompositionManager UIManager;
     private bool[] mouthPositioned = new bool[2];
     private bool[] eyesPositioned = new bool[2];
     readonly int maxPiecesNumber = 4;
-
 
     void Start() {
         UIManager = FindObjectOfType<UICompositionManager>();

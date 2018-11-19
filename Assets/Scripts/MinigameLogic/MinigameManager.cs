@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Neutra, Paura, Sorpresa}
-public enum Emotion { Felicità, Tristezza, Rabbia}
+public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura}
+//public enum Emotion { Felicità, Tristezza, Rabbia}
 
 public abstract class MinigameManager : MonoBehaviour {
 
