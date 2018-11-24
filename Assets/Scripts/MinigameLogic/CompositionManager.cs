@@ -34,7 +34,7 @@ public class CompositionManager : MinigameManager {
             Destroy(d.gameObject);
     }
 
-    protected override void CheckIfMinigameCompleted()
+    protected /*override*/ void CheckIfMinigameCompleted()
     {
         foreach (DroppableArea d in droppableArea) {
             if (!d.GetOccupied())

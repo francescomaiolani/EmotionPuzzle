@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ public class GuessExpressionManager : MinigameManager {
 
     [Header("Inserisci UIText dell'emozione")]
     public Text emotionType;
+    [Header("Posizione nella quale si posizione la facce dopo essere stata scelta")]
+    public Transform centralPosition;
 
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
@@ -13,13 +16,15 @@ public class GuessExpressionManager : MinigameManager {
     private SelectableObject[] selectableObjects;
     //Array che tiene conto di quali spawn points sono già stati occupati
     private bool[] occupiedPosition;
+    //Risposta scelta dall'utente
+    private Emotion emotionAnswer;
 
     void Start()
     {
         emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
         UIManager = FindObjectOfType<UIGuessExpressionManager>();
-        //Sottoscriversi all'evento che chiamerà CheckIfMinigameCompleted;
+        SelectableObject.objectSelectedEvent += CheckAnswer;
         StartNewRound();
     }
 
@@ -60,10 +65,15 @@ public class GuessExpressionManager : MinigameManager {
             {
                 Emotion e = PickNextEmotion();
                 GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + e.ToString()), spawnPointPositions[i].position, Quaternion.identity);
-                face.GetComponent<SelectableObject>().SetEmotionType(e);
+                SelectableObject so = face.GetComponent<SelectableObject>();
+                so.SetEmotionType(e);
+                so.SetCentralPosition(centralPosition);
                 occupiedPosition[i] = true;
             }
         }
+        //Resettiamo subito dopo le posizioni a false in modo tale da trovarcele pronto per il round successivo
+        for (int i = 0; i < spawnPointPositions.Length; i++)
+            occupiedPosition[i] = false;
 
     }
 
@@ -72,7 +82,9 @@ public class GuessExpressionManager : MinigameManager {
     {
         int positionIndex = UnityEngine.Random.Range(0, spawnPointPositions.Length);
         GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + GetEmotionString()), spawnPointPositions[positionIndex].position, Quaternion.identity);
-        face.GetComponent<SelectableObject>().SetEmotionType(mainEmotion);
+        SelectableObject so = face.GetComponent<SelectableObject>();
+        so.SetEmotionType(mainEmotion);
+        so.SetCentralPosition(centralPosition);
         occupiedPosition[positionIndex] = true;
     }
 
@@ -100,15 +112,28 @@ public class GuessExpressionManager : MinigameManager {
             Destroy(s.gameObject);
     }
 
-    protected override void CheckIfMinigameCompleted()
+    private void CheckAnswer()
     {
-        throw new System.NotImplementedException();
+        if (emotionAnswer == mainEmotion)
+            Debug.Log("Hai vinto");
+        else
+            Debug.Log("Hai perso");
+        StartNewRound();
     }
 
+    public void SetAnswer(Emotion e)
+    {
+        emotionAnswer = e;
+    }
 
     public override string GetEmotionString()
     {
         return mainEmotion.ToString();
+    }
+
+    private void OnDestroy()
+    {
+        SelectableObject.objectSelectedEvent -= CheckAnswer;
     }
 
 }

@@ -18,7 +18,7 @@ public abstract class MinigameManager : MonoBehaviour {
     //ossia tutti quei pezzi tra cui scegliere ecc..
     protected abstract void SpawnSceneObjects();
     protected abstract void DestroySceneObjects();
-    protected abstract void CheckIfMinigameCompleted();
+    //protected abstract void CheckIfMinigameCompleted();
     public abstract string GetEmotionString();
 
     //Metodo per scegliere un'emozione tra quelle disponibili

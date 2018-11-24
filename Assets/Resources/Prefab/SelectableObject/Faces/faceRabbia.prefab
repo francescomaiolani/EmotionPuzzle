@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4066356208499888}
   - component: {fileID: 212358261344736758}
   - component: {fileID: 114961762186574406}
+  - component: {fileID: 61503671435882292}
   m_Layer: 0
   m_Name: faceRabbia
   m_TagString: Untagged
@@ -41,6 +42,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61503671435882292
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1918827133914120}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 9, y: 9}
+    newSize: {x: 9, y: 9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 9, y: 9}
+  m_EdgeRadius: 0
 --- !u!114 &114961762186574406
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c043baa284611e459603a43eac67389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emotionType: 0
 --- !u!212 &212358261344736758
 SpriteRenderer:
   m_ObjectHideFlags: 1
