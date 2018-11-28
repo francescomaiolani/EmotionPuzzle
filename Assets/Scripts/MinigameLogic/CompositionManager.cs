@@ -19,12 +19,16 @@ public class CompositionManager : MinigameManager {
     }
 
     public void StartNewGame() {
+        UIManager.UpdateUI(this);
+        UIManager.StartGame();
+        Invoke("SpawnNewPieces", 2f);
+    }
+
+    private void SpawnNewPieces() {
         //distruggi i vecchi pezzi 
         DestroySceneObjects();
         PickNewEmotion();
         SpawnSceneObjects();
-        UIManager.UpdateUI(this);
-        UIManager.StartGame();
     }
 
     protected override void DestroySceneObjects()
