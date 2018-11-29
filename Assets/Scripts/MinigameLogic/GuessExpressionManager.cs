@@ -24,7 +24,7 @@ public class GuessExpressionManager : MinigameManager {
         emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
         UIManager = FindObjectOfType<UIGuessExpressionManager>();
-        SelectableObject.objectSelectedEvent += CheckAnswer;
+        SelectableObject.objectSelectedEvent += HandleSelection;
         StartNewRound();
     }
 
@@ -34,16 +34,20 @@ public class GuessExpressionManager : MinigameManager {
         //TODO: resettare occupiedPosition list
         //Resettiamo la lista delle emozioni usate
         emotionUsed.Clear();
+        //Distruggiamo tutti gli oggetti utilizzati nel round precedente
+        if (selectableObjects != null)
+            DestroySceneObjects();
         //Facciamo visualizzare la main emotion al centro
         ChooseMainEmotion();
         //Spawn dei SelectableObjects in basso
         SpawnSceneObjects();
+        //Ci salviamo tutti i selectable objects spawnati
+        selectableObjects = FindObjectsOfType<SelectableObject>();
     }
 
     //Metodo che sceglie l'emozione principale del round
     private void ChooseMainEmotion()
     {
-        DestroySceneObjects();
         PickNewEmotion();
         emotionUsed.Add(mainEmotion);
         emotionType.text = GetEmotionString().ToUpper();
@@ -67,7 +71,6 @@ public class GuessExpressionManager : MinigameManager {
                 GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + e.ToString()), spawnPointPositions[i].position, Quaternion.identity);
                 SelectableObject so = face.GetComponent<SelectableObject>();
                 so.SetEmotionType(e);
-                so.SetCentralPosition(centralPosition);
                 occupiedPosition[i] = true;
             }
         }
@@ -84,7 +87,6 @@ public class GuessExpressionManager : MinigameManager {
         GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + GetEmotionString()), spawnPointPositions[positionIndex].position, Quaternion.identity);
         SelectableObject so = face.GetComponent<SelectableObject>();
         so.SetEmotionType(mainEmotion);
-        so.SetCentralPosition(centralPosition);
         occupiedPosition[positionIndex] = true;
     }
 
@@ -107,9 +109,33 @@ public class GuessExpressionManager : MinigameManager {
 
     protected override void DestroySceneObjects()
     {
-        SelectableObject[] draggableObjects = FindObjectsOfType<SelectableObject>();
-        foreach (SelectableObject s in draggableObjects)
-            Destroy(s.gameObject);
+        foreach (SelectableObject s in selectableObjects)
+        {
+            if (s != null)
+                Destroy(s.gameObject);
+        }
+    }
+
+    private void HandleSelection()
+    {
+
+        foreach (SelectableObject s in selectableObjects)
+        {
+            if (s != null)
+            {
+                //Disabilitiamo i collider in modo tale da non triggerare più OnMouseOver ecc
+                s.GetComponent<Collider2D>().enabled = false;
+                //Se troviamo l'oggetto selezionato allora andiamo a settare la risposta al gioco
+                if (s.isSelected())
+                {
+                    Debug.Log("E' stata selezionata " + s.GetEmotionType());
+                    //Spostiamo la faccia al centro
+                    s.transform.position = Vector3.Lerp(transform.position, centralPosition.position, 1.0f);
+                    SetAnswer(s.GetEmotionType());
+                }
+            }
+        }
+        CheckAnswer();
     }
 
     private void CheckAnswer()
@@ -133,7 +159,7 @@ public class GuessExpressionManager : MinigameManager {
 
     private void OnDestroy()
     {
-        SelectableObject.objectSelectedEvent -= CheckAnswer;
+        SelectableObject.objectSelectedEvent -= HandleSelection;
     }
 
 }

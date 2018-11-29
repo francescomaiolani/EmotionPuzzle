@@ -7,10 +7,12 @@ public class SelectableObject : MonoBehaviour {
 
     [SerializeField]
     private Emotion emotionType;
+    //Variabile per dirci se l'oggetto è stato scelto oppure no
+    [SerializeField]
+    private bool selected;
 
     private Vector3 startScale;
     private Vector3 centralPosition;
-
     private GuessExpressionManager gameManager;
 
     public delegate void OnObjectSelected();
@@ -18,6 +20,7 @@ public class SelectableObject : MonoBehaviour {
 
     public void Start()
     {
+        selected = false;
         startScale = transform.localScale;
         gameManager = FindObjectOfType<GuessExpressionManager>();
     }
@@ -40,28 +43,33 @@ public class SelectableObject : MonoBehaviour {
     //Metodo che viene chiamato nel momento in cui si seleziona un oggetto
     private void OnMouseDown()
     {
-        transform.position = Vector3.Lerp(transform.position, centralPosition, 1.0f);
-        DisableColliders();
-        gameManager.SetAnswer(emotionType);
+        selected = true;
         objectSelectedEvent();
     }
 
-    public void SetCentralPosition(Transform centralPosition)
+    public bool isSelected()
     {
-        this.centralPosition = centralPosition.position;
+        if (selected)
+            return true;
+        else
+            return false;
+    }
+    public Emotion GetEmotionType()
+    {
+        return this.emotionType;
     }
 
-    private void DisableColliders()
-    {
-        SelectableObject[] draggableObjects = FindObjectsOfType<SelectableObject>();
-        foreach (SelectableObject s in draggableObjects)
-            s.GetComponent<Collider2D>().enabled = false;
-    }
+    //public static void DisableColliders()
+    //{
+    //    SelectableObject[] selectableObjects = FindObjectsOfType<SelectableObject>();
+    //    foreach (SelectableObject s in selectableObjects)
+    //        s.GetComponent<Collider2D>().enabled = false;
+    //}
 
-    private void EnableColliders()
-    {
-        SelectableObject[] draggableObjects = FindObjectsOfType<SelectableObject>();
-        foreach (SelectableObject s in draggableObjects)
-            s.GetComponent<Collider2D>().enabled = true;
-    }
+    //private static void EnableColliders()
+    //{
+    //    SelectableObject[] selectableObjects = FindObjectsOfType<SelectableObject>();
+    //    foreach (SelectableObject s in selectableObjects)
+    //        s.GetComponent<Collider2D>().enabled = true;
+    //}
 }
