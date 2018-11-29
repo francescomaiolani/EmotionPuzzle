@@ -14,7 +14,7 @@ public class SelectableObject : MonoBehaviour {
     private Vector3 startScale;
     private Vector3 centralPosition;
 
-    public delegate void OnObjectSelected();
+    public delegate void OnObjectSelected(GameObject objectSelected);
     public static event OnObjectSelected objectSelectedEvent;
 
     public void Start()
@@ -42,7 +42,7 @@ public class SelectableObject : MonoBehaviour {
     private void OnMouseDown()
     {
         selected = true;
-        objectSelectedEvent();
+        objectSelectedEvent(this.gameObject);
     }
 
     public bool isSelected()

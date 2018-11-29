@@ -5,40 +5,41 @@ using UnityEngine;
 public class WhichPersonIsManager : MinigameManager
 {
 
-    [Header("posizioni della bocca principale e deglio occhi principali")]
-    public Transform mainMouthPosition;
-    public Transform mainEyesPosition;
-
-    //scale della faccia principale perche' i pezzi spawnati sono piu' piccoli
-    public Vector3 mainFaceScale;
+    [Header("gameObject della bocca principale e deglio occhi principali")]
+    public GameObject mainMouth;
+    public GameObject mainEyes;
 
     //array che viene riempito man mano che si creano le facce delle varie persone, Serve a sapere quali posizioni sono state occupate
     bool[] facesCreated;
     //numero di facce corrette create
     int numberOfCorrectFaces;
 
+    List<GameObject> facesSelected;
+
     private void Start()
     {
+        facesSelected = new List<GameObject>();
         SelectableObject.objectSelectedEvent += CheckIfGameCompleted;      
         SpawnSceneObjects();
     }
 
-    void CheckIfGameCompleted() {
-        //qui andra' fatto il check sul fatto che il gioco e' stato completato
+    void CheckIfGameCompleted(GameObject objectSelected) {
+
+        Debug.Log(objectSelected);
+        SelectableObject selectebleObject = objectSelected.GetComponent<SelectableObject>();
+
+        if (selectebleObject.GetEmotionType() == mainEmotion)
+            facesSelected.Add(objectSelected);
+
+        if (facesSelected.Count == numberOfCorrectFaces)
+            EndGame();
     }
 
     void CreateMainFace() {
 
         //crea 2 game Object con solo un'immagine attaccata
-        GameObject mouth = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/ImagePrefab"), mainMouthPosition.position, Quaternion.identity);
-        AssignFacePartSprite(mouth.GetComponent<SpriteRenderer>(), FaceParts.Mouth, mainEmotion);
-        GameObject eyes = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/ImagePrefab"), mainEyesPosition.position, Quaternion.identity);
-        AssignFacePartSprite(eyes.GetComponent<SpriteRenderer>(), FaceParts.Eyes, mainEmotion);
-
-        //cambia lo scale per adattarlo allo scale della faccia
-        mouth.transform.localScale = mainFaceScale;
-        eyes.transform.localScale = mainFaceScale;
-
+        AssignFacePartSprite(mainMouth.GetComponent<SpriteRenderer>(), FaceParts.Mouth, mainEmotion);
+        AssignFacePartSprite(mainEyes.GetComponent<SpriteRenderer>(), FaceParts.Eyes, mainEmotion);
     }
 
     void CreateFacesOfDifferentPeople() {
@@ -56,8 +57,6 @@ public class WhichPersonIsManager : MinigameManager
         }
 
     }
-
-  
 
     void CreateFaceOfIncorrectPeople() {
         int numberOfIncorrectFaces = 4 - numberOfCorrectFaces;
@@ -90,6 +89,10 @@ public class WhichPersonIsManager : MinigameManager
     public override string GetEmotionString()
     {
         return mainEmotion.ToString();
+    }
+
+    private void EndGame() {
+        Debug.Log("Game Ended");
     }
 
     protected override void DestroySceneObjects()

@@ -115,7 +115,7 @@ public class GuessExpressionManager : MinigameManager {
         }
     }
 
-    private void HandleSelection()
+    private void HandleSelection(GameObject objectSelected)
     {
 
         foreach (SelectableObject s in selectableObjects)
