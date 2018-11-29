@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4116355095243906}
   - component: {fileID: 212454540680294432}
   - component: {fileID: 61867451565830296}
+  - component: {fileID: 114717550751040400}
   m_Layer: 0
   m_Name: FacePrefab
   m_TagString: Untagged
@@ -66,6 +67,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.47, y: 3.03}
   m_EdgeRadius: 0
+--- !u!114 &114717550751040400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1972587699822640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c043baa284611e459603a43eac67389, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  emotionType: 0
+  selected: 0
 --- !u!212 &212454540680294432
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -97,20 +97,7 @@ public class CompositionManager : MinigameManager {
         }
     }
 
-    //metodo che ritorna un'emozione che non e' quella corretta in modo da assegnare un'emozione random agli altri pezzi sbagliati
-    Emotion PickNotMainEmotion(Emotion main) {
-
-        int randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-        Emotion chosenEmotion = (Emotion)randomEmotion;
-
-        while (chosenEmotion == mainEmotion) {
-            randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-            chosenEmotion = (Emotion)randomEmotion;
-        }
-
-        return chosenEmotion;
-    }
-
+   
 
     public override string GetEmotionString() {
         return mainEmotion.ToString();

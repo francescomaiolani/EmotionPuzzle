@@ -13,7 +13,6 @@ public class SelectableObject : MonoBehaviour {
 
     private Vector3 startScale;
     private Vector3 centralPosition;
-    private GuessExpressionManager gameManager;
 
     public delegate void OnObjectSelected();
     public static event OnObjectSelected objectSelectedEvent;
@@ -22,7 +21,6 @@ public class SelectableObject : MonoBehaviour {
     {
         selected = false;
         startScale = transform.localScale;
-        gameManager = FindObjectOfType<GuessExpressionManager>();
     }
 
     public void SetEmotionType(Emotion emotion)
