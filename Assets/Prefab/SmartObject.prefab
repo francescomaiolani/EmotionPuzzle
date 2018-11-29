@@ -1,0 +1,198 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1896123007448496}
+  m_IsPrefabParent: 1
+--- !u!1 &1896123007448496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4652269651443852}
+  - component: {fileID: 114283938643743138}
+  - component: {fileID: 114456051256780952}
+  - component: {fileID: 114483767916519144}
+  - component: {fileID: 114206337046720118}
+  - component: {fileID: 114044106250170144}
+  - component: {fileID: 114126526225544052}
+  - component: {fileID: 114107802882675450}
+  - component: {fileID: 114218902222213400}
+  - component: {fileID: 114407137793223610}
+  - component: {fileID: 114893001358538976}
+  m_Layer: 0
+  m_Name: SmartObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4652269651443852
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114044106250170144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33b5974a67eaf154c9d50df3ad55b065, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+--- !u!114 &114107802882675450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c126168131cd36b4fa20158eb142c30f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+--- !u!114 &114126526225544052
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267a957c05f4635469b8467f7293c58a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+  tracks: []
+  playingTrack: 
+  state: 0
+  volume: 0
+  repeat: 0
+--- !u!114 &114206337046720118
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9feddb3d26b28469e36876d51846cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+  gyroscope: {x: 0, y: 0, z: 0}
+  accelerometer: {x: 0, y: 0, z: 0}
+  position: {x: 0, y: 0, z: 0}
+--- !u!114 &114218902222213400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7191ae7659ff90f4baae7e76a9b625a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+  tracks: []
+  state: 0
+  volume: 0
+  playingTrack: 
+  repeat: 0
+--- !u!114 &114283938643743138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f377ac4137b366c4d81ba79e8b291b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smartToyName: 
+  touchsensor: {fileID: 0}
+  button: {fileID: 0}
+  rfidsensor: {fileID: 0}
+  objectposition: {fileID: 0}
+  lightcontroller: {fileID: 0}
+  soundemitter: {fileID: 0}
+  motorcontroller: {fileID: 0}
+  videoemitter: {fileID: 0}
+  effectcontroller: {fileID: 0}
+  stream_frequency: 0
+  battery: 0
+--- !u!114 &114407137793223610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe3967f5bf4a8b541a9d14f10f823d4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEffectActive: 0
+  effects: []
+  activeEffect: 
+  isEffectPlaying: 0
+--- !u!114 &114456051256780952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a54bb99d71704f49872c808d2ca65e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+--- !u!114 &114483767916519144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f035f2a88854d499c47489bb39a72a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0
+--- !u!114 &114893001358538976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1896123007448496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206c36637a0531849b2c89fa3484f951, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensorEnabled: 0

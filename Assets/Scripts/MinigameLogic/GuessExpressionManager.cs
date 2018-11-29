@@ -31,7 +31,6 @@ public class GuessExpressionManager : MinigameManager {
     //Metodo che gestisce la logica del singolo round
     private void StartNewRound()
     {
-        //TODO: resettare occupiedPosition list
         //Resettiamo la lista delle emozioni usate
         emotionUsed.Clear();
         //Distruggiamo tutti gli oggetti utilizzati nel round precedente
