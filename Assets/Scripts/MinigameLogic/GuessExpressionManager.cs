@@ -125,7 +125,7 @@ public class GuessExpressionManager : MinigameManager {
                 //Disabilitiamo i collider in modo tale da non triggerare più OnMouseOver ecc
                 s.GetComponent<Collider2D>().enabled = false;
                 //Se troviamo l'oggetto selezionato allora andiamo a settare la risposta al gioco
-                if (s.isSelected())
+                if (s.name == objectSelected.name)
                 {
                     Debug.Log("E' stata selezionata " + s.GetEmotionType());
                     //Spostiamo la faccia al centro
