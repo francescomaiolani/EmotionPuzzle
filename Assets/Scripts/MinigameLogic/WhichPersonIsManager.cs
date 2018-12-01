@@ -86,11 +86,6 @@ public class WhichPersonIsManager : MinigameManager
         spr.sprite = Resources.Load<Sprite>("Sprite/FacePieces/" + facePartType.ToString() + "/" + facePartType.ToString() + emotion.ToString());
     }
 
-    public override string GetEmotionString()
-    {
-        return mainEmotion.ToString();
-    }
-
     private void EndGame() {
         Debug.Log("Game Ended");
     }

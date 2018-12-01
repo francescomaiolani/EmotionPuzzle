@@ -522,8 +522,8 @@ MonoBehaviour:
   - {fileID: 1755254910}
   - {fileID: 868979206}
   - {fileID: 1073930498}
-  emotionType: {fileID: 1404824540}
   centralPosition: {fileID: 1366696889}
+  emotionType: {fileID: 1404824540}
 --- !u!4 &1327027392
 Transform:
   m_ObjectHideFlags: 0

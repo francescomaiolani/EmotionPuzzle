@@ -19,7 +19,6 @@ public abstract class MinigameManager : MonoBehaviour {
     protected abstract void SpawnSceneObjects();
     protected abstract void DestroySceneObjects();
     //protected abstract void CheckIfMinigameCompleted();
-    public abstract string GetEmotionString();
 
     //Metodo per scegliere un'emozione tra quelle disponibili
     protected void PickNewEmotion()
@@ -43,6 +42,11 @@ public abstract class MinigameManager : MonoBehaviour {
         }
 
         return chosenEmotion;
+    }
+
+    public string GetEmotionString()
+    {
+        return mainEmotion.ToString();
     }
 
 

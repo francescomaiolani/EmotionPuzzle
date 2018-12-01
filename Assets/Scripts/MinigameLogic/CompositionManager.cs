@@ -96,12 +96,5 @@ public class CompositionManager : MinigameManager {
             }
         }
     }
-
-   
-
-    public override string GetEmotionString() {
-        return mainEmotion.ToString();
-    }
-
     
 }

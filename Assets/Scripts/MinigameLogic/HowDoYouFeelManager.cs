@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HowDoYouFeelManager : MonoBehaviour {
+public class HowDoYouFeelManager : SelectionGameManager
+{
+    protected override GameObject InstantiateEmotionElement(string emotionString, Vector3 position)
+    {
+        throw new System.NotImplementedException();
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    protected override void SetupCentralEmotion()
+    {
+        throw new System.NotImplementedException();
+    }
 }
