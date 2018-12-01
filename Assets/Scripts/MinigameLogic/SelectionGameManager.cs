@@ -110,6 +110,7 @@ public abstract class SelectionGameManager : MinigameManager
         return chosenEmotion;
     }
 
+    //Metodo che si occupa di distruggere tutti gli oggetti di scena prima del round successivo
     protected override void DestroySceneObjects()
     {
         foreach (SelectableObject s in selectableObjects)
@@ -119,9 +120,9 @@ public abstract class SelectionGameManager : MinigameManager
         }
     }
 
+    //Metodo che viene chiamato nel momento in cui un oggetto viene selezionato
     private void HandleSelection(GameObject objectSelected)
     {
-
         foreach (SelectableObject s in selectableObjects)
         {
             if (s != null)
@@ -143,6 +144,7 @@ public abstract class SelectionGameManager : MinigameManager
 
     }
 
+    //Metodo che si occupa di controllare l'esito della selezione di una risposta
     private void CheckAnswer()
     {
         if (emotionAnswer == mainEmotion)
@@ -151,6 +153,7 @@ public abstract class SelectionGameManager : MinigameManager
             Debug.Log("Hai perso");
     }
 
+    //Metodo che salva la risposta data dall'utente
     public void SetAnswer(Emotion e)
     {
         emotionAnswer = e;
