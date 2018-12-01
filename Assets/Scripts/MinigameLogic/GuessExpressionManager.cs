@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class GuessExpressionManager : MinigameManager {
 
-    [Header("Inserisci UIText dell'emozione")]
-    public Text emotionType;
     [Header("Posizione nella quale si posizione la facce dopo essere stata scelta")]
     public Transform centralPosition;
 
+    private Text emotionType;
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
     private UIGuessExpressionManager UIManager;
