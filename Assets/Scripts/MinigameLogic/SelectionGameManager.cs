@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public abstract class SelectionGameManager : MinigameManager
 {
-
-    [Header("Posizione nella quale si posizione la facce dopo essere stata scelta")]
+    [Header("Indicare se è necessario spostare la risposta al centro")]
+    public bool centralPositionNeeded;
+    [Header("Posizione nella quale si posizione la risposta dopo essere stata scelta")]
     public Transform centralPosition;
 
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
@@ -133,8 +134,9 @@ public abstract class SelectionGameManager : MinigameManager
                 if (s.name == objectSelected.name)
                 {
                     Debug.Log("E' stata selezionata " + s.GetEmotionType());
-                    //Spostiamo la faccia al centro
-                    s.transform.position = Vector3.Lerp(transform.position, centralPosition.position, 1.0f);
+                    //Spostiamo la risposta selezionata al centro dello schermo se necessario
+                    if (centralPositionNeeded)
+                        s.transform.position = Vector3.Lerp(transform.position, centralPosition.position, 1.0f);
                     SetAnswer(s.GetEmotionType());
                 }
             }
