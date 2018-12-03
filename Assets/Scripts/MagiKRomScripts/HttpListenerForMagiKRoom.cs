@@ -117,6 +117,8 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
     /// <param name="content"></param>
     private static void HandleKinectPosition(Match match, HttpListenerResponse response, string content)
     {
+        Debug.Log(content);
+
         MagicRoomKinectV2Manager.instance.setSkeletons(content);
 
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes("Success");

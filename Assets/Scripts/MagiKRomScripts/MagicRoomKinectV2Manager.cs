@@ -260,6 +260,8 @@ public void setVoiceRecognitionKinect(List<string> worldtorecognize)
 IEnumerator sendCommand()
     {
         string json = JsonUtility.ToJson(command);
+        Debug.Log(json);
+
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(json);
         UnityWebRequest www = UnityWebRequest.Put(address, myData);
         yield return www.Send();
@@ -278,6 +280,7 @@ IEnumerator sendCommand()
     /// </summary>
     /// <param name="json"></param>    
 public void setSkeletons(string json) {
+        Debug.Log(json);
         json = "{\"skeletons\" : " + json + "}";
         json = json.Replace("X", "x");
         json = json.Replace("Y", "y");
