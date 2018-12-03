@@ -94,7 +94,7 @@ public KinectReadMode Kinectreadmode
     void Awake()
     {
         instance = this;
-        address = "http://localhost:7080";
+        address = "http://192.168.31.214:7080";
         MagicRoomKinectV2Manager_active = true;
         MagicRoomKinectV2Manager_sampling = false;
         skeletons = new KinectBodySkeleton[6];

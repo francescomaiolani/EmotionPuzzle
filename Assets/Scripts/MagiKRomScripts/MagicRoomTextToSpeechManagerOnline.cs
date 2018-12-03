@@ -40,7 +40,7 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
         else {
             instance = this;
             MagicRoomSpeachToText_active = true;
-            address = "http://192.168.0.111:7074";
+            address = "http://192.168.31.214:7074";
         }
 	}
 

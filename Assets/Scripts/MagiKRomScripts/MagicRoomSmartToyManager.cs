@@ -39,7 +39,7 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
     void Awake()
     {
         instance = this;
-        address = "http://localhost:7081";
+        address = "http://192.168.31.214:7081";
         MagicRoomSmartToyManager_active = true;
     }
 
