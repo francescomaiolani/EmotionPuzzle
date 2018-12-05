@@ -26,6 +26,7 @@ public abstract class SelectionGameManager : MinigameManager
 
     void Start()
     {
+        Debug.Log("Percorso attivo: " + pathEnabled);
         emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
         UIManager = FindObjectOfType<UIGuessExpressionManager>();
@@ -36,6 +37,9 @@ public abstract class SelectionGameManager : MinigameManager
     //Metodo che gestisce la logica del singolo round
     private void StartNewRound()
     {
+        //Aumentiamo il contatore dei round
+        UpdateRound();
+        Debug.Log("Siamo al round #" + currentRound);
         //Resettiamo la lista delle emozioni usate
         emotionUsed.Clear();
         //Distruggiamo tutti gli oggetti utilizzati nel round precedente
