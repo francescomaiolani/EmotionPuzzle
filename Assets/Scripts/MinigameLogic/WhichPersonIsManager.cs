@@ -106,4 +106,9 @@ public class WhichPersonIsManager : MinigameManager
         //crea e 4 facce di altre persone
         CreateFacesOfDifferentPeople();
     }
+
+    protected override void EndRound()
+    {
+        throw new System.NotImplementedException();
+    }
 }

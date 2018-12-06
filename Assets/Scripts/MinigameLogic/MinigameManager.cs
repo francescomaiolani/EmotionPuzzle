@@ -9,6 +9,8 @@ public abstract class MinigameManager : MonoBehaviour {
 
     [Header("Punti dove saranno spawnati gli oggeti de spostare")]
     public Transform[] spawnPointPositions;
+    [Header("Inserire il pannello di fine round")]
+    public GameObject endRoundPanel;
     [Header("Numero di round totali")]
     public int roundsAmount;
 
@@ -18,12 +20,14 @@ public abstract class MinigameManager : MonoBehaviour {
     protected Emotion mainEmotion;
     protected Emotion previousChosenEmotion;
     protected int currentRound = 0;
+    protected bool roundResult;
     //public GameObject[] spawnableObjectsPrefab;
 
     // verosimilmente in ogni minigioco degli oggetti andranno spawnati 
     //ossia tutti quei pezzi tra cui scegliere ecc..
     protected abstract void SpawnSceneObjects();
     protected abstract void DestroySceneObjects();
+    protected abstract void EndRound();
     //protected abstract void CheckIfMinigameCompleted();
 
     //Metodo per scegliere un'emozione tra quelle disponibili

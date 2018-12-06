@@ -12,12 +12,12 @@ public abstract class SelectionGameManager : MinigameManager
 
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
-    private UIGuessExpressionManager UIManager;
     private SelectableObject[] selectableObjects;
+    private UISelectionManager UIManager;
     //Array che tiene conto di quali spawn points sono già stati occupati
     private bool[] occupiedPosition;
     //Risposta scelta dall'utente
-    private Emotion emotionAnswer;
+    public Emotion emotionAnswer;
 
     //Metodo utilizato per instanziare gli elementi di scena in base al minigame che si sta giocando
     protected abstract GameObject InstantiateEmotionElement(string emotionString, Vector3 position);
@@ -29,7 +29,7 @@ public abstract class SelectionGameManager : MinigameManager
         Debug.Log("Percorso attivo: " + pathEnabled);
         emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
-        UIManager = FindObjectOfType<UIGuessExpressionManager>();
+        UIManager = FindObjectOfType<UISelectionManager>();
         SelectableObject.objectSelectedEvent += HandleSelection;
         StartNewRound();
     }
@@ -145,24 +145,32 @@ public abstract class SelectionGameManager : MinigameManager
                 }
             }
         }
-        CheckAnswer();
-        StartNewRound();
+        roundResult = CheckAnswer();
+        EndRound();
+        //StartNewRound();
 
     }
 
     //Metodo che si occupa di controllare l'esito della selezione di una risposta
-    private void CheckAnswer()
+    private bool CheckAnswer()
     {
         if (emotionAnswer == mainEmotion)
-            Debug.Log("Hai vinto");
+            return true;
         else
-            Debug.Log("Hai perso");
+            return false;
     }
 
     //Metodo che salva la risposta data dall'utente
     public void SetAnswer(Emotion e)
     {
         emotionAnswer = e;
+    }
+
+    //Metodo che gestisce la schermata di fine round
+    protected override void EndRound()
+    {
+        endRoundPanel.SetActive(true);
+        UIManager.EndRoundUI(this, roundResult);
     }
 
     private void OnDestroy()

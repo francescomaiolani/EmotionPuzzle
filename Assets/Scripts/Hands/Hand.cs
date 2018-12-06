@@ -26,8 +26,8 @@ public class Hand : MonoBehaviour {
     {
        
         droppableArea = new List<DroppableArea>();
-        MagicRoomKinectV2Manager.instance.setUpKinect(5, 1);
-        MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
+        //MagicRoomKinectV2Manager.instance.setUpKinect(5, 1);
+        //MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
     }
 
     // Update is called once per frame
@@ -51,7 +51,7 @@ public class Hand : MonoBehaviour {
         //se sto cliccando >>> Inizia il drag
         if (Input.GetMouseButtonDown(0))
         {
-            MagicRoomLightManager.instance.sendColour(Color.blue);
+            //MagicRoomLightManager.instance.sendColour(Color.blue);
             ChangeHandSprite("closed");
             //annulla el precedenti reference alle droppable area che avevi toccato
             droppableArea.Clear();
