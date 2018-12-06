@@ -260,6 +260,8 @@ public void setVoiceRecognitionKinect(List<string> worldtorecognize)
 IEnumerator sendCommand()
     {
         string json = JsonUtility.ToJson(command);
+        Debug.Log(json);
+
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(json);
         UnityWebRequest www = UnityWebRequest.Put(address, myData);
         yield return www.Send();
