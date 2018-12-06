@@ -5,8 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectionManager : MonoBehaviour {
 
-    public void ChangeToMinigame1() {
-        SceneManager.LoadSceneAsync("Minigame1");
+    public void StartGuessExpression() {
+        MinigameManager.pathEnabled = false;
+        SceneManager.LoadSceneAsync("1_GuessExpression");
+    }
+
+    public void StartPath()
+    {
+        MinigameManager.pathEnabled = true;
+        SceneManager.LoadSceneAsync("1_GuessExpression");
+    }
+
+    public void LoadTutorialMode()
+    {
+        SceneManager.LoadScene("blablabla");
     }
 
 }

@@ -96,5 +96,9 @@ public class CompositionManager : MinigameManager {
             }
         }
     }
-    
+
+    protected override void EndRound()
+    {
+        throw new System.NotImplementedException();
+    }
 }

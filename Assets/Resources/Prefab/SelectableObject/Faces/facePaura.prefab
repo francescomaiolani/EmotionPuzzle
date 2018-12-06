@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emotionType: 0
+  selected: 0
 --- !u!212 &212717174043575344
 SpriteRenderer:
   m_ObjectHideFlags: 1
