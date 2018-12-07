@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UICompositionManager : UIEndRoundManager {
 
     public Image advicePanel;
     public Text adviceText;
 
-    public Text emotionText;
+    public TextMeshProUGUI emotionText;
 
     Dictionary<Emotion, string> fumettoPhrase = new Dictionary<Emotion, string>();
 
