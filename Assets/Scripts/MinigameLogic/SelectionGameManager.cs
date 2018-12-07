@@ -13,7 +13,7 @@ public abstract class SelectionGameManager : MinigameManager
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
     private SelectableObject[] selectableObjects;
-    private UISelectionManager UIManager;
+    private UIEndRoundManager UIManager;
     //Array che tiene conto di quali spawn points sono già stati occupati
     private bool[] occupiedPosition;
     //Risposta scelta dall'utente
@@ -29,7 +29,7 @@ public abstract class SelectionGameManager : MinigameManager
         Debug.Log("Percorso attivo: " + pathEnabled);
         emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
-        UIManager = FindObjectOfType<UISelectionManager>();
+        UIManager = FindObjectOfType<UIEndRoundManager>();
         SelectableObject.objectSelectedEvent += HandleSelection;
         StartNewRound();
     }

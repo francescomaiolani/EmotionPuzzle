@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIWhichPersonIsManager : MonoBehaviour {
+public class UIWhichPersonIsManager : UIEndRoundManager {
 
     public TextMeshProUGUI emotionText;
 
@@ -35,5 +35,11 @@ public class UIWhichPersonIsManager : MonoBehaviour {
             default:
                 return null;
         }
+    }
+
+    //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
+    protected override void SetQA(SelectionGameManager manager, bool roundResult)
+    {
+        throw new System.NotImplementedException(); //Commenta sta linea se ti da fastidio
     }
 }

@@ -15,6 +15,6 @@ public class PhotographicEmotionManager : SelectionGameManager
 
     protected override void SetupCentralEmotion()
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 }
