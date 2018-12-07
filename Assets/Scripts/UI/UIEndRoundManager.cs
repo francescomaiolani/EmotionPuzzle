@@ -11,10 +11,12 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     public Image[] imagesQA;
     public Text[] sentencesQA;
     public TextMeshProUGUI resultSentence;
+    public Text resultSentence;
+    public MinigameManager gameManager;
 
-    protected abstract void SetQA(MinigameManager manager, bool roundResult);
+    protected abstract void SetQA(bool roundResult);
 
-    public void EndRoundUI(MinigameManager manager, bool roundResult)
+    public void EndRoundUI(bool roundResult)
     {
         if (roundResult)
         {
