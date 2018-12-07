@@ -430,7 +430,8 @@ MonoBehaviour:
   - {fileID: 516412384}
   - {fileID: 1654083836}
   - {fileID: 1650180481}
-  sentencesQA: []
+  sentencesQA:
+  - {fileID: 408094310}
   resultSentence: {fileID: 884371706}
 --- !u!224 &778628941
 RectTransform:
@@ -859,7 +860,6 @@ MonoBehaviour:
   roundsAmount: 5
   centralPositionNeeded: 1
   centralPosition: {fileID: 1366696889}
-  emotionAnswer: 0
   emotionType: {fileID: 1404824540}
 --- !u!4 &1327027392
 Transform:
