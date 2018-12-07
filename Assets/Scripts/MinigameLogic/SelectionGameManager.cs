@@ -29,7 +29,7 @@ public abstract class SelectionGameManager : MinigameManager
     }
 
     //Metodo che gestisce la logica del singolo round
-    private void StartNewRound()
+    protected override void StartNewRound()
     {
         //Disabilita schermata di fine round
         endRoundPanel.SetActive(false);

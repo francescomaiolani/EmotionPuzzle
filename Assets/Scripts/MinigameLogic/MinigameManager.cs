@@ -29,6 +29,7 @@ public abstract class MinigameManager : MonoBehaviour {
     //ossia tutti quei pezzi tra cui scegliere ecc..
     protected abstract void SpawnSceneObjects();
     protected abstract void DestroySceneObjects();
+    protected abstract void StartNewRound();
     protected abstract void EndRound();
     //protected abstract void CheckIfMinigameCompleted();
 

@@ -19,17 +19,21 @@ public class WhichPersonIsManager : MinigameManager
     private void Start()
     {
         facesSelected = new List<GameObject>();
-        SelectableObject.objectSelectedEvent += CheckIfGameCompleted;      
-        SpawnSceneObjects();
+        SelectableObject.objectSelectedEvent += CheckIfGameCompleted;
+        StartNewRound();
     }
 
-    protected override void SpawnSceneObjects()
+    protected override void StartNewRound()
     {
         //scglie l'espressione della faccia principale
         PickNewEmotion();
         //aggiorna la UI
         FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
+        SpawnSceneObjects();
+    }
 
+    protected override void SpawnSceneObjects()
+    {
         //crea le faccia principale, quella dell'emozione corretta
         CreateMainFace();
         //crea e 4 facce di altre persone
@@ -119,6 +123,7 @@ public class WhichPersonIsManager : MinigameManager
 
     protected override void DestroySceneObjects()
     {
+
     }
 
    
@@ -127,4 +132,5 @@ public class WhichPersonIsManager : MinigameManager
     {
         throw new System.NotImplementedException();
     }
+
 }
