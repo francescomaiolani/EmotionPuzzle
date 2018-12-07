@@ -19,6 +19,7 @@ public class CompositionManager : MinigameManager {
     }
 
     protected override void StartNewRound() {
+        PickNewEmotion();
         UIManager.UpdateUI(this);
         UIManager.StartGame();
         Invoke("SpawnNewPieces", 1f);
@@ -27,7 +28,6 @@ public class CompositionManager : MinigameManager {
     private void SpawnNewPieces() {
         //distruggi i vecchi pezzi 
         DestroySceneObjects();
-        PickNewEmotion();
         SpawnSceneObjects();
     }
 
