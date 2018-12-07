@@ -19,6 +19,8 @@ public abstract class MinigameManager : MonoBehaviour {
 
     protected Emotion mainEmotion;
     protected Emotion previousChosenEmotion;
+    //Risposta scelta dall'utente
+    protected Emotion emotionAnswer;
     protected int currentRound = 0;
     protected bool roundResult;
     //public GameObject[] spawnableObjectsPrefab;
@@ -60,9 +62,29 @@ public abstract class MinigameManager : MonoBehaviour {
         currentRound += 1;
     }
 
+    //Metodo che si occupa di controllare l'esito della selezione di una risposta
+    public bool CheckAnswer()
+    {
+        if (emotionAnswer == mainEmotion)
+            return true;
+        else
+            return false;
+    }
+
+    //Metodo che salva la risposta data dall'utente
+    public void SetAnswer(Emotion e)
+    {
+        emotionAnswer = e;
+    }
+
     public string GetEmotionString()
     {
         return mainEmotion.ToString();
+    }
+
+    public string GetEmotionAnswerString()
+    {
+        return emotionAnswer.ToString();
     }
 
 

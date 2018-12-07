@@ -16,8 +16,6 @@ public abstract class SelectionGameManager : MinigameManager
     private UIEndRoundManager UIManager;
     //Array che tiene conto di quali spawn points sono già stati occupati
     private bool[] occupiedPosition;
-    //Risposta scelta dall'utente
-    public Emotion emotionAnswer;
 
     //Metodo utilizato per instanziare gli elementi di scena in base al minigame che si sta giocando
     protected abstract GameObject InstantiateEmotionElement(string emotionString, Vector3 position);
@@ -37,6 +35,8 @@ public abstract class SelectionGameManager : MinigameManager
     //Metodo che gestisce la logica del singolo round
     private void StartNewRound()
     {
+        //Disabilita schermata di fine round
+        endRoundPanel.SetActive(false);
         //Aumentiamo il contatore dei round
         UpdateRound();
         Debug.Log("Siamo al round #" + currentRound);
@@ -147,23 +147,8 @@ public abstract class SelectionGameManager : MinigameManager
         }
         roundResult = CheckAnswer();
         EndRound();
-        //StartNewRound();
+        Invoke("StartNewRound", 5);
 
-    }
-
-    //Metodo che si occupa di controllare l'esito della selezione di una risposta
-    private bool CheckAnswer()
-    {
-        if (emotionAnswer == mainEmotion)
-            return true;
-        else
-            return false;
-    }
-
-    //Metodo che salva la risposta data dall'utente
-    public void SetAnswer(Emotion e)
-    {
-        emotionAnswer = e;
     }
 
     //Metodo che gestisce la schermata di fine round

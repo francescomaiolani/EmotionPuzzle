@@ -10,16 +10,15 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     public Text[] sentencesQA;
     public Text resultSentence;
 
-    protected abstract void SetQA(SelectionGameManager manager, bool roundResult);
+    protected abstract void SetQA(MinigameManager manager, bool roundResult);
 
-    public void EndRoundUI(SelectionGameManager manager, bool roundResult)
+    public void EndRoundUI(MinigameManager manager, bool roundResult)
     {
         if (roundResult)
             resultSentence.text = "COMPLIMENTI!\nRISPOSTA ESATTA!";
         else
             resultSentence.text = "NOOO!\nRISPOSTA ERRATA!";
         SetQA(manager, roundResult);
-        
     }
 
 }
