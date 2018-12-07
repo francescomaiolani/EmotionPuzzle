@@ -10,11 +10,18 @@ public class GuessExpressionManager : SelectionGameManager {
 
     protected override void SetupCentralEmotion()
     {
-        emotionType.text = GetEmotionString().ToUpper();
+        emotionType.text = ConvertInCorrectText(GetEmotionString());
     }
     protected override GameObject InstantiateEmotionElement(string emotionString, Vector3 position)
     {
         GameObject obj = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + emotionString), position, Quaternion.identity);
         return obj;
+    }
+
+    string ConvertInCorrectText(string emotion) {
+        if (emotion == "Felicità")
+            return "Felicita'";
+        else
+            return emotion;
     }
 }

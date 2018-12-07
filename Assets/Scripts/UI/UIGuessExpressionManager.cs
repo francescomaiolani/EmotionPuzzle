@@ -11,6 +11,7 @@ public class UIGuessExpressionManager : UIEndRoundManager {
         if (roundResult)
         {
             imagesQA[0].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + manager.GetEmotionAnswerString());
+            imagesQA[0].SetNativeSize();
             imagesQA[0].gameObject.SetActive(true);
         } else
         {
