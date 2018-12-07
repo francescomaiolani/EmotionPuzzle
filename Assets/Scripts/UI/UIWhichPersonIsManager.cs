@@ -38,7 +38,7 @@ public class UIWhichPersonIsManager : UIEndRoundManager {
     }
 
     //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
-    protected override void SetQA(MinigameManager manager, bool roundResult)
+    protected override void SetQA(bool roundResult)
     {
         throw new System.NotImplementedException(); //Commenta sta linea se ti da fastidio
     }

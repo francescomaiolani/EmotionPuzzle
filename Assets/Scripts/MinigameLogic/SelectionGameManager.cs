@@ -148,7 +148,7 @@ public abstract class SelectionGameManager : MinigameManager
     protected override void EndRound()
     {
         endRoundPanel.SetActive(true);
-        UIManager.EndRoundUI(this, roundResult);
+        UIManager.EndRoundUI(roundResult);
     }
 
     private void OnDestroy()
