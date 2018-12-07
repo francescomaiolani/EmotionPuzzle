@@ -220,7 +220,6 @@ MonoBehaviour:
   - {fileID: 205841063}
   - {fileID: 1522211326}
   resultSentence: {fileID: 592580222}
-  gameManager: {fileID: 1327027391}
 --- !u!224 &145982827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -893,6 +892,9 @@ MonoBehaviour:
   - {fileID: 1871652404}
   endRoundPanel: {fileID: 145265017}
   roundsAmount: 5
+  centralPositionNeeded: 1
+  centralPosition: {fileID: 1366696889}
+  emotionAnswer: 0
   faceCentralPosition: {fileID: 539384697}
 --- !u!4 &1327027392
 Transform:

@@ -433,7 +433,6 @@ MonoBehaviour:
   sentencesQA:
   - {fileID: 408094310}
   resultSentence: {fileID: 884371706}
-  gameManager: {fileID: 1327027391}
 --- !u!224 &778628941
 RectTransform:
   m_ObjectHideFlags: 0
@@ -859,6 +858,8 @@ MonoBehaviour:
   - {fileID: 1073930498}
   endRoundPanel: {fileID: 1304411969}
   roundsAmount: 5
+  centralPositionNeeded: 1
+  centralPosition: {fileID: 1366696889}
   emotionType: {fileID: 1404824540}
 --- !u!4 &1327027392
 Transform:
