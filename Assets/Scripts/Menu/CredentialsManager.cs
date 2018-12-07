@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class CredentialsManager : MonoBehaviour {
 
+    public Button loginButton;
+    public Button signupButton;
     public Text loginButtonText;
     public Text signupButtonText;
     public Text mainButtonText;
@@ -16,12 +18,20 @@ public class CredentialsManager : MonoBehaviour {
     public InputField passwordField;
     public InputField confirmPasswordField;
 
- 	public void SignupButtonClick()
+
+    private void Start()
+    {
+        LoginButtonClick();
+    }
+
+    public void SignupButtonClick()
     {
         errorPanel.SetActive(false);
         ClearForm();
         confirmPasswordField.gameObject.SetActive(true);
         mainButtonText.text = "REGISTRATI";
+        signupButton.image.color = new Color32(255,255,255,255);
+        loginButton.image.color = new Color32(255, 255, 255, 120);
     }
 
     public void LoginButtonClick()
@@ -30,6 +40,8 @@ public class CredentialsManager : MonoBehaviour {
         ClearForm();
         confirmPasswordField.gameObject.SetActive(false);
         mainButtonText.text = "ENTRA";
+        signupButton.image.color = new Color32(255, 255, 255, 120);
+        loginButton.image.color = new Color32(255, 255, 255, 255);
     }
 
     public void MainButtonClick()
