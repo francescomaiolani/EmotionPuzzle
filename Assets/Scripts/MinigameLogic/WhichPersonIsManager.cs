@@ -23,6 +23,39 @@ public class WhichPersonIsManager : MinigameManager
         SpawnSceneObjects();
     }
 
+    protected override void SpawnSceneObjects()
+    {
+        //scglie l'espressione della faccia principale
+        PickNewEmotion();
+        //aggiorna la UI
+        FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
+
+        //crea le faccia principale, quella dell'emozione corretta
+        CreateMainFace();
+        //crea e 4 facce di altre persone
+        CreateFacesOfDifferentPeople();
+    }
+
+    void CreateMainFace()
+    {
+        //crea 2 game Object con solo un'immagine attaccata
+        AssignFacePartSprite(mainMouth.GetComponent<SpriteRenderer>(), FaceParts.Mouth, mainEmotion);
+        AssignFacePartSprite(mainEyes.GetComponent<SpriteRenderer>(), FaceParts.Eyes, mainEmotion);
+    }
+
+    void CreateFacesOfDifferentPeople()
+    {
+
+        facesCreated = new bool[4];
+        CreateFaceOfCorrectPeople();
+        CreateFaceOfIncorrectPeople();
+    }
+
+    void AssignFacePartSprite(SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
+    {
+        spr.sprite = Resources.Load<Sprite>("Sprite/FacePieces/" + facePartType.ToString() + "/" + facePartType.ToString() + emotion.ToString());
+    }
+
     void CheckIfGameCompleted(GameObject objectSelected) {
 
         Debug.Log(objectSelected);
@@ -35,19 +68,7 @@ public class WhichPersonIsManager : MinigameManager
             EndGame();
     }
 
-    void CreateMainFace() {
-
-        //crea 2 game Object con solo un'immagine attaccata
-        AssignFacePartSprite(mainMouth.GetComponent<SpriteRenderer>(), FaceParts.Mouth, mainEmotion);
-        AssignFacePartSprite(mainEyes.GetComponent<SpriteRenderer>(), FaceParts.Eyes, mainEmotion);
-    }
-
-    void CreateFacesOfDifferentPeople() {
-
-        facesCreated = new bool[4];
-        CreateFaceOfCorrectPeople();
-        CreateFaceOfIncorrectPeople();
-    }
+   
 
     void CreateFaceOfCorrectPeople()
     {
@@ -81,10 +102,7 @@ public class WhichPersonIsManager : MinigameManager
         Face.GetComponent<SelectableObject>().SetEmotionType(emotion);
     }
 
-    void AssignFacePartSprite(SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
-    {
-        spr.sprite = Resources.Load<Sprite>("Sprite/FacePieces/" + facePartType.ToString() + "/" + facePartType.ToString() + emotion.ToString());
-    }
+  
 
     private void EndGame() {
         Debug.Log("Game Ended");
@@ -94,18 +112,7 @@ public class WhichPersonIsManager : MinigameManager
     {
     }
 
-    protected override void SpawnSceneObjects()
-    {
-        //scglie l'espressione della faccia principale
-        PickNewEmotion();
-        //aggiorna la UI
-        FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
-         
-        //crea le faccia principale, quella dell'emozione corretta
-        CreateMainFace();
-        //crea e 4 facce di altre persone
-        CreateFacesOfDifferentPeople();
-    }
+   
 
     protected override void EndRound()
     {
