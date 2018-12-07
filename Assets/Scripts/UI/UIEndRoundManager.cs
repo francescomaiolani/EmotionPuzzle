@@ -11,7 +11,6 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     public Image[] imagesQA;
     public Text[] sentencesQA;
     public TextMeshProUGUI resultSentence;
-    public Text resultSentence;
     public MinigameManager gameManager;
 
     protected abstract void SetQA(bool roundResult);
@@ -30,7 +29,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
             endRoundPanel.color = new Color32(241, 107, 104, 255);
         }
            
-        SetQA(manager, roundResult);
+        SetQA(roundResult);
     }
 
 }

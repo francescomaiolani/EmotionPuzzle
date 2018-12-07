@@ -10,7 +10,7 @@ public class UIGuessExpressionManager : UIEndRoundManager {
         sentencesQA[0].text = gameManager.GetEmotionString().ToUpper();
         if (roundResult)
         {
-            imagesQA[0].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + manager.GetEmotionAnswerString());
+            imagesQA[0].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionAnswerString());
             imagesQA[0].SetNativeSize();
             imagesQA[0].gameObject.SetActive(true);
         } else
