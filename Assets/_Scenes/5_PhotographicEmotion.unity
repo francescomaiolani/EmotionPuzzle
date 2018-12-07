@@ -630,6 +630,7 @@ MonoBehaviour:
   - {fileID: 938440776}
   sentencesQA: []
   resultSentence: {fileID: 1991613269}
+  gameManager: {fileID: 1327027391}
   photoImage: {fileID: 0}
 --- !u!224 &1048859293
 RectTransform:
@@ -812,8 +813,6 @@ MonoBehaviour:
   - {fileID: 1073930498}
   endRoundPanel: {fileID: 2052773505}
   roundsAmount: 5
-  centralPositionNeeded: 0
-  centralPosition: {fileID: 0}
   photoPosition: {fileID: 865714178}
 --- !u!4 &1327027392
 Transform:
