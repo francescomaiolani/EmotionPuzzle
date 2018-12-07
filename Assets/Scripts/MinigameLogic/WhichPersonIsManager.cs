@@ -56,9 +56,15 @@ public class WhichPersonIsManager : MinigameManager
         spr.sprite = Resources.Load<Sprite>("Sprite/FacePieces/" + facePartType.ToString() + "/" + facePartType.ToString() + emotion.ToString());
     }
 
-    void CheckIfGameCompleted(GameObject objectSelected) {
+    // da cambiare nel momento in cui avremo le facce di tutte le persone
+    void AssignFaceSprite(SpriteRenderer spr, Emotion emotion)
+    {
+        spr.sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/" + "face" + emotion.ToString());
+    }
 
-        Debug.Log(objectSelected);
+
+    void CheckIfGameCompleted(GameObject objectSelected)
+    {
         SelectableObject selectebleObject = objectSelected.GetComponent<SelectableObject>();
 
         if (selectebleObject.GetEmotionType() == mainEmotion)
@@ -79,7 +85,8 @@ public class WhichPersonIsManager : MinigameManager
 
     }
 
-    void CreateFaceOfIncorrectPeople() {
+    void CreateFaceOfIncorrectPeople()
+    {
         int numberOfIncorrectFaces = 4 - numberOfCorrectFaces;
         for (int i = 0; i < numberOfIncorrectFaces; i++)
         {
@@ -98,8 +105,10 @@ public class WhichPersonIsManager : MinigameManager
             randomPosition = Random.Range(0, facesCreated.Length);
 
         facesCreated[randomPosition] = true;
-        GameObject Face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[randomPosition].transform.position, Quaternion.identity);
-        Face.GetComponent<SelectableObject>().SetEmotionType(emotion);
+        GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[randomPosition].transform.position, Quaternion.identity);
+        face.GetComponent<SelectableObject>().SetEmotionType(emotion);
+
+        AssignFaceSprite(face.GetComponent<SpriteRenderer>(), face.GetComponent<SelectableObject>().GetEmotionType());
     }
 
   
