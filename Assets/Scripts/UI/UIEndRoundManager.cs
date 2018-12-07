@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class UISelectionManager : MonoBehaviour {
+public abstract class UIEndRoundManager : MonoBehaviour {
 
     public Image[] imagesQA;
-    public Text[] sentecesQA;
+    public Text[] sentencesQA;
     public Text resultSentence;
 
     protected abstract void SetQA(SelectionGameManager manager, bool roundResult);

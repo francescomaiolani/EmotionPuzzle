@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UICompositionManager : MonoBehaviour {
+public class UICompositionManager : UIEndRoundManager {
 
     public Image advicePanel;
     public Text adviceText;
@@ -49,5 +49,10 @@ public class UICompositionManager : MonoBehaviour {
         //fumettoText.text = fumettoPhrase.Values
     }
 
+    //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
+    protected override void SetQA(SelectionGameManager manager, bool roundResult)
+    {
+        throw new System.NotImplementedException(); //Commenta sta linea se ti da fastidio
+    }
 }
 
