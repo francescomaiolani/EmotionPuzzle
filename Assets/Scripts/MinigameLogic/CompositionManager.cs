@@ -15,19 +15,19 @@ public class CompositionManager : MinigameManager {
     void Start() {
         UIManager = FindObjectOfType<UICompositionManager>();
         Hand.piecePositioned += CheckIfMinigameCompleted;
-        StartNewGame();
+        StartNewRound();
     }
 
-    public void StartNewGame() {
+    protected override void StartNewRound() {
+        PickNewEmotion();
         UIManager.UpdateUI(this);
         UIManager.StartGame();
-        Invoke("SpawnNewPieces", 2f);
+        Invoke("SpawnNewPieces", 1f);
     }
 
     private void SpawnNewPieces() {
         //distruggi i vecchi pezzi 
         DestroySceneObjects();
-        PickNewEmotion();
         SpawnSceneObjects();
     }
 
@@ -50,7 +50,7 @@ public class CompositionManager : MinigameManager {
 
     void ShowEndingScreen() {
         UIManager.EndGame();
-        Invoke("StartNewGame", 3f);
+        Invoke("StartNewRound", 3f);
     }
 
     protected override void SpawnSceneObjects()
