@@ -32,6 +32,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         SetQA(roundResult);
     }
 
+    //metodo che spawna una faccia nel gioco sopra la UI, con un certo scaling e emozioni per occhi e bocca potenzialmente diverse
     protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion, bool correct, float scaling)
     {
         GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FaceOverUI"), position, Quaternion.identity);
@@ -50,6 +51,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         gameManager.answerObjectSpawned.Add(face);
     }
 
+    //metodo per diminuire l'opacita' di una risposta sbagliata
     void ChangeOpacity(GameObject face)
     {
         face.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);

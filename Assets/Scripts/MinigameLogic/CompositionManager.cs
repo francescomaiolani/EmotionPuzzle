@@ -84,7 +84,7 @@ public class CompositionManager : MinigameManager {
         }
 
         roundResult = CheckAnswer();
-        DestroySceneObjects();
+        Invoke("DestroySceneObjects", 1f);
         Invoke("EndRound", 1f);
         Invoke("StartNewRound", 5);
 

@@ -37,12 +37,12 @@ public class UICompositionManager : UIEndRoundManager {
 
         if (roundResult)
         {
-            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),true, 1.2f) ;
+            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),true, 1.4f) ;
         }
         else
         {
-            SpawnFace(new Vector3(-2.5f, -2,0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(),true,  1.2f);
-            SpawnFace(new Vector3(2.5f, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),false, 1.2f);
+            SpawnFace(new Vector3(-3f, -2,0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(),true,  1.4f);
+            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),false, 1.4f);
         }
 
     }
