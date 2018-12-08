@@ -614,11 +614,11 @@ MonoBehaviour:
     lineCount: 1
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -727,8 +727,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 332.06638, y: 31.94922}
-  m_SizeDelta: {x: 336.8, y: 107.8}
+  m_AnchoredPosition: {x: 295, y: 31.94922}
+  m_SizeDelta: {x: 389.9, y: 107.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &398074890
 MonoBehaviour:
@@ -777,8 +777,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 62
+  m_fontSizeBase: 62
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -889,7 +889,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -7.26, y: 50}
+  m_AnchoredPosition: {x: 0, y: 79}
   m_SizeDelta: {x: 471.1, y: 100}
   m_Pivot: {x: 0.5, y: 0.50000006}
 --- !u!114 &514039602
@@ -1232,6 +1232,7 @@ MonoBehaviour:
   - {fileID: 197795902}
   endRoundPanel: {fileID: 2076702778}
   roundsAmount: 0
+  answerObjectSpawned: []
   droppableArea:
   - {fileID: 2005766147}
   - {fileID: 470904643}
@@ -1693,7 +1694,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Occhi
+  m_text: <color=#FFC132>O</color><color=#FF9138>c</color>c<color=#F16B68>h</color><color=#FFC132>i</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2163bb33ced57f54db9c334d3ddde254, type: 2}
   m_sharedMaterial: {fileID: 21823385921721748, guid: 2163bb33ced57f54db9c334d3ddde254,
@@ -1703,8 +1704,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281843191
-  m_fontColor: {r: 0.9686275, g: 0.7411765, b: 0.21568629, a: 1}
+    rgba: 4291281232
+  m_fontColor: {r: 0.3137255, g: 0.7568628, b: 0.7803922, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -1862,7 +1863,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1577806161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.23, z: 0}
+  m_LocalPosition: {x: -0.69, y: -0.23, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children:
   - {fileID: 726741762}
@@ -1952,7 +1953,10 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Componi la faccia con le parti giuste
+  m_text: <color=#FFC132>C</color><color=#FF9138>o</color>m<color=#F16B68>p</color><color=#FFC132>o</color>ni<color=#FF9138>
+    la</color> f<color=#FFC132>a</color><color=#F16B68>c</color><color=#FF9138>c</color>i<color=#FFC132>a</color>
+    c<color=#F16B68>o</color>n <color=#FFC132>l</color><color=#FF9138>e </color>p<color=#F16B68>a</color><color=#FFC132>r</color><color=#FF9138>t</color><color=#F16B68>i
+    </color>g<color=#FFC132>i</color><color=#FF9138>u</color>s<color=#F16B68>t</color><color=#FFC132>e</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2163bb33ced57f54db9c334d3ddde254, type: 2}
   m_sharedMaterial: {fileID: 21823385921721748, guid: 2163bb33ced57f54db9c334d3ddde254,
@@ -1962,8 +1966,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281843191
-  m_fontColor: {r: 0.9686275, g: 0.7411765, b: 0.21568629, a: 1}
+    rgba: 4291281232
+  m_fontColor: {r: 0.3137255, g: 0.7568628, b: 0.7803922, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -2070,7 +2074,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1869333301
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2440,7 +2444,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Bocche
+  m_text: <color=#FFC132>B</color><color=#FF9138>o</color>c<color=#F16B68>c</color><color=#FFC132>h</color>e
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2163bb33ced57f54db9c334d3ddde254, type: 2}
   m_sharedMaterial: {fileID: 21823385921721748, guid: 2163bb33ced57f54db9c334d3ddde254,
@@ -2450,8 +2454,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281843191
-  m_fontColor: {r: 0.9686275, g: 0.7411765, b: 0.21568629, a: 1}
+    rgba: 4291281232
+  m_fontColor: {r: 0.3137255, g: 0.7568628, b: 0.7803922, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -2573,7 +2577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000013351, y: -52}
+  m_AnchoredPosition: {x: 0, y: -52}
   m_SizeDelta: {x: 281.7, y: 48.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2146323954
