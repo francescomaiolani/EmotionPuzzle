@@ -12,16 +12,20 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     public Text[] sentencesQA;
     public TextMeshProUGUI resultSentence;
     public MinigameManager gameManager;
+    public GameObject cannons;
 
     protected abstract void SetQA(bool roundResult);
 
     public void EndRoundUI(bool roundResult)
     {
+        ActivateCannon(false);
+
         if (roundResult)
         {
             resultSentence.text = "<color=#FFC132>H</color><color=#FF9138>a</color>i<color=#F16B68> v</color>" +
                 "<color=#FFC132>i</color>nt<color=#FF9138>o</color>!<color=#F16B68>!</color>";
             endRoundPanel.color = new Color32(200,246,88,255);
+            ActivateCannon(roundResult);
         }
         else {
             resultSentence.text = "<color=#FFC132>H</color><color=#FF9138>a</color>i<color=#F16B68> p</color>" +
@@ -30,6 +34,11 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         }
            
         SetQA(roundResult);
+    }
+
+
+    void ActivateCannon(bool active) {
+        cannons.SetActive(active);
     }
 
     //metodo che spawna una faccia nel gioco sopra la UI, con un certo scaling e emozioni per occhi e bocca potenzialmente diverse
