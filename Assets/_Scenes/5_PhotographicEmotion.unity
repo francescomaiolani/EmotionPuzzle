@@ -402,6 +402,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 865714178}
+  - component: {fileID: 865714179}
   m_Layer: 0
   m_Name: Posizione Foto
   m_TagString: Untagged
@@ -416,12 +417,57 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 865714177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5, y: -0.75, z: 0}
+  m_LocalPosition: {x: -3.66, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1757943509}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &865714179
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 865714177}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: -185708581
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
 --- !u!1 &868979205
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +550,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Scegli l'espressione corretta
+  m_text: <color=#FFC132>S</color><color=#FF9138>c</color>e<color=#F16B68>g</color><color=#FFC132>l</color>i
+    l<color=#FF9138>'e</color>s<color=#FFC132>p</color><color=#F16B68>r</color><color=#FF9138>e</color>s<color=#FFC132>s</color>i<color=#F16B68>o</color>n<color=#FFC132>e</color>
+    <color=#F16B68>c</color>o<color=#FFC132>r</color><color=#FF9138>r</color>e<color=#F16B68>t</color><color=#FFC132>t</color><color=#FF9138>a</color>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2163bb33ced57f54db9c334d3ddde254, type: 2}
   m_sharedMaterial: {fileID: 21823385921721748, guid: 2163bb33ced57f54db9c334d3ddde254,
@@ -514,8 +562,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281843191
-  m_fontColor: {r: 0.9686275, g: 0.7411765, b: 0.21568629, a: 1}
+    rgba: 4290952276
+  m_fontColor: {r: 0.32941177, g: 0.7372549, b: 0.7607844, a: 1}
   m_enableVertexGradient: 0
   m_fontColorGradient:
     topLeft: {r: 1, g: 1, b: 1, a: 1}
@@ -637,7 +685,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  sentencesQA: []
+  sentencesQA:
+  - {fileID: 632435319}
   resultSentence: {fileID: 1998583273}
   gameManager: {fileID: 1327027391}
   photoImage: {fileID: 0}
@@ -731,7 +780,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1158831009
 RectTransform:
   m_ObjectHideFlags: 0
@@ -893,7 +942,7 @@ MonoBehaviour:
   endRoundPanel: {fileID: 1158831008}
   roundsAmount: 5
   answerObjectSpawned: []
-  photoPosition: {fileID: 865714178}
+  photoSprite: {fileID: 865714179}
 --- !u!4 &1327027392
 Transform:
   m_ObjectHideFlags: 0

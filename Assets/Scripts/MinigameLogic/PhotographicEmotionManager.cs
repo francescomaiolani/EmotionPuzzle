@@ -5,7 +5,7 @@ using UnityEngine;
 public class PhotographicEmotionManager : SelectionGameManager
 {
     [Header("Inserisci la posizione dove viene inserita la foto da indovinare")]
-    public Transform photoPosition;
+    public SpriteRenderer photoSprite;
 
     protected override GameObject InstantiateEmotionElement(string emotionString, Vector3 position)
     {
@@ -15,8 +15,7 @@ public class PhotographicEmotionManager : SelectionGameManager
 
     protected override void SetupCentralEmotion()
     {
-        GameObject photo = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/ImagePrefab"), photoPosition.position, Quaternion.identity);
-        photo.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Photos/" + mainEmotion + "/" + Random.Range(1,5) );
-        photo.transform.localScale = new Vector3(5f / photo.GetComponent<SpriteRenderer>().size.x, 5f / photo.GetComponent<SpriteRenderer>().size.y, 1);
+        photoSprite.sprite = Resources.Load<Sprite>("Sprite/Photos/" + mainEmotion + "/" + Random.Range(1,5) );
+        photoSprite.transform.localScale = new Vector3(5f / photoSprite.size.x, 5f / photoSprite.size.y, 1);
     }
 }
