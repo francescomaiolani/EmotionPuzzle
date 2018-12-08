@@ -43,7 +43,7 @@ public class CompositionManager : MinigameManager {
 
     protected override void DestroySceneObjects()
     {
-        Debug.Log(answerObjectSpawned.Count);
+        DestroyAnswerObjectSpawned();
         if (answerObjectSpawned.Count != 0) {
             for (int i = 0; i < answerObjectSpawned.Count; i++) {
                 Destroy(answerObjectSpawned[i]);

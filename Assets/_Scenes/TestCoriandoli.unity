@@ -1969,9 +1969,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
-      minScalar: 0
+      minMaxState: 3
+      scalar: 0.85714287
+      minScalar: 0.071428575
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -7277,9 +7277,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startFrame:
       serializedVersion: 2
-      minMaxState: 0
-      scalar: 0
-      minScalar: 0
+      minMaxState: 3
+      scalar: 0.85714287
+      minScalar: 0.071428575
       maxCurve:
         serializedVersion: 2
         m_Curve:

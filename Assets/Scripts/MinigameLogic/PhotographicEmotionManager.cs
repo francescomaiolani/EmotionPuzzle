@@ -15,6 +15,8 @@ public class PhotographicEmotionManager : SelectionGameManager
 
     protected override void SetupCentralEmotion()
     {
-        //throw new System.NotImplementedException();
+        GameObject photo = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/ImagePrefab"), photoPosition.position, Quaternion.identity);
+        photo.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/Photos/" + mainEmotion + "/" + Random.Range(1,5) );
+        photo.transform.localScale = new Vector3(5f / photo.GetComponent<SpriteRenderer>().size.x, 5f / photo.GetComponent<SpriteRenderer>().size.y, 1);
     }
 }

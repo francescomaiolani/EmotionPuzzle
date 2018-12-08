@@ -31,6 +31,8 @@ public abstract class SelectionGameManager : MinigameManager
     //Metodo che gestisce la logica del singolo round
     protected override void StartNewRound()
     {
+        DestroyAnswerObjectSpawned();
+
         //Disabilita schermata di fine round
         endRoundPanel.SetActive(false);
         //Aumentiamo il contatore dei round

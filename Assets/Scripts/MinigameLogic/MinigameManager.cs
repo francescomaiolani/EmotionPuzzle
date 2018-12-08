@@ -71,7 +71,19 @@ public abstract class MinigameManager : MonoBehaviour {
         else
             return false;
     }
-
+   
+    // metodo che distrugge tutte le istanze delle risposte create. Da invocare ad ogni start round
+    protected void DestroyAnswerObjectSpawned() {
+        if (answerObjectSpawned.Count != 0)
+        {
+            for (int i = 0; i < answerObjectSpawned.Count; i++)
+            {
+                Destroy(answerObjectSpawned[i]);
+            }
+            answerObjectSpawned.Clear();
+        }
+    }
+       
     //Metodo che salva la risposta data dall'utente
     public void SetAnswer(Emotion e)
     {
@@ -91,6 +103,11 @@ public abstract class MinigameManager : MonoBehaviour {
     public string GetEmotionAnswerString()
     {
         return emotionAnswer.ToString();
+    }
+
+    public Emotion GetEmotionAnswer()
+    {
+        return emotionAnswer;
     }
 
     //il font non ha la a con l'accento quindi converto con l'apostrofo

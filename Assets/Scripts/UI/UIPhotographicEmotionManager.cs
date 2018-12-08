@@ -10,18 +10,18 @@ public class UIPhotographicEmotionManager : UIEndRoundManager {
     protected override void SetQA(bool roundResult)
     {
         //photoImage.sprite = Resources.Load<Sprite>("Sprite/FotoEmozioni/blablablabla" + gameManager.emotionAnswer); Questa riga setta la foto nella schermata di fine round
+        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+
         if (roundResult)
         {
-            imagesQA[0].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionAnswerString());
-            imagesQA[0].gameObject.SetActive(true);
+            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), true, 1.4f);
         }
         else
         {
-            imagesQA[1].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionAnswerString());
-            imagesQA[1].gameObject.SetActive(true);
-            imagesQA[2].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionString());
-            imagesQA[2].gameObject.SetActive(true);
+            SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(), true, 1.4f);
+            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), false, 1.4f);
         }
+
     }
 
 }
