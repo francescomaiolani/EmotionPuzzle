@@ -70,9 +70,12 @@ public class Hand : MonoBehaviour {
             // se sto effettivamente trascinando qualcosa
             if (pieceTaken != null)
             {
+                Debug.Log("Ho un pezzo in mano");
                 DraggableObject draggableComponent = pieceTaken.GetComponent<DraggableObject>();
-                if (draggableComponent.GetDroppableArea() != null)
+                if (draggableComponent.GetDroppableArea() != null) {
+                    Debug.Log("Ho trovato una droppable area qualunque");
                     draggableComponent.GetDroppableArea().SetOccupied(false);
+                }
 
                 //se sei sopra una droppable area 
                 if (droppableArea.Count > 0)
@@ -84,6 +87,7 @@ public class Hand : MonoBehaviour {
                         //se e' giusta la droppable area
                         if (draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()) && !d.GetOccupied())
                         {
+                            Debug.Log("Ho trovato una droppable area non occupata e corretta");
                             DropItem(d, draggableComponent);
                             piecePositioned();
                             found = true;

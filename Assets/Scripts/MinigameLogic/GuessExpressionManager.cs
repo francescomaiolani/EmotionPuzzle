@@ -18,10 +18,5 @@ public class GuessExpressionManager : SelectionGameManager {
         return obj;
     }
 
-    string ConvertInCorrectText(string emotion) {
-        if (emotion == "Felicità")
-            return "Felicita'";
-        else
-            return emotion;
-    }
+   
 }

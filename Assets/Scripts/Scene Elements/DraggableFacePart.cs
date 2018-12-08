@@ -34,4 +34,8 @@ public class DraggableFacePart : DraggableObject {
     {
         return facePartType.ToString();
     }
+
+    public Emotion GetEmotion() {
+        return emotion;
+    }
 }

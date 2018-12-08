@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura}
-//public enum Emotion { Felicità, Tristezza, Rabbia}
 
 public abstract class MinigameManager : MonoBehaviour {
 
@@ -44,7 +43,6 @@ public abstract class MinigameManager : MonoBehaviour {
     //metodo che ritorna un'emozione che non e' quella corretta in modo da assegnare un'emozione random agli altri pezzi sbagliati
     protected Emotion PickNotMainEmotion(Emotion main)
     {
-
         int randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
         Emotion chosenEmotion = (Emotion)randomEmotion;
 
@@ -64,7 +62,7 @@ public abstract class MinigameManager : MonoBehaviour {
     }
 
     //Metodo che si occupa di controllare l'esito della selezione di una risposta
-    public bool CheckAnswer()
+    public virtual bool CheckAnswer()
     {
         if (emotionAnswer == mainEmotion)
             return true;
@@ -83,10 +81,23 @@ public abstract class MinigameManager : MonoBehaviour {
         return mainEmotion.ToString();
     }
 
+    public Emotion GetMainEmotion()
+    {
+        return mainEmotion;
+    }
+
     public string GetEmotionAnswerString()
     {
         return emotionAnswer.ToString();
     }
 
+    //il font non ha la a con l'accento quindi converto con l'apostrofo
+    public string ConvertInCorrectText(string emotion)
+    {
+        if (emotion == "Felicità")
+            return "Felicita'";
+        else
+            return emotion;
+    }
 
 }

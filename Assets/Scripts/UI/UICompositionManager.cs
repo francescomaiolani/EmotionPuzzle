@@ -11,28 +11,9 @@ public class UICompositionManager : UIEndRoundManager {
 
     public TextMeshProUGUI emotionText;
 
-    Dictionary<Emotion, string> fumettoPhrase = new Dictionary<Emotion, string>();
-
-    public Animator endGameAnimator;
-
     private void Start()
     {
         Hand.adviceGiven += GiveAdvice;
-        PopulateDictionary();
-    }
-
-    public void EndGame() {
-        endGameAnimator.SetTrigger("EndGame");
-    }
-
-    public void StartGame() {
-        endGameAnimator.SetTrigger("StartGame");
-    }
-
-    void PopulateDictionary() {
-        fumettoPhrase.Add(Emotion.Felicità, "Quando sono felice mangio un bel gelato");
-        fumettoPhrase.Add(Emotion.Tristezza, "Sono triste quando qualcuno si fa male");
-        fumettoPhrase.Add(Emotion.Rabbia, "Sono arrabbiato quando qualcuno non vuole giocare con me");
     }
 
     void GiveAdvice(string advice) {
@@ -46,14 +27,26 @@ public class UICompositionManager : UIEndRoundManager {
     }
 
     public void UpdateUI(MinigameManager manager) {
-        emotionText.text = manager.GetEmotionString().ToUpper();
+        emotionText.text = manager.ConvertInCorrectText(manager.GetEmotionString());
         //fumettoText.text = fumettoPhrase.Values
     }
 
-    //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
     protected override void SetQA(bool roundResult)
     {
-        throw new System.NotImplementedException(); //Commenta sta linea se ti da fastidio
+        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+        if (roundResult)
+        {
+            SpawnFace(Vector3.zero, gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen()) ;
+        }
+        else
+        {
+            SpawnFace(new Vector3(-2, 0,0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion());
+            SpawnFace(new Vector3(2, 0, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen());
+
+        }
+
     }
+
+   
 }
 

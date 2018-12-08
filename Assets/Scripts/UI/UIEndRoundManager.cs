@@ -32,4 +32,12 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         SetQA(roundResult);
     }
 
+    protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion)
+    {
+        GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FaceOverUI"), position, Quaternion.identity);
+        face.transform.Find("Eyes").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Eyes/Eyes" +  eyesEmotion.ToString() );
+        face.transform.Find("Mouth").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Mouth/Mouth" + mouthEmotion.ToString());
+
+    }
+
 }
