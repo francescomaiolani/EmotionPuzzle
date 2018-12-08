@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class UIPhotographicEmotionManager : UIEndRoundManager {
 
-    public Image photoImage;
-
     protected override void SetQA(bool roundResult)
     {
         //photoImage.sprite = Resources.Load<Sprite>("Sprite/FotoEmozioni/blablablabla" + gameManager.emotionAnswer); Questa riga setta la foto nella schermata di fine round

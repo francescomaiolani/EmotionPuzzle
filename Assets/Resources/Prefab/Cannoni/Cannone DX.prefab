@@ -259,13 +259,13 @@ ParticleSystem:
         key5: {r: 0.33490568, g: 0.83933127, b: 1, a: 0}
         key6: {r: 0.3820755, g: 0.45525077, b: 1, a: 0}
         key7: {r: 0.9234038, g: 0.3726415, b: 1, a: 0}
-        ctime0: 7710
-        ctime1: 16384
-        ctime2: 24672
+        ctime0: 0
+        ctime1: 5397
+        ctime2: 19853
         ctime3: 33346
-        ctime4: 41634
-        ctime5: 49537
-        ctime6: 56861
+        ctime4: 46453
+        ctime5: 53970
+        ctime6: 60909
         ctime7: 65535
         atime0: 0
         atime1: 65535
