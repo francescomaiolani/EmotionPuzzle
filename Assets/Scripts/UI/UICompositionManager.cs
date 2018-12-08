@@ -34,15 +34,15 @@ public class UICompositionManager : UIEndRoundManager {
     protected override void SetQA(bool roundResult)
     {
         sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+
         if (roundResult)
         {
-            SpawnFace(Vector3.zero, gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen()) ;
+            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),true, 1.2f) ;
         }
         else
         {
-            SpawnFace(new Vector3(-2, 0,0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion());
-            SpawnFace(new Vector3(2, 0, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen());
-
+            SpawnFace(new Vector3(-2.5f, -2,0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(),true,  1.2f);
+            SpawnFace(new Vector3(2.5f, -2, 0), gameManager.GetComponent<CompositionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionManager>().GetMouthEmotionChosen(),false, 1.2f);
         }
 
     }

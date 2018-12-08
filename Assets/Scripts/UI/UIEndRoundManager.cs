@@ -32,12 +32,29 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         SetQA(roundResult);
     }
 
-    protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion)
+    protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion, bool correct, float scaling)
     {
         GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FaceOverUI"), position, Quaternion.identity);
+        face.transform.localScale = new Vector3(scaling, scaling, 0);
         face.transform.Find("Eyes").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Eyes/Eyes" +  eyesEmotion.ToString() );
         face.transform.Find("Mouth").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Mouth/Mouth" + mouthEmotion.ToString());
+        if (correct)
+            face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/OkIcon");
 
+        else
+        {
+            face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/NotOkIcon");
+            ChangeOpacity(face);
+        }
+
+        gameManager.answerObjectSpawned.Add(face);
+    }
+
+    void ChangeOpacity(GameObject face)
+    {
+        face.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);
+        face.transform.Find("Eyes").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);
+        face.transform.Find("Mouth").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);
     }
 
 }

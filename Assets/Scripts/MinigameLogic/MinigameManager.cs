@@ -23,6 +23,8 @@ public abstract class MinigameManager : MonoBehaviour {
     protected int currentRound = 0;
     protected bool roundResult;
     //public GameObject[] spawnableObjectsPrefab;
+    //Lista che tiene i game object degli oggetti risposta creati nell'endGame e che vengono cancellate all'inizio di un nuovo round
+    public List<GameObject> answerObjectSpawned;
 
     // verosimilmente in ogni minigioco degli oggetti andranno spawnati 
     //ossia tutti quei pezzi tra cui scegliere ecc..

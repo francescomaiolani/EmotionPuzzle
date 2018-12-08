@@ -18,14 +18,16 @@ public class CompositionManager : MinigameManager {
     protected Emotion eyesEmotionChosen;
     [SerializeField]
     protected Emotion mouthEmotionChosen;
+   
 
     void Start() {
         UIManager = FindObjectOfType<UICompositionManager>();
         Hand.piecePositioned += CheckIfMinigameCompleted;
+        answerObjectSpawned = new List<GameObject>();
         StartNewRound();
     }
 
-    protected override void StartNewRound() {
+    protected override void StartNewRound() {      
         endRoundPanel.SetActive(false);
         DestroySceneObjects();
         PickNewEmotion();
@@ -41,6 +43,14 @@ public class CompositionManager : MinigameManager {
 
     protected override void DestroySceneObjects()
     {
+        Debug.Log(answerObjectSpawned.Count);
+        if (answerObjectSpawned.Count != 0) {
+            for (int i = 0; i < answerObjectSpawned.Count; i++) {
+                Destroy(answerObjectSpawned[i]);
+            }
+            answerObjectSpawned.Clear();
+        }
+
         //resetto gli array degli icchi e bocca
         mouthPositioned = new bool[]{ false, false };
         eyesPositioned = new bool[] { false, false };
@@ -144,5 +154,4 @@ public class CompositionManager : MinigameManager {
     {
         return mouthEmotionChosen;
     }
-
 }
