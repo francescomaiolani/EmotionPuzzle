@@ -23,8 +23,7 @@ public class Hand : MonoBehaviour {
     public static event OnPiecePositioned piecePositioned;
 
     private void Start()
-    {
-       
+    {      
         droppableArea = new List<DroppableArea>();
         //MagicRoomKinectV2Manager.instance.setUpKinect(5, 1);
         //MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
@@ -70,10 +69,9 @@ public class Hand : MonoBehaviour {
             // se sto effettivamente trascinando qualcosa
             if (pieceTaken != null)
             {
-                Debug.Log("Ho un pezzo in mano");
                 DraggableObject draggableComponent = pieceTaken.GetComponent<DraggableObject>();
-                if (draggableComponent.GetDroppableArea() != null) {
-                    Debug.Log("Ho trovato una droppable area qualunque");
+                if (draggableComponent.GetDroppableArea() != null)
+                {
                     draggableComponent.GetDroppableArea().SetOccupied(false);
                 }
 
@@ -87,7 +85,6 @@ public class Hand : MonoBehaviour {
                         //se e' giusta la droppable area
                         if (draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()) && !d.GetOccupied())
                         {
-                            Debug.Log("Ho trovato una droppable area non occupata e corretta");
                             DropItem(d, draggableComponent);
                             piecePositioned();
                             found = true;
@@ -100,14 +97,13 @@ public class Hand : MonoBehaviour {
                         draggableComponent.StopDragging(false, null);
                     }
                 }
-                else {
+                else
+                {
                     if (!draggableComponent.GetInCorrectPlace() && !draggableComponent.GetComesFromCorrectPosition())
                         adviceGiven("Posiziona il pezzo sopra la faccia del ragazzo!");
                     //altrimenti semplicemente sei fuori da una droppable area 
-                    draggableComponent.StopDragging(false, null);
-                   
+                    draggableComponent.StopDragging(false, null);                  
                 }
-
 
                 pieceTaken = null;
                 dragging = false;
@@ -119,7 +115,8 @@ public class Hand : MonoBehaviour {
     protected virtual void ChooseProperAdvice(string type) { }
 
     //posso chiamare un evento solo da questa classe quindi aggiro chiamando un metodo che chiama l'evento
-    protected void GiveAdvice(string advice) {
+    protected void GiveAdvice(string advice)
+    {
         adviceGiven(advice);
     }
 
