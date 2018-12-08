@@ -16,8 +16,11 @@ public class WhichPersonIsManager : MinigameManager
 
     List<GameObject> facesSelected;
 
+    UIWhichPersonIsManager UIManager;
+
     private void Start()
     {
+        UIManager = FindObjectOfType<UIWhichPersonIsManager>();
         facesSelected = new List<GameObject>();
         SelectableObject.objectSelectedEvent += CheckIfGameCompleted;
         StartNewRound();
@@ -75,7 +78,7 @@ public class WhichPersonIsManager : MinigameManager
             facesSelected.Add(objectSelected);
 
         if (facesSelected.Count == numberOfCorrectFaces)
-            EndGame();
+            EndRound();
     }
 
    
@@ -115,12 +118,6 @@ public class WhichPersonIsManager : MinigameManager
         AssignFaceSprite(face.GetComponent<SpriteRenderer>(), face.GetComponent<SelectableObject>().GetEmotionType());
     }
 
-  
-
-    private void EndGame() {
-        Debug.Log("Game Ended");
-    }
-
     protected override void DestroySceneObjects()
     {
 
@@ -130,7 +127,8 @@ public class WhichPersonIsManager : MinigameManager
 
     protected override void EndRound()
     {
-        throw new System.NotImplementedException();
+        endRoundPanel.SetActive(true);
+        UIManager.EndRoundUI(roundResult);
     }
 
 }

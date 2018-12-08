@@ -44,12 +44,6 @@ public class CompositionManager : MinigameManager {
     protected override void DestroySceneObjects()
     {
         DestroyAnswerObjectSpawned();
-        if (answerObjectSpawned.Count != 0) {
-            for (int i = 0; i < answerObjectSpawned.Count; i++) {
-                Destroy(answerObjectSpawned[i]);
-            }
-            answerObjectSpawned.Clear();
-        }
 
         //resetto gli array degli icchi e bocca
         mouthPositioned = new bool[]{ false, false };
