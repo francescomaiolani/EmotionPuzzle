@@ -51,7 +51,6 @@ public class SelectableObject : MonoBehaviour {
         if (!selected) {
             selected = true;
             animator.enabled = false;
-            transform.localScale = transform.localScale * 1.1f;
             objectSelectedEvent(this.gameObject);
         }      
     }

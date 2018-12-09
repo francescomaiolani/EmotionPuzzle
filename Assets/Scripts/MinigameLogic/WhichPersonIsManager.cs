@@ -66,17 +66,20 @@ public class WhichPersonIsManager : MinigameManager
         StartCoroutine(CreateFaces());
     }
 
-    private IEnumerator CreateFaces() {
-
+    //coroutine che crea le 4 facce una ogni 0.2f secondi
+    private IEnumerator CreateFaces()
+    {
         int i = 0;
 
-        while (i < 4) {
+        while (i < 4)
+        {
+            yield return new WaitForSeconds(0.25f);
             InstantiateFace(facesCreated[i], i);
             i++;
-            yield return new WaitForSeconds(0.2f);
         }    
     }
 
+    //metodo che assegna agli occhi o alla bocca dalla main face l'immagine dell'emozione giusta 
     void AssignFacePartSprite(SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
     {
         spr.sprite = Resources.Load<Sprite>("Sprite/FacePieces/" + facePartType.ToString() + "/" + facePartType.ToString() + emotion.ToString());
@@ -89,6 +92,7 @@ public class WhichPersonIsManager : MinigameManager
     }
 
 
+    //controllo sul fatto che hai selezionato tutte le facce corrette o hai sbagliato
     void CheckIfGameCompleted(GameObject objectSelected)
     {
         SelectableObject selectebleObject = objectSelected.GetComponent<SelectableObject>();
