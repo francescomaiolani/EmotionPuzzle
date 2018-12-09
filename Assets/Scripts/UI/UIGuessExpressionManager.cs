@@ -7,20 +7,16 @@ public class UIGuessExpressionManager : UIEndRoundManager {
 
     protected override void SetQA(bool roundResult)
     {
-        sentencesQA[0].text = gameManager.GetEmotionString().ToUpper();
+        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
         if (roundResult)
         {
-            imagesQA[0].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionAnswerString());
-            imagesQA[0].SetNativeSize();
-            imagesQA[0].gameObject.SetActive(true);
+            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), true, 1.4f);
         } else
         {
-            imagesQA[1].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionAnswerString());
-            imagesQA[1].gameObject.SetActive(true);
-            imagesQA[2].sprite = Resources.Load<Sprite>("Sprite/CompleteFaces/face" + gameManager.GetEmotionString());
-            imagesQA[2].gameObject.SetActive(true);
+            SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f);
+            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f);
         }
-            
+
     }
 
 
