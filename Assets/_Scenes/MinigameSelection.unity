@@ -1482,7 +1482,7 @@ GameObject:
   - component: {fileID: 1394523862}
   - component: {fileID: 1394523861}
   m_Layer: 5
-  m_Name: TeachingModeButton
+  m_Name: TutorialModeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2112,7 +2112,7 @@ GameObject:
   - component: {fileID: 1855977369}
   - component: {fileID: 1855977368}
   m_Layer: 5
-  m_Name: TeachingModeIcon
+  m_Name: TutorialModeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2293,7 +2293,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: Teaching Mode
+  m_text: Tutorial Mode
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2163bb33ced57f54db9c334d3ddde254, type: 2}
   m_sharedMaterial: {fileID: 21823385921721748, guid: 2163bb33ced57f54db9c334d3ddde254,
