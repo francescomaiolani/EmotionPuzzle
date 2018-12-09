@@ -519,7 +519,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position4
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -547,7 +547,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position1
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1121,6 +1121,7 @@ MonoBehaviour:
   - {fileID: 197795902}
   endRoundPanel: {fileID: 1155813002}
   roundsAmount: 0
+  mainEmotion: 0
   answerObjectSpawned: []
   mainMouth: {fileID: 1213104546}
   mainEyes: {fileID: 482113276}
@@ -1443,7 +1444,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position3
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1779,7 +1780,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position2
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

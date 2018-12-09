@@ -10,7 +10,7 @@ public class WhichPersonIsManager : MinigameManager
     public GameObject mainEyes;
 
     //array che viene riempito man mano che si creano le facce delle varie persone, Serve a sapere quali posizioni sono state occupate
-    bool[] facesCreated;
+    Emotion?[] facesCreated;
     //numero di facce corrette create
     int numberOfCorrectFaces;
 
@@ -28,10 +28,17 @@ public class WhichPersonIsManager : MinigameManager
 
     protected override void StartNewRound()
     {
+        DestroyAnswerObjectSpawned();
+        DestroySceneObjects();
+        //Disabilita schermata di fine round
+        endRoundPanel.SetActive(false);
+        //Aumentiamo il contatore dei round
+        UpdateRound();
         //scglie l'espressione della faccia principale
         PickNewEmotion();
         //aggiorna la UI
         FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
+
         SpawnSceneObjects();
     }
 
@@ -53,9 +60,23 @@ public class WhichPersonIsManager : MinigameManager
     void CreateFacesOfDifferentPeople()
     {
 
-        facesCreated = new bool[4];
-        CreateFaceOfCorrectPeople();
-        CreateFaceOfIncorrectPeople();
+        facesCreated = new Emotion?[4] {null,null,null,null };
+        AssignFaceOfCorrectPeople();
+        AssignFaceOfIncorrectPeople();
+        //StartCoroutine(CreateFaces());
+    }
+
+    private IEnumerator CreateFaces() {
+
+        int i = 0;
+
+        while (i < 4) {
+            InstantiateFace(facesCreated[i], i);
+            i++;
+            Debug.Log("face created");
+            //yield return new WaitForSeconds(0.2f);
+            yield return new WaitForEndOfFrame();
+        }    
     }
 
     void AssignFacePartSprite(SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
@@ -74,53 +95,74 @@ public class WhichPersonIsManager : MinigameManager
     {
         SelectableObject selectebleObject = objectSelected.GetComponent<SelectableObject>();
 
-        if (selectebleObject.GetEmotionType() == mainEmotion)
+        if (selectebleObject.GetEmotionType() == mainEmotion) {
+            SetAnswer(selectebleObject.GetEmotionType());
             facesSelected.Add(objectSelected);
-
+        }
+        else
+        {
+            SetAnswer(selectebleObject.GetEmotionType());
+            roundResult = false;
+            Invoke("EndRound", 1);
+            Invoke("StartNewRound", 5);
+        }
         if (facesSelected.Count == numberOfCorrectFaces)
-            EndRound();
+        {
+            roundResult = true;
+            Invoke("EndRound", 1);
+            Invoke("StartNewRound", 5);
+        }           
     }
 
-   
-
-    void CreateFaceOfCorrectPeople()
+    void AssignFaceOfCorrectPeople()
     {
-        numberOfCorrectFaces = Random.Range(0, 3);
+        numberOfCorrectFaces = Random.Range(1, 3);
         for (int i = 0; i < numberOfCorrectFaces; i++) {
-            InstantiateFace(mainEmotion);
+            AssignFacePosition(mainEmotion);
         }
 
     }
 
-    void CreateFaceOfIncorrectPeople()
+    void AssignFaceOfIncorrectPeople()
     {
         int numberOfIncorrectFaces = 4 - numberOfCorrectFaces;
         for (int i = 0; i < numberOfIncorrectFaces; i++)
         {
-            InstantiateFace(PickNotMainEmotion(mainEmotion));
+            AssignFacePosition(PickNotMainEmotion(mainEmotion));
         }
 
     }
 
-    //metodo che istanzia una faccia delle 4 di persone random
-    void InstantiateFace(Emotion emotion)
-    {
+    //assegna un'emozione a una delle 4 posizioni disponibili
+    void AssignFacePosition(Emotion emotion) {
         int randomPosition = Random.Range(0, facesCreated.Length);
 
-        //finche' quella posizione e' gia' occupata ceerca altri posti
-        while (facesCreated[randomPosition] == true)
+        //finche' quella posizione e' gia' occupata cerca altri posti
+        while (facesCreated[randomPosition] == null)
             randomPosition = Random.Range(0, facesCreated.Length);
 
-        facesCreated[randomPosition] = true;
-        GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[randomPosition].transform.position, Quaternion.identity);
-        face.GetComponent<SelectableObject>().SetEmotionType(emotion);
+        facesCreated[randomPosition] = emotion;
+    }
+
+    //metodo che istanzia una faccia delle 4 di persone random
+    void InstantiateFace(Emotion? emotion, int position)
+    {
+       
+        GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[position].transform.position, Quaternion.identity);
+        
+        face.GetComponent<SelectableObject>().SetEmotionType((Emotion)emotion);
 
         AssignFaceSprite(face.GetComponent<SpriteRenderer>(), face.GetComponent<SelectableObject>().GetEmotionType());
     }
 
     protected override void DestroySceneObjects()
     {
+        facesCreated = new Emotion?[] { null, null, null, null };
+        facesSelected.Clear();
 
+        SelectableObject[] selectableObjects = GameObject.FindObjectsOfType<SelectableObject>();
+        for (int i = 0; i < selectableObjects.Length; i++)
+            Destroy(selectableObjects[i].gameObject);
     }
 
    

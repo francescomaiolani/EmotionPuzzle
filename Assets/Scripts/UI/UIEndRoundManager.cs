@@ -22,14 +22,12 @@ public abstract class UIEndRoundManager : MonoBehaviour {
 
         if (roundResult)
         {
-            resultSentence.text = "<color=#FFC132>H</color><color=#FF9138>a</color>i<color=#F16B68> v</color>" +
-                "<color=#FFC132>i</color>nt<color=#FF9138>o</color>!<color=#F16B68>!</color>";
+            resultSentence.text = ChangeTextToRandomColors("Hai vinto!!");
             endRoundPanel.color = new Color32(200,246,88,255);
             ActivateCannon(roundResult);
         }
         else {
-            resultSentence.text = "<color=#FFC132>H</color><color=#FF9138>a</color>i<color=#F16B68> p</color>" +
-               "<color=#FFC132>e</color>rs<color=#FF9138>o</color>!<color=#F16B68>!</color>";
+            resultSentence.text = ChangeTextToRandomColors("Hai perso!!");
             endRoundPanel.color = new Color32(241, 107, 104, 255);
         }
            
@@ -80,6 +78,8 @@ public abstract class UIEndRoundManager : MonoBehaviour {
             currentColor = UnityEngine.Random.Range(0,4);
             while (currentColor == previousColor)
                 currentColor = UnityEngine.Random.Range(0, 4);
+
+            previousColor = currentColor;
 
             switch (currentColor) {
                 case 0:
