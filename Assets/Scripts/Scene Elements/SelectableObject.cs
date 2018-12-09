@@ -14,6 +14,8 @@ public class SelectableObject : MonoBehaviour {
     private Vector3 startScale;
     private Vector3 centralPosition;
 
+    private Animator animator;
+
     public delegate void OnObjectSelected(GameObject objectSelected);
     public static event OnObjectSelected objectSelectedEvent;
 
@@ -21,6 +23,9 @@ public class SelectableObject : MonoBehaviour {
     {
         selected = false;
         startScale = transform.localScale;
+        animator = gameObject.AddComponent<Animator>();
+        GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animator/Pop");
+        animator.SetTrigger("Pop");
     }
 
     public void SetEmotionType(Emotion emotion)
@@ -30,19 +35,25 @@ public class SelectableObject : MonoBehaviour {
 
     public void OnMouseEnter()
     {
-        transform.localScale = transform.localScale * 1.1f;
+        animator.SetTrigger("PopUp");
     }
 
     private void OnMouseExit()
     {
-        transform.localScale = startScale;
+        if (!selected)
+            animator.SetTrigger("PopDown");
+
     }
 
     //Metodo che viene chiamato nel momento in cui si seleziona un oggetto
     private void OnMouseDown()
     {
-        selected = true;
-        objectSelectedEvent(this.gameObject);
+        if (!selected) {
+            selected = true;
+            animator.enabled = false;
+            transform.localScale = transform.localScale * 1.1f;
+            objectSelectedEvent(this.gameObject);
+        }      
     }
 
     public bool isSelected()
@@ -56,6 +67,7 @@ public class SelectableObject : MonoBehaviour {
     {
         return this.emotionType;
     }
+
 
     //public static void DisableColliders()
     //{

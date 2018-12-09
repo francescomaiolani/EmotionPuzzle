@@ -10,9 +10,7 @@ public class UIWhichPersonIsManager : UIEndRoundManager {
 
     public void UpdateUI(MinigameManager manager)
     {
-        emotionText.text = "<color=#FFC132>Q</color><color=#FF9138>u</color>a<color=#F16B68>l</color><color=#FFC132>i " +
-            "</color>p<color=#F16B68>e</color><color=#FF9138>rs</color>o<color=#FFC132>n</color><color=#F16B68>e </color>" +
-            "<color=#FF9138>s</color>o<color=#FFC132>n</color>o " + CovertEmotionToAdjective(manager.GetEmotionString()) + "?";
+        emotionText.text = ChangeTextToRandomColors("Quali persone sono " + CovertEmotionToAdjective(manager.GetEmotionString()) + "?"); 
         
     }
 
@@ -37,5 +35,15 @@ public class UIWhichPersonIsManager : UIEndRoundManager {
     //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
     protected override void SetQA(bool roundResult)
     {
+        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+        if (roundResult)
+        {
+            SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f);
+        }
+        else
+        {
+            SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f);
+            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f);
+        }
     }
 }

@@ -16,6 +16,7 @@ public abstract class MinigameManager : MonoBehaviour {
     //Variabile statica che tiene conto della scelta del percoso o del minigioco singolo
     public static bool pathEnabled = false;
 
+    [SerializeField]
     protected Emotion mainEmotion;
     protected Emotion previousChosenEmotion;
     //Risposta scelta dall'utente
