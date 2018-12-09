@@ -68,4 +68,38 @@ public abstract class UIEndRoundManager : MonoBehaviour {
         face.transform.Find("Mouth").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.6f);
     }
 
+    //metodo che converte una stringa in multicolore
+    public string ChangeTextToRandomColors(string text)
+    {
+        int currentColor;
+        int previousColor = 0;
+        string coloredString = "";
+        string currentColorCode = "";
+
+        for (int i = 0; i < text.Length; i++) {
+            currentColor = UnityEngine.Random.Range(0,4);
+            while (currentColor == previousColor)
+                currentColor = UnityEngine.Random.Range(0, 4);
+
+            switch (currentColor) {
+                case 0:
+                    currentColorCode = "<color=#FFC132>";
+                    break;
+                case 1:
+                    currentColorCode = "<color=#F16B68>";
+                    break;
+                case 2:
+                    currentColorCode = "<color=#FF9138>";
+                    break;
+                case 3:
+                    currentColorCode = "<color=#50C1C7>";
+                    break;
+            }
+            coloredString += currentColorCode + text[i] + "</color>";
+        }
+
+        return coloredString;
+    
+    }
+
 }
