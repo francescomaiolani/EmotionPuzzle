@@ -63,7 +63,7 @@ public class WhichPersonIsManager : MinigameManager
         facesCreated = new Emotion?[4] {null,null,null,null };
         AssignFaceOfCorrectPeople();
         AssignFaceOfIncorrectPeople();
-        //StartCoroutine(CreateFaces());
+        StartCoroutine(CreateFaces());
     }
 
     private IEnumerator CreateFaces() {
@@ -73,9 +73,7 @@ public class WhichPersonIsManager : MinigameManager
         while (i < 4) {
             InstantiateFace(facesCreated[i], i);
             i++;
-            Debug.Log("face created");
-            //yield return new WaitForSeconds(0.2f);
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(0.2f);
         }    
     }
 
@@ -103,13 +101,13 @@ public class WhichPersonIsManager : MinigameManager
         {
             SetAnswer(selectebleObject.GetEmotionType());
             roundResult = false;
-            Invoke("EndRound", 1);
+            Invoke("EndRound", 0.5f);
             Invoke("StartNewRound", 5);
         }
         if (facesSelected.Count == numberOfCorrectFaces)
         {
             roundResult = true;
-            Invoke("EndRound", 1);
+            Invoke("EndRound", 0.5f);
             Invoke("StartNewRound", 5);
         }           
     }
@@ -118,7 +116,7 @@ public class WhichPersonIsManager : MinigameManager
     {
         numberOfCorrectFaces = Random.Range(1, 3);
         for (int i = 0; i < numberOfCorrectFaces; i++) {
-            AssignFacePosition(mainEmotion);
+           AssignFacePosition(mainEmotion);
         }
 
     }
@@ -138,7 +136,7 @@ public class WhichPersonIsManager : MinigameManager
         int randomPosition = Random.Range(0, facesCreated.Length);
 
         //finche' quella posizione e' gia' occupata cerca altri posti
-        while (facesCreated[randomPosition] == null)
+        while (facesCreated[randomPosition] != null)
             randomPosition = Random.Range(0, facesCreated.Length);
 
         facesCreated[randomPosition] = emotion;
