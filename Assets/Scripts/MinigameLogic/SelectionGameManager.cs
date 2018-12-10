@@ -40,9 +40,6 @@ public abstract class SelectionGameManager : MinigameManager
         Debug.Log("Siamo al round #" + currentRound);
         //Resettiamo la lista delle emozioni usate
         emotionUsed.Clear();
-        //Distruggiamo tutti gli oggetti utilizzati nel round precedente
-        if (selectableObjects != null)
-            DestroySceneObjects();
         //Facciamo visualizzare la main emotion al centro
         ChooseMainEmotion();
         //Spawn dei SelectableObjects in basso
@@ -133,7 +130,7 @@ public abstract class SelectionGameManager : MinigameManager
                 //Disabilitiamo i collider in modo tale da non triggerare più OnMouseOver ecc
                 s.GetComponent<Collider2D>().enabled = false;
                 //Se troviamo l'oggetto selezionato allora andiamo a settare la risposta al gioco
-                if (s.name == objectSelected.name)
+                if (s.GetEmotionType() == objectSelected.GetComponent<SelectableObject>().GetEmotionType())
                 {
                     Debug.Log("E' stata selezionata " + s.GetEmotionType());
                     SetAnswer(s.GetEmotionType());
@@ -147,6 +144,7 @@ public abstract class SelectionGameManager : MinigameManager
     //Metodo che gestisce la schermata di fine round
     protected override void EndRound()
     {
+        DestroySceneObjects();
         endRoundPanel.SetActive(true);
         UIManager.EndRoundUI(roundResult);
     }

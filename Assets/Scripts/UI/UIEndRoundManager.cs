@@ -40,22 +40,50 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     }
 
     //metodo che spawna una faccia nel gioco sopra la UI, con un certo scaling e emozioni per occhi e bocca potenzialmente diverse
-    protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion, bool correct, float scaling)
+    protected void SpawnFace(Vector3 position, Emotion eyesEmotion, Emotion mouthEmotion, bool correct, float scaling, bool iconNeeded)
     {
         GameObject face = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/FaceOverUI"), position, Quaternion.identity);
         face.transform.localScale = new Vector3(scaling, scaling, 0);
         face.transform.Find("Eyes").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Eyes/Eyes" +  eyesEmotion.ToString() );
         face.transform.Find("Mouth").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/FacePieces/Mouth/Mouth" + mouthEmotion.ToString());
-        if (correct)
-            face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/OkIcon");
-
-        else
+        if (iconNeeded)
         {
-            face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/NotOkIcon");
-            ChangeOpacity(face);
+            if (correct)
+                face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/OkIcon");
+
+            else
+            {
+                face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/NotOkIcon");
+                ChangeOpacity(face);
+            }
+        } else
+        {
+            face.transform.Find("Correct").GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
         }
 
         gameManager.answerObjectSpawned.Add(face);
+    }
+
+    //metodo che spawna una faccia nel gioco sopra la UI, con un certo scaling e emozioni per occhi e bocca potenzialmente diverse
+    protected void SpawnTextUI(Vector2 position, Emotion emotion, bool correct)
+    {
+        GameObject textUI = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/RiquadroEmozioneUI"), position, Quaternion.identity);
+        textUI.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
+        textUI.GetComponent<TextMeshProUGUI>().text = gameManager.ConvertInCorrectText(emotion.ToString());
+        Image imageComponent = textUI.transform.Find("Correct").GetComponent<Image>();
+        if (correct)
+        {
+            imageComponent.sprite = Resources.Load<Sprite>("Sprite/UI/OkIcon");
+            imageComponent.SetNativeSize();
+        }
+        else
+        {
+            imageComponent.sprite = Resources.Load<Sprite>("Sprite/UI/NotOkIcon");
+            imageComponent.SetNativeSize();
+            //ChangeOpacity(textUI);
+        }
+
+        gameManager.answerObjectSpawned.Add(textUI);
     }
 
     //metodo per diminuire l'opacita' di una risposta sbagliata

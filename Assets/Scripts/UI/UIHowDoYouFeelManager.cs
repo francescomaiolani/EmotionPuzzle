@@ -6,15 +6,15 @@ public class UIHowDoYouFeelManager : UIEndRoundManager
 {
     protected override void SetQA(bool roundResult)
     {
-        SpawnFace(new Vector3(0, 0, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.2f);
+        SpawnFace(new Vector3(0, 0, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.2f, false);
         if (roundResult)
         {
-            sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+            SpawnTextUI(new Vector2(0, -180), gameManager.GetEmotionAnswer(), true);
         }
         else
         {
-            sentencesQA[1].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
-            sentencesQA[2].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionAnswerString());
+            SpawnTextUI(new Vector2(-150, -180), gameManager.GetMainEmotion(), true);
+            SpawnTextUI(new Vector2(300, -180), gameManager.GetEmotionAnswer(), false);
         }
     }
 }
