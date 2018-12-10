@@ -29,7 +29,7 @@ public abstract class SelectionGameManager : MinigameManager
     }
 
     //Metodo che gestisce la logica del singolo round
-    protected override void StartNewRound()
+    public override void StartNewRound()
     {
         DestroyAnswerObjectSpawned();
 
@@ -142,8 +142,6 @@ public abstract class SelectionGameManager : MinigameManager
         }
         roundResult = CheckAnswer();
         EndRound();
-        Invoke("StartNewRound", 5);
-
     }
 
     //Metodo che gestisce la schermata di fine round

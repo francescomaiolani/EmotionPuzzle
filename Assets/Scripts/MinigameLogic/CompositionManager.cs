@@ -27,7 +27,7 @@ public class CompositionManager : MinigameManager {
         StartNewRound();
     }
 
-    protected override void StartNewRound() {      
+    public override void StartNewRound() {      
         endRoundPanel.SetActive(false);
         DestroySceneObjects();
         PickNewEmotion();
@@ -80,8 +80,6 @@ public class CompositionManager : MinigameManager {
         roundResult = CheckAnswer();
         Invoke("DestroySceneObjects", 1f);
         Invoke("EndRound", 1f);
-        Invoke("StartNewRound", 5);
-
     }
 
     public override bool CheckAnswer()
