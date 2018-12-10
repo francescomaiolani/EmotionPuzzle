@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HowDoYouFeelManager : SelectionGameManager
@@ -9,7 +10,10 @@ public class HowDoYouFeelManager : SelectionGameManager
 
     protected override GameObject InstantiateEmotionElement(string emotionString, Vector3 position)
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/RiquadriEmozione/riquadro" + emotionString), position, Quaternion.identity) as GameObject;
+        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/RiquadriEmozione/RiquadroEmozione"), position, Quaternion.identity) as GameObject;
+        obj.GetComponent<TextMeshProUGUI>().text = ConvertInCorrectText(emotionString);
+        obj.transform.parent = FindObjectOfType<Canvas>().transform;
+        obj.transform.localScale = new Vector3(1, 1, 1);
         return obj;
     }
 
