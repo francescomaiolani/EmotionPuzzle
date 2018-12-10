@@ -130,4 +130,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     
     }
 
+    public void NextRound() {
+        gameManager.StartNewRound();
+    }
 }

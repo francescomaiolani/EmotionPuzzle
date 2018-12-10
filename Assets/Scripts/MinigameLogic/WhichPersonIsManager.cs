@@ -26,7 +26,7 @@ public class WhichPersonIsManager : MinigameManager
         StartNewRound();
     }
 
-    protected override void StartNewRound()
+    public override void StartNewRound()
     {
         DestroyAnswerObjectSpawned();
         DestroySceneObjects();
@@ -106,13 +106,11 @@ public class WhichPersonIsManager : MinigameManager
             SetAnswer(selectebleObject.GetEmotionType());
             roundResult = false;
             Invoke("EndRound", 0.5f);
-            Invoke("StartNewRound", 5);
         }
         if (facesSelected.Count == numberOfCorrectFaces)
         {
             roundResult = true;
             Invoke("EndRound", 0.5f);
-            Invoke("StartNewRound", 5);
         }           
     }
 

@@ -25,7 +25,6 @@ public class SelectableObject : MonoBehaviour {
         startScale = transform.localScale;
         animator = gameObject.AddComponent<Animator>();
         GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animator/Pop");
-        animator.SetTrigger("Pop");
     }
 
     public void SetEmotionType(Emotion emotion)
