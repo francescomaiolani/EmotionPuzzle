@@ -1062,7 +1062,7 @@ MonoBehaviour:
   - {fileID: 1073930498}
   - {fileID: 1871652404}
   endRoundPanel: {fileID: 1398333643}
-  roundsAmount: 5
+  totalRounds: 4
   mainEmotion: 0
   answerObjectSpawned: []
   faceCentralPosition: {fileID: 539384697}

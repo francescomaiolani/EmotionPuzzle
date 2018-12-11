@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public abstract class UIEndRoundManager : MonoBehaviour {
 
@@ -131,6 +132,14 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     }
 
     public void NextRound() {
-        gameManager.StartNewRound();
+        if (gameManager.GetCurrentRound() < gameManager.GetTotalRounds())
+            gameManager.StartNewRound();
+        else
+        {
+            if (gameManager.IsPathEnabled() && SceneManager.GetActiveScene().name != "5_PhotographicEmotion")
+                LevelSelectionManager.NextGame(SceneManager.GetActiveScene());
+            else if (gameManager.IsPathEnabled())
+                LevelSelectionManager.GoToModeSelection();
+        }
     }
 }

@@ -1003,7 +1003,7 @@ MonoBehaviour:
   - {fileID: 868979206}
   - {fileID: 1073930498}
   endRoundPanel: {fileID: 946478307}
-  roundsAmount: 5
+  totalRounds: 4
   mainEmotion: 0
   answerObjectSpawned: []
   emotionType: {fileID: 1404824540}

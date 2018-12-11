@@ -27,7 +27,8 @@ public class CompositionManager : MinigameManager {
         StartNewRound();
     }
 
-    public override void StartNewRound() {      
+    public override void StartNewRound() {
+        UpdateRound();
         endRoundPanel.SetActive(false);
         DestroySceneObjects();
         PickNewEmotion();

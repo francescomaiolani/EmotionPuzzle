@@ -58,7 +58,7 @@ public class CredentialsManager : MonoBehaviour {
         {
             if (DatabaseManager.GetTherapist(usernameField.text, passwordField.text))
             {
-                SceneManager.LoadScene("MinigameSelection");
+                SceneManager.LoadScene("ModeSelection");
             } else
             {
                 errorMessage.text = "Lo username e/o la password sono sbagliati";

@@ -21,4 +21,14 @@ public class LevelSelectionManager : MonoBehaviour {
         SceneManager.LoadScene("blablabla");
     }
 
+    public static void GoToModeSelection()
+    {
+        SceneManager.LoadScene("ModeSelection");
+    }
+
+    public static void NextGame(Scene currentScene)
+    {
+        SceneManager.LoadScene(currentScene.buildIndex + 1);
+    }
+
 }

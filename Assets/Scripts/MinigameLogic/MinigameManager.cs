@@ -11,7 +11,7 @@ public abstract class MinigameManager : MonoBehaviour {
     [Header("Inserire il pannello di fine round")]
     public GameObject endRoundPanel;
     [Header("Numero di round totali")]
-    public int roundsAmount;
+    public int totalRounds;
 
     //Variabile statica che tiene conto della scelta del percoso o del minigioco singolo
     public static bool pathEnabled = false;
@@ -109,6 +109,21 @@ public abstract class MinigameManager : MonoBehaviour {
     public Emotion GetEmotionAnswer()
     {
         return emotionAnswer;
+    }
+
+    public int GetCurrentRound()
+    {
+        return currentRound;
+    }
+
+    public int GetTotalRounds()
+    {
+        return totalRounds;
+    }
+
+    public bool IsPathEnabled()
+    {
+        return pathEnabled;
     }
 
     //il font non ha la a con l'accento quindi converto con l'apostrofo
