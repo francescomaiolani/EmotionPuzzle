@@ -26,6 +26,11 @@ public class LevelSelectionManager : MonoBehaviour {
         SceneManager.LoadScene("ModeSelection");
     }
 
+    public void GoToMinigameSelection()
+    {
+        SceneManager.LoadScene("MinigameSelection");
+    }
+
     public static void NextGame(Scene currentScene)
     {
         SceneManager.LoadScene(currentScene.buildIndex + 1);
