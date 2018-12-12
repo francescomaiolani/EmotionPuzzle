@@ -140,6 +140,9 @@ public abstract class UIEndRoundManager : MonoBehaviour {
                 LevelSelectionManager.NextGame(SceneManager.GetActiveScene());
             else if (gameManager.IsPathEnabled())
                 LevelSelectionManager.GoToModeSelection();
+            else
+                LevelSelectionManager.GoToMinigameSelection();
         }
+
     }
 }
