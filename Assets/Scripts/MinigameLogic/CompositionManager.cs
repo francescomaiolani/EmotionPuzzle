@@ -147,4 +147,10 @@ public class CompositionManager : MinigameManager {
     {
         return mouthEmotionChosen;
     }
+
+    private void OnDisable()
+    {
+        Hand.piecePositioned -= CheckIfMinigameCompleted;
+
+    }
 }
