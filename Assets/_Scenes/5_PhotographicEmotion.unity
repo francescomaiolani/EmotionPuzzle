@@ -1337,7 +1337,7 @@ MonoBehaviour:
   - {fileID: 868979206}
   - {fileID: 1073930498}
   endRoundPanel: {fileID: 1158831008}
-  totalRounds: 4
+  totalRounds: 3
   mainEmotion: 0
   answerObjectSpawned: []
   photoSprite: {fileID: 865714179}

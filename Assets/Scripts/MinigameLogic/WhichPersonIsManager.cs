@@ -173,4 +173,9 @@ public class WhichPersonIsManager : MinigameManager
         UIManager.EndRoundUI(roundResult);
     }
 
+    private void OnDestroy()
+    {
+        SelectableObject.objectSelectedEvent -= CheckIfGameCompleted;
+    }
+
 }

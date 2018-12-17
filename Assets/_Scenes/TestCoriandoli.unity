@@ -150,7 +150,57 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
       propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431369961241880, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &1412076891
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -3.1393824
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -4.729506
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.09791183
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.078459114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.99691737
+      objectReference: {fileID: 0}
+    - target: {fileID: 4403414431468742, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1431369961241880, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
+      propertyPath: m_Name
+      value: Cannone SX (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 59edff4d527cd3b41aca0d9538897b77, type: 2}
@@ -192,7 +242,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4436212097393742, guid: 4ed077151cb703f44b9e04ef29144f16, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1962339288526012, guid: 4ed077151cb703f44b9e04ef29144f16, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ed077151cb703f44b9e04ef29144f16, type: 2}
