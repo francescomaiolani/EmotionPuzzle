@@ -175,7 +175,7 @@ public void startSamplingKinect(KinectSamplingMode samplingmode)
 
         for (int i = 0; i < skeletons.Length; i++)
         {
-            if (skeletons[i].SpineBase.z < zIndex)
+            if (skeletons[i].SpineBase.z < zIndex && skeletons[i].SpineBase.z != 0)
             {
                 zIndex = skeletons[i].SpineBase.z;
                 skeletonIndex = i;
@@ -183,6 +183,7 @@ public void startSamplingKinect(KinectSamplingMode samplingmode)
         }
         return skeletons[skeletonIndex];
     }
+
 /// <summary>
     /// stop the sampling for the Kinect
     /// </summary>    

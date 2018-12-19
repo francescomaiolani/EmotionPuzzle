@@ -38,13 +38,20 @@ public class Hand : MonoBehaviour {
     //la mano segue il mouse 
     void FollowMouse()
     {
-        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active) {
-            Debug.LogWarning("Hand right: " + MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight);
-            Debug.LogWarning("Hand left: " + MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandLeft);
+        Vector2 mousePositionInWorldCoordinates;
+
+        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_sampling)
+        {
+
+            mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 10;
+        }
+        else
+        {
+            mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+
         }
 
         Vector2 newPosition;
-        Vector2 mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         newPosition = new Vector2(Mathf.Lerp(transform.position.x, mousePositionInWorldCoordinates.x, lerpingFactor), Mathf.Lerp(transform.position.y, mousePositionInWorldCoordinates.y, lerpingFactor));
         transform.position = newPosition;
     }
