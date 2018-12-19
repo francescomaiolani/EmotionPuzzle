@@ -22,6 +22,9 @@ public class CredentialsManager : MonoBehaviour {
     private void Start()
     {
         LoginButtonClick();
+
+        MagicRoomKinectV2Manager.instance.setUpKinect(10, 1);
+        MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
     }
 
     public void SignupButtonClick()

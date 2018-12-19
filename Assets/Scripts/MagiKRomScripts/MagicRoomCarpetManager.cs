@@ -34,7 +34,7 @@ public class MagicRoomCarpetManager : MonoBehaviour {
     void Awake()
     {
         instance = this;
-        address = "http://192.168.31.214:7072";
+        address = "http://localhost:7072";
         cmd = new CarpetCommand();
         cmd.type = "SmartCarpetCommand";
         MagicRoomCarpetManager_active = true;

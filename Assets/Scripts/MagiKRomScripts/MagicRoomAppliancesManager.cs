@@ -34,7 +34,7 @@ private SmartPlugCommand command;
     void Awake()
     {
         instance = this;
-        address = "http://192.168.31.214:7071";
+        address = "http://localhost:7071";
         command = new SmartPlugCommand();
         command.type = "SmartPlugCommand";
         MagicRoomAppliancesManager_active = true;
