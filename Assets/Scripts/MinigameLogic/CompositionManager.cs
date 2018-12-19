@@ -39,7 +39,9 @@ public class CompositionManager : MinigameManager {
 
     private void ResetLights()
     {
-        MagicRoomLightManager.instance.sendColour(Color.yellow);
+        Color c = Color.yellow;
+        c.a = 100 / 255f;
+        MagicRoomLightManager.instance.sendColour(c);
     }
 
     protected override void SpawnSceneObjects()

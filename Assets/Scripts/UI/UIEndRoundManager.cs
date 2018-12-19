@@ -21,16 +21,22 @@ public abstract class UIEndRoundManager : MonoBehaviour {
     {
         ActivateCannon(false);
 
+        Color c; 
         if (roundResult)
         {
-            MagicRoomLightManager.instance.sendColour(Color.green);
+            c = Color.green;
+            c.a = 100 / 255f;
+            MagicRoomLightManager.instance.sendColour(c);
 
             resultSentence.text = ChangeTextToRandomColors("Hai vinto!!");
             endRoundPanel.color = new Color32(200,246,88,255);
             ActivateCannon(roundResult);
         }
         else {
-            MagicRoomLightManager.instance.sendColour(Color.red);
+
+            c = Color.red;
+            c.a = 100 / 255f;
+            MagicRoomLightManager.instance.sendColour(c);
 
             resultSentence.text = ChangeTextToRandomColors("Hai perso!!");
             endRoundPanel.color = new Color32(241, 107, 104, 255);

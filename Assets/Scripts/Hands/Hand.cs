@@ -26,12 +26,12 @@ public class Hand : MonoBehaviour {
 
     private void Start()
     {
-        currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
         droppableArea = new List<DroppableArea>();
     }
 
     // Update is called once per frame
     void Update () {
+        currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
         FollowMouse();
         CheckInputs();    
 	}
@@ -41,7 +41,7 @@ public class Hand : MonoBehaviour {
     {
         Vector2 mousePositionInWorldCoordinates;
         
-        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_sampling)
+        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
         {
             mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
         }
