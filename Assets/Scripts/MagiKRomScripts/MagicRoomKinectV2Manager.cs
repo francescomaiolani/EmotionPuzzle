@@ -168,6 +168,21 @@ public void startSamplingKinect(KinectSamplingMode samplingmode)
         StartCoroutine(sendCommand());
         
     }
+
+    public KinectBodySkeleton GetCloserSkeleton() {
+        float zIndex = Mathf.Infinity;
+        int skeletonIndex = 0;
+
+        for (int i = 0; i < skeletons.Length; i++)
+        {
+            if (skeletons[i].SpineBase.z < zIndex)
+            {
+                zIndex = skeletons[i].SpineBase.z;
+                skeletonIndex = i;
+            }
+        }
+        return skeletons[skeletonIndex];
+    }
 /// <summary>
     /// stop the sampling for the Kinect
     /// </summary>    
