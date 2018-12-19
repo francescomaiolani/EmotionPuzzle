@@ -15,6 +15,8 @@ public class Hand : MonoBehaviour {
     public SpriteRenderer spriteRenderer;
     public Sprite[] hands;
 
+    private KinectBodySkeleton currentSkeleton;
+
     protected bool dragging;
 
     public delegate void OnAdviceGiven(string advice);
@@ -23,10 +25,9 @@ public class Hand : MonoBehaviour {
     public static event OnPiecePositioned piecePositioned;
 
     private void Start()
-    {      
+    {
+        currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
         droppableArea = new List<DroppableArea>();
-        //MagicRoomKinectV2Manager.instance.setUpKinect(5, 1);
-        //MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
     }
 
     // Update is called once per frame
@@ -39,16 +40,15 @@ public class Hand : MonoBehaviour {
     void FollowMouse()
     {
         Vector2 mousePositionInWorldCoordinates;
-
+        
         if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_sampling)
         {
-
-            mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 10;
+            mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
         }
+
         else
         {
             mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-
         }
 
         Vector2 newPosition;
@@ -60,7 +60,7 @@ public class Hand : MonoBehaviour {
     protected virtual void CheckInputs() {
 
         //se sto cliccando >>> Inizia il drag
-        if (Input.GetMouseButtonDown(0))
+        if (currentSkeleton.isRightHandClosed(0.1f))
         {
             //MagicRoomLightManager.instance.sendColour(Color.blue);
             ChangeHandSprite("closed");
@@ -75,7 +75,7 @@ public class Hand : MonoBehaviour {
         }
 
         //Quando sollevo il mouse >>> inizio drop
-        else if (Input.GetMouseButtonUp(0))
+        else if (!currentSkeleton.isRightHandClosed(0.1f))
         {
             ChangeHandSprite("open");
             // se sto effettivamente trascinando qualcosa

@@ -28,12 +28,18 @@ public class CompositionManager : MinigameManager {
     }
 
     public override void StartNewRound() {
+        ResetLights();
         UpdateRound();
         endRoundPanel.SetActive(false);
         DestroySceneObjects();
         PickNewEmotion();
         UIManager.UpdateUI(this);
         SpawnSceneObjects();
+    }
+
+    private void ResetLights()
+    {
+        MagicRoomLightManager.instance.sendColour(Color.yellow);
     }
 
     protected override void SpawnSceneObjects()
