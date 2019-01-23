@@ -6,6 +6,8 @@ public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura}
 
 public abstract class MinigameManager : MonoBehaviour {
 
+    [Header("true se siamo in magicRoom")]
+    public bool inMagicRoom;
     [Header("Punti dove saranno spawnati gli oggeti de spostare")]
     public Transform[] spawnPointPositions;
     [Header("Inserire il pannello di fine round")]

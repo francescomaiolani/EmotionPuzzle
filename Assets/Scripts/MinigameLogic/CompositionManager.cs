@@ -28,7 +28,8 @@ public class CompositionManager : MinigameManager {
     }
 
     public override void StartNewRound() {
-        ResetLights();
+        if (inMagicRoom)
+            ResetLights();
         UpdateRound();
         endRoundPanel.SetActive(false);
         DestroySceneObjects();

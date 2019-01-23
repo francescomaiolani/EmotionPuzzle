@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HandCompositionGame : Hand {
+public class HandCompositionGame : Hand
+{
 
 
     //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
@@ -12,6 +13,31 @@ public class HandCompositionGame : Hand {
             GiveAdvice("Prova posizionando gli occhi sopra al naso");
         else if (type == "MOUTH")
             GiveAdvice("Prova posizionando la bocca sotto al naso");
+    }
+
+    protected override void DetectCollision()
+    {
+        RaycastHit2D[] hit = Physics2D.CircleCastAll(transform.position, 0.5f, Vector2.zero,100, LayerMask.NameToLayer("Default"));
+
+        foreach (RaycastHit2D hitShape in hit)
+        {
+            if (!dragging)
+            {
+                if (hitShape.collider.gameObject.tag == "FacePiece")
+                    pieceTaken = hitShape.collider.gameObject;
+            }
+            else
+            {
+                //se sono entrato in una droppable area
+                if (hitShape.collider.gameObject.tag == "DroppableArea")
+                {
+                    droppableArea.Add(hitShape.collider.gameObject.GetComponent<DroppableArea>());
+                }
+            }
+
+            Debug.Log(hitShape.collider.gameObject.name);
+
+        }
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hand : MonoBehaviour {
+public class Hand : MonoBehaviour
+{
 
     [Header("Vicinanza della mano con il mouse")]
     public float lerpingFactor;
     [Header("Reference al pezzo della faccia preso")]
     public GameObject pieceTaken;
-    
+
     [SerializeField]
     public List<DroppableArea> droppableArea;
 
@@ -19,6 +20,8 @@ public class Hand : MonoBehaviour {
 
     protected bool dragging;
 
+    [Header("mettere true se siamo in magicRoom")]
+    public bool inMagicRoom;
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
     public delegate void OnPiecePositioned();
@@ -30,100 +33,125 @@ public class Hand : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {
-        //if (MagicRoomKinectV2Manager.instance.GetCloserSkeleton() != null)
-            //currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
+    void Update()
+    {
         FollowMouse();
-        CheckInputs();    
-	}
+        CheckInputs();
+        DetectCollision();
+    }
 
     //la mano segue il mouse 
     void FollowMouse()
     {
         Vector2 mousePositionInWorldCoordinates;
-        
-       if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
+        if (inMagicRoom)
         {
-            mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
+            if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
+            {
+                mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
+            }
+
+            else
+            {
+                mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+            }
+
         }
 
         else
-        {
             mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
-        }
+
 
         Vector2 newPosition;
         newPosition = new Vector2(Mathf.Lerp(transform.position.x, mousePositionInWorldCoordinates.x, lerpingFactor), Mathf.Lerp(transform.position.y, mousePositionInWorldCoordinates.y, lerpingFactor));
         transform.position = newPosition;
     }
 
-    //checka ogni frame se sto premendo qualcosa
-    protected virtual void CheckInputs() {
-
-        //se sto cliccando >>> Inizia il drag
-        if (currentSkeleton.isRightHandClosed(0.1f))
+    //cose da fare quando la mano e' chiusa o quando il mouse e' cliccato
+    void Drag()
+    {
+        //MagicRoomLightManager.instance.sendColour(Color.blue);
+        ChangeHandSprite("closed");
+        //annulla el precedenti reference alle droppable area che avevi toccato
+        droppableArea.Clear();
+        //se ho un oggetto con cui ho colliso
+        if (pieceTaken != null)
         {
-            //MagicRoomLightManager.instance.sendColour(Color.blue);
-            ChangeHandSprite("closed");
-            //annulla el precedenti reference alle droppable area che avevi toccato
-            droppableArea.Clear();
-            //se ho un oggetto con cui ho colliso
-            if (pieceTaken != null)
-            {
-                pieceTaken.GetComponent<DraggableObject>().StartDragging(this.gameObject);
-                dragging = true;
-            }
+            pieceTaken.GetComponent<DraggableObject>().StartDragging(this.gameObject);
+            dragging = true;
         }
 
-        //Quando sollevo il mouse >>> inizio drop
-        else if (!currentSkeleton.isRightHandClosed(0.1f))
-        {
-            ChangeHandSprite("open");
-            // se sto effettivamente trascinando qualcosa
-            if (pieceTaken != null)
-            {
-                DraggableObject draggableComponent = pieceTaken.GetComponent<DraggableObject>();
-                if (draggableComponent.GetDroppableArea() != null)
-                {
-                    draggableComponent.GetDroppableArea().SetOccupied(false);
-                }
-
-                //se sei sopra una droppable area 
-                if (droppableArea.Count > 0)
-                {
-                    //ho trovato qualcosa?
-                    bool found = false;
-                    foreach (DroppableArea d in droppableArea)
-                    {
-                        //se e' giusta la droppable area
-                        if (draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()) && !d.GetOccupied())
-                        {
-                            DropItem(d, draggableComponent);
-                            piecePositioned();
-                            found = true;
-                        }
-                    }
-                    //se non ho trovato nessuna droppable area compatibile
-                    if (!found)
-                    {
-                        ChooseProperAdvice(draggableComponent.GetSubType());
-                        draggableComponent.StopDragging(false, null);
-                    }
-                }
-                else
-                {
-                    if (!draggableComponent.GetInCorrectPlace() && !draggableComponent.GetComesFromCorrectPosition())
-                        adviceGiven("Posiziona il pezzo sopra la faccia del ragazzo!");
-                    //altrimenti semplicemente sei fuori da una droppable area 
-                    draggableComponent.StopDragging(false, null);                  
-                }
-
-                pieceTaken = null;
-                dragging = false;
-            }
-        }
     }
 
+    //cose da fare quando il mouse viene rilasciato o quando la mano di apre
+    void Drop()
+    {
+        ChangeHandSprite("open");
+        // se sto effettivamente trascinando qualcosa
+        if (pieceTaken != null)
+        {
+            DraggableObject draggableComponent = pieceTaken.GetComponent<DraggableObject>();
+            if (draggableComponent.GetDroppableArea() != null)
+            {
+                draggableComponent.GetDroppableArea().SetOccupied(false);
+            }
+
+            //se sei sopra una droppable area 
+            if (droppableArea.Count > 0)
+            {
+                //ho trovato qualcosa?
+                bool found = false;
+                foreach (DroppableArea d in droppableArea)
+                {
+                    //se e' giusta la droppable area
+                    if (draggableComponent.CheckIfCorrectDropArea(d.GetMainType(), d.GetSubType()) && !d.GetOccupied())
+                    {
+                        DropItem(d, draggableComponent);
+                        piecePositioned();
+                        found = true;
+                    }
+                }
+                //se non ho trovato nessuna droppable area compatibile
+                if (!found)
+                    draggableComponent.StopDragging(false, null);
+
+            }
+            else
+                //altrimenti semplicemente sei fuori da una droppable area 
+                draggableComponent.StopDragging(false, null);
+
+            //alla fine comunque vada non hai piu' un pezzo da draggare e non stai draggando
+            pieceTaken = null;
+            dragging = false;
+        }
+
+    }
+
+    //checka ogni frame se sto premendo qualcosa
+    protected virtual void CheckInputs()
+    {
+        //non bella soluzione ma serve a noi per differenziare se siamo nella magic room o no
+        if (inMagicRoom)
+        {
+            //se sto cliccando >>> Inizia il drag
+            if (currentSkeleton.isRightHandClosed(0.1f))
+                Drag();
+
+            //Quando sollevo il mouse >>> inizio drop
+            else if (!currentSkeleton.isRightHandClosed(0.1f))
+                Drop();
+        }
+
+        else
+        {
+            if (Input.GetMouseButtonDown(0))
+                Drag();
+            else if (Input.GetMouseButtonUp(0))
+                Drop();
+        }
+    }
+    //lancia un circle raycast per vedere se ho colliso con qualche item
+    protected virtual void DetectCollision() { }
     //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
     protected virtual void ChooseProperAdvice(string type) { }
 

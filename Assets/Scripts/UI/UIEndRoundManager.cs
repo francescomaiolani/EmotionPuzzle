@@ -28,7 +28,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
             c.a = 100 / 255f;
             MagicRoomLightManager.instance.sendColour(c);
 
-            resultSentence.text = ChangeTextToRandomColors("Hai vinto!!");
+            resultSentence.text = ChangeTextToRandomColors("Corretto!!");
             endRoundPanel.color = new Color32(200,246,88,255);
             ActivateCannon(roundResult);
         }
@@ -38,7 +38,7 @@ public abstract class UIEndRoundManager : MonoBehaviour {
             c.a = 100 / 255f;
             MagicRoomLightManager.instance.sendColour(c);
 
-            resultSentence.text = ChangeTextToRandomColors("Hai perso!!");
+            resultSentence.text = ChangeTextToRandomColors("Riprova");
             endRoundPanel.color = new Color32(241, 107, 104, 255);
         }
            
