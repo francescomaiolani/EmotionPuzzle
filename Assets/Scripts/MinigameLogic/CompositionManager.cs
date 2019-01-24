@@ -22,7 +22,7 @@ public class CompositionManager : MinigameManager {
 
     void Start() {
         UIManager = FindObjectOfType<UICompositionManager>();
-        Hand.piecePositioned += CheckIfMinigameCompleted;
+        HandCompositionGame.piecePositioned += CheckIfMinigameCompleted;
         answerObjectSpawned = new List<GameObject>();
         StartNewRound();
     }
@@ -159,7 +159,7 @@ public class CompositionManager : MinigameManager {
 
     private void OnDisable()
     {
-        Hand.piecePositioned -= CheckIfMinigameCompleted;
+        HandCompositionGame.piecePositioned -= CheckIfMinigameCompleted;
 
     }
 }
