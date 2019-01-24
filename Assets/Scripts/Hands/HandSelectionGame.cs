@@ -7,11 +7,6 @@ public class HandSelectionGame : Hand
 
 	SelectableObject objectSelected;
 
-	void Update ()
-	{
-		CheckInputs ();
-	}
-
 	//gli inputs vanno overridati perhe' non e' piu' un drag 
 	protected override void CheckInputs ()
 	{
@@ -34,6 +29,10 @@ public class HandSelectionGame : Hand
 	//da implementare ancora
 	protected void SelectObject ()
 	{
+		if (objectSelected != null)
+			Debug.Log ("Ho selezionato" + objectSelected.name);
+		else
+			Debug.Log ("nessun oggetto selezionato");
 
 	}
 
