@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 49407793}
   - component: {fileID: 49407792}
   - component: {fileID: 49407791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -703,7 +703,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position4
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -731,7 +731,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position1
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1279,6 +1279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93adc0600e1ca7440a459679f37310d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inMagicRoom: 0
   spawnPointPositions:
   - {fileID: 265224293}
   - {fileID: 1601628652}
@@ -1931,7 +1932,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position3
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2190,7 +2191,7 @@ GameObject:
   m_Layer: 0
   m_Name: Position2
   m_TagString: Untagged
-  m_Icon: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
