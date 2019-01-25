@@ -8,6 +8,12 @@ public class HandSelectionGame : Hand
 	public delegate void OnSelectableObjectClicked (SelectableObject selectableObject);
 	public static event OnSelectableObjectClicked SelectableObjectClicked;
 
+	public delegate void OnSelectableObjectEnter (SelectableObject selectableObject);
+	public static event OnSelectableObjectEnter SelectableObjectEnter;
+
+	public delegate void OnSelectableObjectExit (SelectableObject selectableObject);
+	public static event OnSelectableObjectExit SelectableObjectExit;
+
 	[SerializeField]
 	private SelectableObject objectSelected;
 
@@ -51,7 +57,10 @@ public class HandSelectionGame : Hand
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)
+			{
 				objectSelected = collision.gameObject.GetComponent<SelectableObject> ();
+				SelectableObjectEnter (objectSelected);
+			}
 		}
 	}
 
@@ -62,7 +71,10 @@ public class HandSelectionGame : Hand
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)
+			{
+				SelectableObjectExit (objectSelected);
 				objectSelected = null;
+			}
 		}
 	}
 

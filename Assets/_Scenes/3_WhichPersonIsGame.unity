@@ -233,12 +233,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lerpingFactor: 0.4
-  pieceTaken: {fileID: 0}
-  droppableArea: []
   spriteRenderer: {fileID: 49407794}
   hands:
   - {fileID: 21300000, guid: 4cb47322e86a66446bbfa06ec1e2e4a6, type: 3}
   - {fileID: 21300000, guid: ac421eb75cd2eab47a4d348614bae86d, type: 3}
+  dragging: 0
+  droppableArea: []
 --- !u!58 &49407793
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1057,7 +1057,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32
   m_MaxRayIntersections: 0
 --- !u!20 &519420031
 Camera:
@@ -1197,6 +1197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71d8eaf19a5df34db180c28160159d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inMagicRoom: 0
   spawnPointPositions:
   - {fileID: 265224293}
   - {fileID: 1601628652}

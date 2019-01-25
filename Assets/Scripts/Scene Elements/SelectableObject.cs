@@ -26,6 +26,9 @@ public class SelectableObject : MonoBehaviour
         startScale = transform.localScale;
         animator = gameObject.AddComponent<Animator> ();
         HandSelectionGame.SelectableObjectClicked += ObjectSelected;
+        HandSelectionGame.SelectableObjectEnter += OnHandEnter;
+        HandSelectionGame.SelectableObjectExit += OnHandExit;
+
         GetComponent<Animator> ().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController> ("Animator/Pop");
     }
 
@@ -34,16 +37,16 @@ public class SelectableObject : MonoBehaviour
         emotionType = emotion;
     }
 
-    public void OnMouseEnter ()
+    public void OnHandEnter (SelectableObject obj)
     {
-        animator.SetTrigger ("PopUp");
+        if (obj == this && !selected)
+            animator.SetTrigger ("PopUp");
     }
 
-    private void OnMouseExit ()
+    private void OnHandExit (SelectableObject obj)
     {
-        if (!selected)
+        if (obj == this && !selected)
             animator.SetTrigger ("PopDown");
-
     }
 
     //Metodo che viene chiamato nel momento in cui si seleziona un oggetto
@@ -73,6 +76,8 @@ public class SelectableObject : MonoBehaviour
     private void OnDisable ()
     {
         HandSelectionGame.SelectableObjectClicked -= ObjectSelected;
+        HandSelectionGame.SelectableObjectEnter -= OnHandEnter;
+        HandSelectionGame.SelectableObjectExit -= OnHandExit;
 
     }
 

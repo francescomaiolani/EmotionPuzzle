@@ -6,7 +6,7 @@ public class Hand : MonoBehaviour
 {
     [Header ("Vicinanza della mano con il mouse")]
     public float lerpingFactor;
-  
+
     public SpriteRenderer spriteRenderer;
     public Sprite[] hands;
     protected KinectBodySkeleton currentSkeleton;
@@ -17,13 +17,15 @@ public class Hand : MonoBehaviour
     //layer per la collisione della mano
     protected LayerMask layerToDetectCollision;
 
+    protected Rigidbody2D rigid;
+
 
     public delegate void OnAdviceGiven (string advice);
     public static event OnAdviceGiven adviceGiven;
-    
 
     protected virtual void Start ()
-    {      
+    {
+        rigid = GetComponent<Rigidbody2D> ();
         layerToDetectCollision = LayerMask.GetMask ("Default");
 
         if (MagicRoomKinectV2Manager.instance != null)
@@ -34,7 +36,7 @@ public class Hand : MonoBehaviour
 
     // Nella routine di ogni mano devono essere eseguiti gli step di :
     //segui mouse o mano reale
-    void Update ()
+    void LateUpdate ()
     {
         FollowMouseOrKinectHand ();
         CheckInputs ();
@@ -54,9 +56,10 @@ public class Hand : MonoBehaviour
         }
         else
             mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, 0));
+
         Vector2 newPosition;
         newPosition = new Vector2 (Mathf.Lerp (transform.position.x, mousePositionInWorldCoordinates.x, lerpingFactor), Mathf.Lerp (transform.position.y, mousePositionInWorldCoordinates.y, lerpingFactor));
-        transform.position = newPosition;
+        rigid.MovePosition (newPosition);
     }
 
     //metodo implementato effettivamente nelle classi derivate perche' ogni mano ha un suo modo di gestire gli input

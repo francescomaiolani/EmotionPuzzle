@@ -37,7 +37,8 @@ public abstract class UIEndRoundManager : MonoBehaviour
         {
             c = Color.green;
             c.a = 100 / 255f;
-            MagicRoomLightManager.instance.sendColour (c);
+            if (inMagicRoom)
+                MagicRoomLightManager.instance.sendColour (c);
 
             resultSentence.text = ChangeTextToRandomColors ("Corretto!!");
             endRoundPanel.color = new Color32 (200, 246, 88, 255);
@@ -45,7 +46,6 @@ public abstract class UIEndRoundManager : MonoBehaviour
         }
         else
         {
-
             c = Color.red;
             c.a = 100 / 255f;
             if (inMagicRoom)
@@ -71,7 +71,7 @@ public abstract class UIEndRoundManager : MonoBehaviour
         face.transform.localScale = new Vector3 (scaling, scaling, 0);
         face.transform.Find ("Eyes").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprite/FacePieces/Eyes/Eyes" + eyesEmotion.ToString ());
         face.transform.Find ("Mouth").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprite/FacePieces/Mouth/Mouth" + mouthEmotion.ToString ());
-        
+
         if (iconNeeded)
         {
             if (correct)
@@ -83,9 +83,9 @@ public abstract class UIEndRoundManager : MonoBehaviour
                 ChangeOpacity (face);
             }
         }
-        else  
+        else
             face.transform.Find ("Correct").GetComponent<SpriteRenderer> ().color = new Color (1, 1, 1, 0);
-        
+
 
         gameManager.answerObjectSpawned.Add (face);
     }
