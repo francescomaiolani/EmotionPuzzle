@@ -10,6 +10,7 @@ public class Hand : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Sprite[] hands;
     protected KinectBodySkeleton currentSkeleton;
+    [SerializeField]
     protected bool dragging;
     //[Header("mettere true se siamo in magicRoom")]
     protected bool inMagicRoom;

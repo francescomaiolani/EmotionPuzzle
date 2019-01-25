@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectableObject : MonoBehaviour {
+public class SelectableObject : MonoBehaviour
+{
 
     [SerializeField]
     private Emotion emotionType;
@@ -16,56 +17,64 @@ public class SelectableObject : MonoBehaviour {
 
     private Animator animator;
 
-    public delegate void OnObjectSelected(GameObject objectSelected);
+    public delegate void OnObjectSelected (GameObject objectSelected);
     public static event OnObjectSelected objectSelectedEvent;
 
-    public void Start()
+    public void Start ()
     {
         selected = false;
         startScale = transform.localScale;
-        animator = gameObject.AddComponent<Animator>();
-        GetComponent<Animator>().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("Animator/Pop");
+        animator = gameObject.AddComponent<Animator> ();
+        HandSelectionGame.SelectableObjectClicked += ObjectSelected;
+        GetComponent<Animator> ().runtimeAnimatorController = Resources.Load<RuntimeAnimatorController> ("Animator/Pop");
     }
 
-    public void SetEmotionType(Emotion emotion)
+    public void SetEmotionType (Emotion emotion)
     {
         emotionType = emotion;
     }
 
-    public void OnMouseEnter()
+    public void OnMouseEnter ()
     {
-        animator.SetTrigger("PopUp");
+        animator.SetTrigger ("PopUp");
     }
 
-    private void OnMouseExit()
+    private void OnMouseExit ()
     {
         if (!selected)
-            animator.SetTrigger("PopDown");
+            animator.SetTrigger ("PopDown");
 
     }
 
     //Metodo che viene chiamato nel momento in cui si seleziona un oggetto
-    private void OnMouseDown()
+    private void ObjectSelected (SelectableObject obj)
     {
-        if (!selected) {
+        Debug.Log ("Event received");
+        if (obj == this && !selected)
+        {
             selected = true;
             animator.enabled = false;
-            objectSelectedEvent(this.gameObject);
-        }      
+            objectSelectedEvent (this.gameObject);
+        }
     }
 
-    public bool isSelected()
+    public bool isSelected ()
     {
         if (selected)
             return true;
         else
             return false;
     }
-    public Emotion GetEmotionType()
+    public Emotion GetEmotionType ()
     {
         return this.emotionType;
     }
 
+    private void OnDisable ()
+    {
+        HandSelectionGame.SelectableObjectClicked -= ObjectSelected;
+
+    }
 
     //public static void DisableColliders()
     //{

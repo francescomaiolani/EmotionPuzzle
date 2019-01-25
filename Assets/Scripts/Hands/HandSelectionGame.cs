@@ -5,7 +5,11 @@ using UnityEngine;
 public class HandSelectionGame : Hand
 {
 
-	SelectableObject objectSelected;
+	public delegate void OnSelectableObjectClicked (SelectableObject selectableObject);
+	public static event OnSelectableObjectClicked SelectableObjectClicked;
+
+	[SerializeField]
+	private SelectableObject objectSelected;
 
 	//gli inputs vanno overridati perhe' non e' piu' un drag 
 	protected override void CheckInputs ()
@@ -29,8 +33,13 @@ public class HandSelectionGame : Hand
 	//da implementare ancora
 	protected void SelectObject ()
 	{
+		//se sono posizionato con la mano sopra un'oggetto selzionabile e ho cliccato allora invia il messaggio che ho selezionato 
 		if (objectSelected != null)
+		{
 			Debug.Log ("Ho selezionato" + objectSelected.name);
+			SelectableObjectClicked (objectSelected);
+		}
+
 		else
 			Debug.Log ("nessun oggetto selezionato");
 
@@ -38,6 +47,7 @@ public class HandSelectionGame : Hand
 
 	protected override void OnTriggerEnter2D (Collider2D collision)
 	{
+		Debug.Log ("Entrato in un selectable");
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)
@@ -47,6 +57,8 @@ public class HandSelectionGame : Hand
 
 	protected override void OnTriggerExit2D (Collider2D collision)
 	{
+		Debug.Log ("Uscito in un selectable");
+
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)

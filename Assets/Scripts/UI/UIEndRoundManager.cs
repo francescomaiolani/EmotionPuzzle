@@ -24,8 +24,6 @@ public abstract class UIEndRoundManager : MonoBehaviour
             inMagicRoom = true;
         else
             inMagicRoom = false;
-
-        Debug.Log (MagicRoomKinectV2Manager.instance);
     }
 
     protected abstract void SetQA (bool roundResult);
