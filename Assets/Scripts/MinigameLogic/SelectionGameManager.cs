@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public abstract class SelectionGameManager : MinigameManager
 {
-
+    
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
     private SelectableObject[] selectableObjects;
