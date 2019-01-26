@@ -43,7 +43,7 @@ public class AvatarCreationManager : MonoBehaviour
 
 		skinColorDictionary.Add ("PaleWhite", new Color32 ());
 		skinColorDictionary.Add ("White", new Color32 ());
-		skinColorDictionary.Add ("SouthWhite", new Color32 ());
+		skinColorDictionary.Add ("SouthWhite", new Color32 (250, 191, 133, 255));
 		skinColorDictionary.Add ("Olive", new Color32 ());
 		skinColorDictionary.Add ("Brown", new Color32 ());
 		skinColorDictionary.Add ("Dark", new Color32 ());
@@ -54,11 +54,11 @@ public class AvatarCreationManager : MonoBehaviour
 		eyesColorDictionary.Add ("Brown", new Color32 ());
 		eyesColorDictionary.Add ("Black", new Color32 ());
 
-		hairColorDictionary.Add ("DarkBrown", new Color32 ());
-		hairColorDictionary.Add ("LightBrown", new Color32 ());
-		hairColorDictionary.Add ("Black", new Color32 ());
-		hairColorDictionary.Add ("Blonde", new Color32 ());
-		hairColorDictionary.Add ("Red", new Color32 ());
+		hairColorDictionary.Add ("DarkBrown", new Color32 (104, 82, 61, 255));
+		hairColorDictionary.Add ("LightBrown", new Color32 (152, 108, 68, 255));
+		hairColorDictionary.Add ("Black", new Color32 (61, 52, 48, 255));
+		hairColorDictionary.Add ("Blonde", new Color32 (255, 217, 81, 255));
+		hairColorDictionary.Add ("Red", new Color32 (255, 131, 66, 255));
 	}
 
 	//assegna all'avatar dei valori di default
@@ -110,7 +110,7 @@ public class AvatarCreationManager : MonoBehaviour
 
 	public void AssignHairStyle (string hairName)
 	{
-		avatarHair.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprite/Hair" + hairName);
+		avatarHair.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Hair/" + hairName);
 	}
 
 	public void AssignHairColor (string hairColorName)
