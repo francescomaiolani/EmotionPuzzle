@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public struct AvatarSettings
 {
@@ -25,6 +26,11 @@ public class AvatarCreationManager : MonoBehaviour
 	//le avatar settings assegnate da salvare con l'utente
 	AvatarSettings avatarSettings;
 
+	//messaggio in alto per indicare all'utente cosa fare
+	[SerializeField]
+	private TextMeshProUGUI message;
+	private Dictionary<GameObject, string> panelMessage;
+
 
 	#region methods
 
@@ -32,6 +38,7 @@ public class AvatarCreationManager : MonoBehaviour
 	{
 		//settaggio avatar da salvare successivamente
 		avatarSettings = new AvatarSettings ();
+		Instantiate (Resources.Load<GameObject> ("Prefab/HandSelection"), Vector2.zero, Quaternion.identity);
 
 		InitializeDictionaries ();
 		//inizializza la faccia avatar a uno stato di default
@@ -51,6 +58,13 @@ public class AvatarCreationManager : MonoBehaviour
 	//inizializza i valori dei dictionaries dei colori 
 	void InitializeDictionaries ()
 	{
+		panelMessage = new Dictionary<GameObject, string> ();
+		panelMessage.Add (genderSelectionPanel, "Sei un maschio o una femmina?");
+		panelMessage.Add (skinColorPanel, "Di che colore e' la tua pelle?");
+		panelMessage.Add (hairColorPanel, "Di che colore sono i tuoi capelli?");
+		panelMessage.Add (hairStylePanel, "Come sono i tuoi capelli?");
+		panelMessage.Add (eyesColorPanel, "Di che colore sono i tuoi occhi?");
+
 		skinColorDictionary = new Dictionary<string, Color32> ();
 		eyesColorDictionary = new Dictionary<string, Color32> ();
 		hairColorDictionary = new Dictionary<string, Color32> ();
@@ -68,7 +82,6 @@ public class AvatarCreationManager : MonoBehaviour
 		hairColorDictionary.Add ("Red", new Color32 (255, 131, 66, 255));
 
 		eyesColorDictionary.Add ("LightBlue", new Color32 ());
-		eyesColorDictionary.Add ("Blue", new Color32 ());
 		eyesColorDictionary.Add ("Green", new Color32 ());
 		eyesColorDictionary.Add ("Brown", new Color32 ());
 		eyesColorDictionary.Add ("Black", new Color32 ());
@@ -103,6 +116,9 @@ public class AvatarCreationManager : MonoBehaviour
 		if (currentPanelIndex < panels.Count)
 		{
 			panels[currentPanelIndex].SetActive (true);
+			//assegna il testo a seconda del pannello in cui siamo e lo colora random
+			message.text = UIEndRoundManager.ChangeTextToRandomColors (panelMessage[panels[currentPanelIndex]]);
+
 			//incrementa l'indice del pannello attuale
 			currentPanelIndex++;
 		}

@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 
 public abstract class UIEndRoundManager : MonoBehaviour
 {
-
     public Image endRoundPanel;
     public Image[] imagesQA;
     public Text[] sentencesQA;
@@ -121,7 +120,7 @@ public abstract class UIEndRoundManager : MonoBehaviour
     }
 
     //metodo che converte una stringa in multicolore
-    public string ChangeTextToRandomColors (string text)
+    public static string ChangeTextToRandomColors (string text)
     {
         int currentColor;
         int previousColor = 0;
@@ -155,7 +154,6 @@ public abstract class UIEndRoundManager : MonoBehaviour
         }
 
         return coloredString;
-
     }
 
     public void NextRound ()
