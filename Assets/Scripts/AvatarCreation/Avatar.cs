@@ -5,6 +5,7 @@ using UnityEngine;
 public class Avatar : MonoBehaviour
 {
 
+	private string[] maleHairNames, femaleHairNames, skinColorNames, eyesColorNames, hairColorNames;
 	public delegate void OnFaceReady ();
 	public event OnFaceReady FaceReady;
 	[SerializeField]
@@ -14,34 +15,39 @@ public class Avatar : MonoBehaviour
 
 	void Start ()
 	{
-		InitializeDictionaries ();
+		InitializeDictionariesAndArrays ();
 		FaceReady ();
 	}
 
 	//inizializza i valori dei dictionaries dei colori 
-	void InitializeDictionaries ()
+	void InitializeDictionariesAndArrays ()
 	{
+		maleHairNames = new string[] { "Corti", "Medi", "Ricci", "Pelato", "Ciuffo" };
+		femaleHairNames = new string[] { "Corti", "Medi", "CortiRicci", "Ricci", "Lunghi" };
+		skinColorNames = new string[] { "PaleWhite", "White", "Olive", "Brown", "Dark", };
+		hairColorNames = new string[] { "DarkBrown", "LightBrown", "Black", "Blonde", "Red", };
+		eyesColorNames = new string[] { "LightBlue", "Green", "Brown", "Black" };
+
 		skinColorDictionary = new Dictionary<string, Color32> ();
 		eyesColorDictionary = new Dictionary<string, Color32> ();
 		hairColorDictionary = new Dictionary<string, Color32> ();
 
-		skinColorDictionary.Add ("PaleWhite", new Color32 (255, 208, 160, 255));
-		skinColorDictionary.Add ("White", new Color32 (250, 191, 133, 255));
-		skinColorDictionary.Add ("Olive", new Color32 (239, 192, 107, 255));
-		skinColorDictionary.Add ("Brown", new Color32 (176, 139, 77, 255));
-		skinColorDictionary.Add ("Dark", new Color32 (118, 100, 67, 255));
+		skinColorDictionary.Add (skinColorNames[0], new Color32 (255, 208, 160, 255));
+		skinColorDictionary.Add (skinColorNames[1], new Color32 (250, 191, 133, 255));
+		skinColorDictionary.Add (skinColorNames[2], new Color32 (239, 192, 107, 255));
+		skinColorDictionary.Add (skinColorNames[3], new Color32 (176, 139, 77, 255));
+		skinColorDictionary.Add (skinColorNames[4], new Color32 (118, 100, 67, 255));
 
-		hairColorDictionary.Add ("DarkBrown", new Color32 (104, 82, 61, 255));
-		hairColorDictionary.Add ("LightBrown", new Color32 (152, 108, 68, 255));
-		hairColorDictionary.Add ("Black", new Color32 (61, 52, 48, 255));
-		hairColorDictionary.Add ("Blonde", new Color32 (255, 217, 81, 255));
-		hairColorDictionary.Add ("Red", new Color32 (255, 131, 66, 255));
+		hairColorDictionary.Add (hairColorNames[0], new Color32 (104, 82, 61, 255));
+		hairColorDictionary.Add (hairColorNames[1], new Color32 (152, 108, 68, 255));
+		hairColorDictionary.Add (hairColorNames[2], new Color32 (61, 52, 48, 255));
+		hairColorDictionary.Add (hairColorNames[3], new Color32 (255, 217, 81, 255));
+		hairColorDictionary.Add (hairColorNames[4], new Color32 (255, 131, 66, 255));
 
-		eyesColorDictionary.Add ("LightBlue", new Color32 (115, 183, 167, 255));
-		eyesColorDictionary.Add ("Green", new Color32 (136, 183, 65, 255));
-		eyesColorDictionary.Add ("Brown", new Color32 (94, 69, 45, 255));
-		eyesColorDictionary.Add ("Black", new Color32 (60, 60, 60, 255));
-
+		eyesColorDictionary.Add (eyesColorNames[0], new Color32 (115, 183, 167, 255));
+		eyesColorDictionary.Add (eyesColorNames[1], new Color32 (136, 183, 65, 255));
+		eyesColorDictionary.Add (eyesColorNames[2], new Color32 (94, 69, 45, 255));
+		eyesColorDictionary.Add (eyesColorNames[3], new Color32 (60, 60, 60, 255));
 	}
 
 	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE
@@ -52,6 +58,23 @@ public class Avatar : MonoBehaviour
 		AssignHairStyle (gender, hairStyle);
 		AssignHairColor (hairColor);
 		AssignEyesColor (eyesColor);
+	}
+
+	public void CreateRandomFace ()
+	{
+		Gender[] genders = new Gender[] { Gender.Male, Gender.Female };
+		Gender randomGender = genders[Random.Range (0, 2)];
+
+		AssignGender (randomGender.ToString ());
+		AssignSkinColor (skinColorNames[Random.Range (0, skinColorNames.Length)]);
+		if (randomGender == Gender.Male)
+			AssignHairStyle (randomGender, maleHairNames[Random.Range (0, maleHairNames.Length)]);
+		else if (randomGender == Gender.Female)
+			AssignHairStyle (randomGender, femaleHairNames[Random.Range (0, femaleHairNames.Length)]);
+			
+		AssignHairColor (hairColorNames[Random.Range(0,hairColorNames.Length)]);
+		AssignEyesColor (eyesColorNames[Random.Range(0,eyesColorNames.Length)]);
+
 	}
 
 	//METODI CHE ASSEGNANO I VALORI GIUSTI ALLE COMPONENTI
