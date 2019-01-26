@@ -6,17 +6,17 @@ using UnityEngine.UI;
 public class GuessExpressionManager : SelectionGameManager
 {
 
-    [Header("Riquadro dell'interfaccia dove viene salvata l'emotion principale")]
+    [Header ("Riquadro dell'interfaccia dove viene salvata l'emotion principale")]
     public Text emotionType;
 
-    protected override void SetupCentralEmotion()
+    protected override void SetupCentralEmotion ()
     {
 
-        emotionType.text = ConvertInCorrectText(GetEmotionString());
+        emotionType.text = ConvertInCorrectText (GetEmotionString ());
     }
-    protected override GameObject InstantiateEmotionElement(string emotionString, Vector3 position)
+    protected override GameObject InstantiateEmotionElement (string emotionString, Vector3 position)
     {
-        GameObject obj = Instantiate(Resources.Load<GameObject>("Prefab/SelectableObject/Faces/face" + emotionString), position, Quaternion.identity);
+        GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/SelectableObject/Faces/face" + emotionString), position, Quaternion.identity);
         return obj;
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class SelectableObject : MonoBehaviour
 {
-
     [SerializeField]
     private Emotion emotionType;
     //Variabile per dirci se l'oggetto è stato scelto oppure no
@@ -80,18 +79,4 @@ public class SelectableObject : MonoBehaviour
         HandSelectionGame.SelectableObjectExit -= OnHandExit;
 
     }
-
-    //public static void DisableColliders()
-    //{
-    //    SelectableObject[] selectableObjects = FindObjectsOfType<SelectableObject>();
-    //    foreach (SelectableObject s in selectableObjects)
-    //        s.GetComponent<Collider2D>().enabled = false;
-    //}
-
-    //private static void EnableColliders()
-    //{
-    //    SelectableObject[] selectableObjects = FindObjectsOfType<SelectableObject>();
-    //    foreach (SelectableObject s in selectableObjects)
-    //        s.GetComponent<Collider2D>().enabled = true;
-    //}
 }

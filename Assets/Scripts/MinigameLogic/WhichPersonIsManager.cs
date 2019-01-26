@@ -23,7 +23,7 @@ public class WhichPersonIsManager : MinigameManager
         //istanzia la mano per la selezione
         GameObject selectionHand = Resources.Load<GameObject> ("Prefab/HandSelection");
         Instantiate (selectionHand, Vector2.zero, Quaternion.identity);
-        
+
         UIManager = FindObjectOfType<UIWhichPersonIsManager> ();
         facesSelected = new List<GameObject> ();
         SelectableObject.objectSelectedEvent += CheckIfGameCompleted;

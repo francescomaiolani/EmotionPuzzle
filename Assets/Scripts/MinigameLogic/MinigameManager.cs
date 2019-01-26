@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura}
+public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura }
 
-public abstract class MinigameManager : MonoBehaviour {
+public abstract class MinigameManager : MonoBehaviour
+{
 
-    [Header("true se siamo in magicRoom")]
+    [Header ("true se siamo in magicRoom")]
     public bool inMagicRoom;
-    [Header("Punti dove saranno spawnati gli oggeti de spostare")]
+    [Header ("Punti dove saranno spawnati gli oggeti de spostare")]
     public Transform[] spawnPointPositions;
-    [Header("Inserire il pannello di fine round")]
+    [Header ("Inserire il pannello di fine round")]
     public GameObject endRoundPanel;
-    [Header("Numero di round totali")]
+    [Header ("Numero di round totali")]
     public int totalRounds;
 
     //Variabile statica che tiene conto della scelta del percoso o del minigioco singolo
@@ -31,105 +32,106 @@ public abstract class MinigameManager : MonoBehaviour {
 
     // verosimilmente in ogni minigioco degli oggetti andranno spawnati 
     //ossia tutti quei pezzi tra cui scegliere ecc..
-    protected abstract void SpawnSceneObjects();
-    protected abstract void DestroySceneObjects();
-    public abstract void StartNewRound();
-    protected abstract void EndRound();
+    protected abstract void SpawnSceneObjects ();
+    protected abstract void DestroySceneObjects ();
+    public abstract void StartNewRound ();
+    protected abstract void EndRound ();
     //protected abstract void CheckIfMinigameCompleted();
 
     //Metodo per scegliere un'emozione tra quelle disponibili
-    protected void PickNewEmotion()
+    protected void PickNewEmotion ()
     {
         //seleziona un'emozione a caso
-        int randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-        mainEmotion = (Emotion)randomEmotion;
+        int randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        mainEmotion = (Emotion) randomEmotion;
     }
 
     //metodo che ritorna un'emozione che non e' quella corretta in modo da assegnare un'emozione random agli altri pezzi sbagliati
-    protected Emotion PickNotMainEmotion(Emotion main)
+    protected Emotion PickNotMainEmotion (Emotion main)
     {
-        int randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-        Emotion chosenEmotion = (Emotion)randomEmotion;
+        int randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        Emotion chosenEmotion = (Emotion) randomEmotion;
 
         while (chosenEmotion == mainEmotion)
         {
-            randomEmotion = Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
-            chosenEmotion = (Emotion)randomEmotion;
+            randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+            chosenEmotion = (Emotion) randomEmotion;
         }
 
         return chosenEmotion;
     }
 
     //Metodo che aumenta il contatore dei round
-    protected void UpdateRound()
+    protected void UpdateRound ()
     {
         currentRound += 1;
     }
 
     //Metodo che si occupa di controllare l'esito della selezione di una risposta
-    public virtual bool CheckAnswer()
+    public virtual bool CheckAnswer ()
     {
         if (emotionAnswer == mainEmotion)
             return true;
         else
             return false;
     }
-   
+
     // metodo che distrugge tutte le istanze delle risposte create. Da invocare ad ogni start round
-    protected void DestroyAnswerObjectSpawned() {
+    protected void DestroyAnswerObjectSpawned ()
+    {
         if (answerObjectSpawned.Count != 0)
         {
             for (int i = 0; i < answerObjectSpawned.Count; i++)
             {
-                Destroy(answerObjectSpawned[i]);
+                Destroy (answerObjectSpawned[i]);
             }
-            answerObjectSpawned.Clear();
+            answerObjectSpawned.Clear ();
         }
     }
-       
+
     //Metodo che salva la risposta data dall'utente
-    public void SetAnswer(Emotion e)
+    public void SetAnswer (Emotion e)
     {
         emotionAnswer = e;
     }
 
-    public string GetEmotionString()
+    public string GetEmotionString ()
     {
-        return mainEmotion.ToString();
+        return mainEmotion.ToString ();
     }
 
-    public Emotion GetMainEmotion()
+    public Emotion GetMainEmotion ()
     {
         return mainEmotion;
     }
 
-    public string GetEmotionAnswerString()
+    public string GetEmotionAnswerString ()
     {
-        return emotionAnswer.ToString();
+        return emotionAnswer.ToString ();
     }
 
-    public Emotion GetEmotionAnswer()
+    public Emotion GetEmotionAnswer ()
     {
         return emotionAnswer;
     }
 
-    public int GetCurrentRound()
+    public int GetCurrentRound ()
     {
         return currentRound;
     }
 
-    public int GetTotalRounds()
+    public int GetTotalRounds ()
     {
         return totalRounds;
     }
 
-    public bool IsPathEnabled()
+    public bool IsPathEnabled ()
     {
         return pathEnabled;
     }
 
     //il font non ha la a con l'accento quindi converto con l'apostrofo
-    public string ConvertInCorrectText(string emotion)
+    public string ConvertInCorrectText (string emotion)
     {
         if (emotion == "Felicità")
             return "Felicita'";

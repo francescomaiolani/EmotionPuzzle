@@ -1363,7 +1363,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &702002337
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3158,9 +3158,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   genderSelectionPanel: {fileID: 1266311850}
   skinColorPanel: {fileID: 924146256}
-  hairStylePanel: {fileID: 1996139597}
+  hairStylePanel: {fileID: 592848782}
   hairColorPanel: {fileID: 768479880}
-  eyesColorPanel: {fileID: 1996139597}
+  eyesColorPanel: {fileID: 702002336}
   avatarFace: {fileID: 802081826}
   avatarEyesColor: {fileID: 1783281372}
   avatarHair: {fileID: 2142995482}
@@ -3168,6 +3168,7 @@ MonoBehaviour:
   avatarEarInsideLeft: {fileID: 1178547675}
   avatarEarInsideRight: {fileID: 245855764}
   avatarNose: {fileID: 526689838}
+  message: {fileID: 195549605}
 --- !u!1 &1590378378
 GameObject:
   m_ObjectHideFlags: 0
@@ -3605,34 +3606,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1848909231}
---- !u!1 &1996139597
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1996139598}
-  m_Layer: 0
-  m_Name: EyesColorPanel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1996139598
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1996139597}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2028436426
 GameObject:
   m_ObjectHideFlags: 0
