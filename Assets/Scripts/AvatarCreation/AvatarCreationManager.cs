@@ -14,17 +14,17 @@ public class AvatarCreationManager : MonoBehaviour
 {
 	//il numero del pannello attuale a cui siamo arrivati
 	private int currentPanelIndex = 0;
+	[SerializeField]
+	private GameObject nextPanelButton;
 	private List<GameObject> panels;
 	//pannelli che conterranno la UI per selezionare il colore della pelle ecc;
 	[SerializeField]
-	private GameObject genderSelectionPanel, skinColorPanel, hairStylePanel, hairColorPanel, eyesColorPanel;
-	//componenti dell'avatar
-	[SerializeField]
-	private GameObject avatarFace, avatarEyesColor, avatarHair, avatarEyebrow, avatarEarInsideLeft, avatarEarInsideRight, avatarNose;
-	//dictionary con tutti i colori disponibili da customizzare, catalogati per parte del corpo
-	private Dictionary<string, Color32> skinColorDictionary, eyesColorDictionary, hairColorDictionary;
+	private GameObject genderSelectionPanel, skinColorPanel, hairStylePanel, hairColorPanel, eyesColorPanel, hairStyleMale, hairStyleFemale;
+
 	//le avatar settings assegnate da salvare con l'utente
 	AvatarSettings avatarSettings;
+
+	public Avatar avatarFace;
 
 	//messaggio in alto per indicare all'utente cosa fare
 	[SerializeField]
@@ -36,65 +36,44 @@ public class AvatarCreationManager : MonoBehaviour
 
 	void Start ()
 	{
-		//settaggio avatar da salvare successivamente
-		avatarSettings = new AvatarSettings ();
-		Instantiate (Resources.Load<GameObject> ("Prefab/HandSelection"), Vector2.zero, Quaternion.identity);
-
-		InitializeDictionaries ();
 		//inizializza la faccia avatar a uno stato di default
-		AssignDefaultAvatarFace ();
+		CreateAvatarFaceAndDefaultIt ();
+
+		Instantiate (Resources.Load<GameObject> ("Prefab/HandSelection"), Vector2.zero, Quaternion.identity);
 		//inizializzo i pannelli che serviranno nella lista
 		InitialzePanels ();
-		//mostra il primo pannello nella lista
-		ShowNextPanel ();
+		//inizializza i messaggi da dire quando cambi pannello
+		InitializeDictionary ();
 	}
 
-	void Update ()
+	//assegna all'avatar dei valori di default
+	void CreateAvatarFaceAndDefaultIt ()
 	{
-		if (Input.GetKeyDown (KeyCode.Space))
-			ShowNextPanel ();
+		//settaggio avatar da salvare successivamente
+		avatarSettings = new AvatarSettings ();
+		GameObject facePrefab = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), new Vector3 (-4, -1, 0), Quaternion.identity);
+		avatarFace = facePrefab.GetComponent<Avatar> ();
+		avatarFace.FaceReady += AssignDefaultFaceValues;
 	}
 
-	//inizializza i valori dei dictionaries dei colori 
-	void InitializeDictionaries ()
+	public void AssignDefaultFaceValues ()
+	{
+		AssignAvatarGender ("Male");
+		AssignAvatarSkinColor ("White");
+		AssignAvatarEyesColor ("Brown");
+		AssignAvatarHairStyle ("Ciuffo");
+		AssignAvatarHairColor ("DarkBrown");
+	}
+
+	//inizializza i messaggi da dire quando cambi pannello
+	void InitializeDictionary ()
 	{
 		panelMessage = new Dictionary<GameObject, string> ();
 		panelMessage.Add (genderSelectionPanel, "Sei un maschio o una femmina?");
 		panelMessage.Add (skinColorPanel, "Di che colore e' la tua pelle?");
-		panelMessage.Add (hairColorPanel, "Di che colore sono i tuoi capelli?");
 		panelMessage.Add (hairStylePanel, "Come sono i tuoi capelli?");
-		panelMessage.Add (eyesColorPanel, "Di che colore sono i tuoi occhi?");
-
-		skinColorDictionary = new Dictionary<string, Color32> ();
-		eyesColorDictionary = new Dictionary<string, Color32> ();
-		hairColorDictionary = new Dictionary<string, Color32> ();
-
-		skinColorDictionary.Add ("PaleWhite", new Color32 (255, 208, 160, 255));
-		skinColorDictionary.Add ("White", new Color32 (250, 191, 133, 255));
-		skinColorDictionary.Add ("Olive", new Color32 (239, 192, 107, 255));
-		skinColorDictionary.Add ("Brown", new Color32 (176, 139, 77, 255));
-		skinColorDictionary.Add ("Dark", new Color32 (133, 105, 56, 255));
-
-		hairColorDictionary.Add ("DarkBrown", new Color32 (104, 82, 61, 255));
-		hairColorDictionary.Add ("LightBrown", new Color32 (152, 108, 68, 255));
-		hairColorDictionary.Add ("Black", new Color32 (61, 52, 48, 255));
-		hairColorDictionary.Add ("Blonde", new Color32 (255, 217, 81, 255));
-		hairColorDictionary.Add ("Red", new Color32 (255, 131, 66, 255));
-
-		eyesColorDictionary.Add ("LightBlue", new Color32 ());
-		eyesColorDictionary.Add ("Green", new Color32 ());
-		eyesColorDictionary.Add ("Brown", new Color32 ());
-		eyesColorDictionary.Add ("Black", new Color32 ());
-	}
-
-	//assegna all'avatar dei valori di default
-	void AssignDefaultAvatarFace ()
-	{
-		AssignGender ("Male");
-		AssignSkinColor ("White");
-		AssignEyesColor ("Brown");
-		AssignHairStyle ("Ciuffo");
-		AssignHairColor ("DarkBrown");
+		panelMessage.Add (hairColorPanel, "Di che colore hai i capelli?");
+		panelMessage.Add (eyesColorPanel, "Di che colore hai gli occhi?");
 	}
 
 	void InitialzePanels ()
@@ -103,22 +82,36 @@ public class AvatarCreationManager : MonoBehaviour
 		//i pannelli devono rimanere in quest'ordine se si vuole manetenere l'ordine attuale
 		panels.Add (genderSelectionPanel);
 		panels.Add (skinColorPanel);
-		panels.Add (hairColorPanel);
 		panels.Add (hairStylePanel);
+		panels.Add (hairColorPanel);
 		panels.Add (eyesColorPanel);
 	}
 
-	private void ShowNextPanel ()
+	public void ShowNextPanel ()
 	{
+		
 		//prima disattivo tutti i pannelli attivi nel caso
 		DeactivateAllPanels ();
 		//se l'indice del pannello e' in uno della lista 
 		if (currentPanelIndex < panels.Count)
 		{
 			panels[currentPanelIndex].SetActive (true);
+			if (panels[currentPanelIndex] == hairStylePanel)
+			{
+				//controllo se sei un maschio o una femmina per lo stile di capelli giusto
+				if (avatarSettings.gender == Gender.Male)
+				{
+					hairStyleMale.SetActive (true);
+					hairStyleFemale.SetActive (false);
+				}
+				else if (avatarSettings.gender == Gender.Female)
+				{
+					hairStyleMale.SetActive (false);
+					hairStyleFemale.SetActive (true);
+				}
+			}
 			//assegna il testo a seconda del pannello in cui siamo e lo colora random
 			message.text = UIEndRoundManager.ChangeTextToRandomColors (panelMessage[panels[currentPanelIndex]]);
-
 			//incrementa l'indice del pannello attuale
 			currentPanelIndex++;
 		}
@@ -134,42 +127,60 @@ public class AvatarCreationManager : MonoBehaviour
 			g.SetActive (false);
 	}
 
-	//METODI CHE ASSEGNANO I COLORI GIUSTI ALLE COMPONENTI
-	public void AssignGender (string gender)
+	//METODI CHE ASSEGNANO I COLORI GIUSTI ALLE COMPONENTI DELLA AVATAR FACE E SALVANO IN STRUCT I VALORI
+	public void AssignAvatarGender (string gender)
 	{
-		avatarFace.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Face/" + gender);
+		avatarFace.AssignGender (gender);
+
 		if (gender == "Male")
+		{
 			avatarSettings.gender = Gender.Male;
+			avatarFace.AssignHairStyle (Gender.Male, "Ciuffo");
+			avatarSettings.hairStyle = "Ciuffo";
+		}
 		else
+		{
 			avatarSettings.gender = Gender.Female;
+			avatarFace.AssignHairStyle (Gender.Female, "RicciCorti");
+			avatarSettings.hairStyle = "RicciCorti";
+		}
+		// siccome il genere e' la prima cosa che si setta appena ho finito vai al panel successivo
+		ShowNextPanel ();
 	}
 
-	public void AssignSkinColor (string skinColorName)
+
+	public void AssignAvatarSkinColor (string skinColorName)
 	{
-		avatarFace.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		avatarEarInsideLeft.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		avatarEarInsideRight.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		avatarNose.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
+		avatarFace.AssignSkinColor (skinColorName);
 		avatarSettings.skinColor = skinColorName;
 	}
 
-	public void AssignHairStyle (string hairName)
+	public void AssignAvatarHairStyle (string hairName)
 	{
-		avatarHair.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Hair/" + hairName);
+		avatarFace.AssignHairStyle (avatarSettings.gender, hairName);
 		avatarSettings.hairStyle = hairName;
 	}
 
-	public void AssignHairColor (string hairColorName)
+	public void AssignAvatarHairColor (string hairColorName)
 	{
-		avatarHair.GetComponent<SpriteRenderer> ().color = hairColorDictionary[hairColorName];
-		avatarEyebrow.GetComponent<SpriteRenderer> ().color = hairColorDictionary[hairColorName];
+		avatarFace.AssignHairColor (hairColorName);
 		avatarSettings.hairColor = hairColorName;
 	}
 
-	public void AssignEyesColor (string eyesColorName)
+	public void AssignAvatarEyesColor (string eyesColorName)
 	{
-		avatarEyesColor.GetComponent<SpriteRenderer> ().color = eyesColorDictionary[eyesColorName];
+		avatarFace.AssignEyesColor (eyesColorName);
 		avatarSettings.eyesColor = eyesColorName;
+	}
+
+	void ActivateNextPanelButton ()
+	{
+		nextPanelButton.SetActive (true);
+	}
+
+	private void OnDisable ()
+	{
+		avatarFace.FaceReady -= AssignDefaultFaceValues;
 	}
 
 	#endregion
