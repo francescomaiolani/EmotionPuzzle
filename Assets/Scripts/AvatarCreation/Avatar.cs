@@ -4,57 +4,15 @@ using UnityEngine;
 
 public class Avatar : MonoBehaviour
 {
-
-	private string[] maleHairNames, femaleHairNames, skinColorNames, eyesColorNames, hairColorNames;
-	public delegate void OnFaceReady ();
-	public event OnFaceReady FaceReady;
 	[SerializeField]
-	private GameObject face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes;
+	private GameObject face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes, mouth;
 	private Emotion emotion;
-	//dictionary con tutti i colori disponibili da customizzare, catalogati per parte del corpo
-	private Dictionary<string, Color32> skinColorDictionary, eyesColorDictionary, hairColorDictionary;
-
-	void Start ()
-	{
-		InitializeDictionariesAndArrays ();
-		FaceReady ();
-	}
-
-	//inizializza i valori dei dictionaries dei colori 
-	void InitializeDictionariesAndArrays ()
-	{
-		maleHairNames = new string[] { "Corti", "Medi", "Ricci", "Pelato", "Ciuffo" };
-		femaleHairNames = new string[] { "Corti", "Medi", "CortiRicci", "Ricci", "Lunghi" };
-		skinColorNames = new string[] { "PaleWhite", "White", "Olive", "Brown", "Dark", };
-		hairColorNames = new string[] { "DarkBrown", "LightBrown", "Black", "Blonde", "Red", };
-		eyesColorNames = new string[] { "LightBlue", "Green", "Brown", "Black" };
-
-		skinColorDictionary = new Dictionary<string, Color32> ();
-		eyesColorDictionary = new Dictionary<string, Color32> ();
-		hairColorDictionary = new Dictionary<string, Color32> ();
-
-
-		skinColorDictionary.Add (skinColorNames[0], new Color32 (255, 208, 160, 255));
-		skinColorDictionary.Add (skinColorNames[1], new Color32 (250, 191, 133, 255));
-		skinColorDictionary.Add (skinColorNames[2], new Color32 (239, 192, 107, 255));
-		skinColorDictionary.Add (skinColorNames[3], new Color32 (176, 139, 77, 255));
-		skinColorDictionary.Add (skinColorNames[4], new Color32 (118, 100, 67, 255));
-
-		hairColorDictionary.Add (hairColorNames[0], new Color32 (104, 82, 61, 255));
-		hairColorDictionary.Add (hairColorNames[1], new Color32 (152, 108, 68, 255));
-		hairColorDictionary.Add (hairColorNames[2], new Color32 (61, 52, 48, 255));
-		hairColorDictionary.Add (hairColorNames[3], new Color32 (255, 217, 81, 255));
-		hairColorDictionary.Add (hairColorNames[4], new Color32 (255, 131, 66, 255));
-
-		eyesColorDictionary.Add (eyesColorNames[0], new Color32 (115, 183, 167, 255));
-		eyesColorDictionary.Add (eyesColorNames[1], new Color32 (136, 183, 65, 255));
-		eyesColorDictionary.Add (eyesColorNames[2], new Color32 (94, 69, 45, 255));
-		eyesColorDictionary.Add (eyesColorNames[3], new Color32 (60, 60, 60, 255));
-	}
 
 	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE MA CON VALORI ASSEGNATI DALL'ESTERNO
-	public void CreateCompleteFace (Gender gender, string skinColor, string hairStyle, string hairColor, string eyesColor)
+	public void CreateCompleteFace (Emotion emotion, Gender gender, string skinColor, string hairStyle, string hairColor, string eyesColor)
 	{
+		this.emotion = emotion;
+		AssignEmotion (emotion);
 		AssignGender (gender.ToString ());
 		AssignSkinColor (skinColor);
 		AssignHairStyle (gender, hairStyle);
@@ -62,20 +20,48 @@ public class Avatar : MonoBehaviour
 		AssignEyesColor (eyesColor);
 	}
 
+	//METODO CHE CREA UNA FACCIA CASUALE MA SENZA ASSEGNARE UN'EMOZIONE
 	public void CreateRandomFace ()
 	{
 		Gender[] genders = new Gender[] { Gender.Male, Gender.Female };
 		Gender randomGender = genders[Random.Range (0, 2)];
 
 		AssignGender (randomGender.ToString ());
-		AssignSkinColor (skinColorNames[Random.Range (0, skinColorNames.Length)]);
+		string skinColor = AvatarData.skinColorNames[Random.Range (0, AvatarData.skinColorNames.Length)];
+		AssignSkinColor (skinColor);
 		if (randomGender == Gender.Male)
-			AssignHairStyle (randomGender, maleHairNames[Random.Range (0, maleHairNames.Length)]);
+			AssignHairStyle (randomGender, AvatarData.maleHairNames[Random.Range (0, AvatarData.maleHairNames.Length)]);
 		else if (randomGender == Gender.Female)
-			AssignHairStyle (randomGender, femaleHairNames[Random.Range (0, femaleHairNames.Length)]);
+			AssignHairStyle (randomGender, AvatarData.femaleHairNames[Random.Range (0, AvatarData.femaleHairNames.Length)]);
 
-		AssignHairColor (hairColorNames[Random.Range (0, hairColorNames.Length)]);
-		AssignEyesColor (eyesColorNames[Random.Range (0, eyesColorNames.Length)]);
+		AssignHairColor (AvatarData.hairColorNames[Random.Range (0, AvatarData.hairColorNames.Length)]);
+		AssignEyesColor (AvatarData.eyesColorNames[Random.Range (0, AvatarData.eyesColorNames.Length)]);
+		CheckFaceCoherence (skinColor);
+	}
+
+	//METODO PER CONTROLLARE CHE LA FACCIA SIA COERENTE UN MINIMO
+	void CheckFaceCoherence (string skinColor)
+	{
+		if (skinColor == "Dark")
+		{
+			AssignEyesColor ("Black");
+			AssignHairColor ("Black");
+		}
+		else if (skinColor == "Brown")
+		{
+			AssignHairColor ("DarkBrown");
+			AssignEyesColor ("Black");
+		}
+	}
+
+	//METODO CHE ASSEGNA UN'EMOZIONE ALLA FACCIA CAMBIANDO I COMPONENTI DA CAMBIARE: OCCHI, SOPRACCIGLIA E BOCCA
+	public void AssignEmotion (Emotion emotion)
+	{
+		this.emotion = emotion;
+		mouth.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Mouth/" + emotion.ToString ());
+		/* eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + emotion.ToString ());
+		if (emotion == Emotion.Disgusto)
+			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/" + emotion.ToString ()); */
 
 	}
 
@@ -98,10 +84,10 @@ public class Avatar : MonoBehaviour
 
 	public void AssignSkinColor (string skinColorName)
 	{
-		face.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		earInsideLeft.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		earInsideRight.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
-		nose.GetComponent<SpriteRenderer> ().color = skinColorDictionary[skinColorName];
+		face.GetComponent<SpriteRenderer> ().color = AvatarData.skinColorDictionary[skinColorName];
+		earInsideLeft.GetComponent<SpriteRenderer> ().color = AvatarData.skinColorDictionary[skinColorName];
+		earInsideRight.GetComponent<SpriteRenderer> ().color = AvatarData.skinColorDictionary[skinColorName];
+		nose.GetComponent<SpriteRenderer> ().color = AvatarData.skinColorDictionary[skinColorName];
 	}
 
 	public void AssignHairStyle (Gender gender, string hairName)
@@ -111,12 +97,12 @@ public class Avatar : MonoBehaviour
 
 	public void AssignHairColor (string hairColorName)
 	{
-		hair.GetComponent<SpriteRenderer> ().color = hairColorDictionary[hairColorName];
-		eyebrow.GetComponent<SpriteRenderer> ().color = hairColorDictionary[hairColorName];
+		hair.GetComponent<SpriteRenderer> ().color = AvatarData.hairColorDictionary[hairColorName];
+		eyebrow.GetComponent<SpriteRenderer> ().color = AvatarData.hairColorDictionary[hairColorName];
 	}
 
 	public void AssignEyesColor (string eyesColorName)
 	{
-		eyes.GetComponent<SpriteRenderer> ().color = eyesColorDictionary[eyesColorName];
+		eyes.GetComponent<SpriteRenderer> ().color = AvatarData.eyesColorDictionary[eyesColorName];
 	}
 }

@@ -23,7 +23,6 @@ public class AvatarCreationManager : MonoBehaviour
 
 	//le avatar settings assegnate da salvare con l'utente
 	AvatarSettings avatarSettings;
-
 	public Avatar avatarFace;
 
 	//messaggio in alto per indicare all'utente cosa fare
@@ -53,7 +52,7 @@ public class AvatarCreationManager : MonoBehaviour
 		avatarSettings = new AvatarSettings ();
 		GameObject facePrefab = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), new Vector3 (-4, -1, 0), Quaternion.identity);
 		avatarFace = facePrefab.GetComponent<Avatar> ();
-		avatarFace.FaceReady += AssignDefaultFaceValues;
+		AssignDefaultFaceValues ();
 	}
 
 	public void AssignDefaultFaceValues ()
@@ -89,7 +88,7 @@ public class AvatarCreationManager : MonoBehaviour
 
 	public void ShowNextPanel ()
 	{
-		
+
 		//prima disattivo tutti i pannelli attivi nel caso
 		DeactivateAllPanels ();
 		//se l'indice del pannello e' in uno della lista 
@@ -177,11 +176,5 @@ public class AvatarCreationManager : MonoBehaviour
 	{
 		nextPanelButton.SetActive (true);
 	}
-
-	private void OnDisable ()
-	{
-		avatarFace.FaceReady -= AssignDefaultFaceValues;
-	}
-
 	#endregion
 }

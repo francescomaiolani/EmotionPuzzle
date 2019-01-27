@@ -60,6 +60,16 @@ public class WhichPersonIsManager : MinigameManager
         AssignFacePartSprite (mainMouth.GetComponent<SpriteRenderer> (), FaceParts.Mouth, mainEmotion);
         AssignFacePartSprite (mainEyes.GetComponent<SpriteRenderer> (), FaceParts.Eyes, mainEmotion);
     }
+    //metodo che assegna agli occhi o alla bocca dalla main face l'immagine dell'emozione giusta 
+    void AssignFacePartSprite (SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
+    {
+        spr.sprite = Resources.Load<Sprite> ("Sprite/FacePieces/" + facePartType.ToString () + "/" + facePartType.ToString () + emotion.ToString ());
+    }
+    // da cambiare nel momento in cui avremo le facce di tutte le persone
+    void AssignFaceSprite (SpriteRenderer spr, Emotion emotion)
+    {
+        spr.sprite = Resources.Load<Sprite> ("Sprite/CompleteFaces/" + "face" + emotion.ToString ());
+    }
 
     void CreateFacesOfDifferentPeople ()
     {
@@ -82,19 +92,6 @@ public class WhichPersonIsManager : MinigameManager
             i++;
         }
     }
-
-    //metodo che assegna agli occhi o alla bocca dalla main face l'immagine dell'emozione giusta 
-    void AssignFacePartSprite (SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
-    {
-        spr.sprite = Resources.Load<Sprite> ("Sprite/FacePieces/" + facePartType.ToString () + "/" + facePartType.ToString () + emotion.ToString ());
-    }
-
-    // da cambiare nel momento in cui avremo le facce di tutte le persone
-    void AssignFaceSprite (SpriteRenderer spr, Emotion emotion)
-    {
-        spr.sprite = Resources.Load<Sprite> ("Sprite/CompleteFaces/" + "face" + emotion.ToString ());
-    }
-
 
     //controllo sul fatto che hai selezionato tutte le facce corrette o hai sbagliato
     void CheckIfGameCompleted (GameObject objectSelected)
@@ -154,12 +151,18 @@ public class WhichPersonIsManager : MinigameManager
     //metodo che istanzia una faccia delle 4 di persone random
     void InstantiateFace (Emotion? emotion, int position)
     {
+        //GameObject face = Instantiate (Resources.Load<GameObject> ("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[position].transform.position, Quaternion.identity);
+        //AssignFaceSprite (face.GetComponent<SpriteRenderer> (), face.GetComponent<SelectableObject> ().GetEmotionType ());
 
-        GameObject face = Instantiate (Resources.Load<GameObject> ("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[position].transform.position, Quaternion.identity);
+        GameObject face = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), spawnPointPositions[position].transform.position, Quaternion.identity);
+        face.transform.localScale = new Vector3 (1, 1, 1);
+        face.GetComponent<Avatar> ().CreateRandomFace ();
+        face.GetComponent<Avatar> ().AssignEmotion ((Emotion) emotion);
 
+        //aggiungi i component necessari
+        face.AddComponent<SelectableObject> ();
+        face.AddComponent<CircleCollider2D> ().radius = 0.5f;
         face.GetComponent<SelectableObject> ().SetEmotionType ((Emotion) emotion);
-
-        AssignFaceSprite (face.GetComponent<SpriteRenderer> (), face.GetComponent<SelectableObject> ().GetEmotionType ());
     }
 
     protected override void DestroySceneObjects ()
@@ -171,7 +174,6 @@ public class WhichPersonIsManager : MinigameManager
         for (int i = 0; i < selectableObjects.Length; i++)
             Destroy (selectableObjects[i].gameObject);
     }
-
 
     protected override void EndRound ()
     {
