@@ -10,6 +10,7 @@ public class Avatar : MonoBehaviour
 	public event OnFaceReady FaceReady;
 	[SerializeField]
 	private GameObject face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes;
+	private Emotion emotion;
 	//dictionary con tutti i colori disponibili da customizzare, catalogati per parte del corpo
 	private Dictionary<string, Color32> skinColorDictionary, eyesColorDictionary, hairColorDictionary;
 
@@ -32,6 +33,7 @@ public class Avatar : MonoBehaviour
 		eyesColorDictionary = new Dictionary<string, Color32> ();
 		hairColorDictionary = new Dictionary<string, Color32> ();
 
+
 		skinColorDictionary.Add (skinColorNames[0], new Color32 (255, 208, 160, 255));
 		skinColorDictionary.Add (skinColorNames[1], new Color32 (250, 191, 133, 255));
 		skinColorDictionary.Add (skinColorNames[2], new Color32 (239, 192, 107, 255));
@@ -50,7 +52,7 @@ public class Avatar : MonoBehaviour
 		eyesColorDictionary.Add (eyesColorNames[3], new Color32 (60, 60, 60, 255));
 	}
 
-	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE
+	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE MA CON VALORI ASSEGNATI DALL'ESTERNO
 	public void CreateCompleteFace (Gender gender, string skinColor, string hairStyle, string hairColor, string eyesColor)
 	{
 		AssignGender (gender.ToString ());
@@ -71,9 +73,9 @@ public class Avatar : MonoBehaviour
 			AssignHairStyle (randomGender, maleHairNames[Random.Range (0, maleHairNames.Length)]);
 		else if (randomGender == Gender.Female)
 			AssignHairStyle (randomGender, femaleHairNames[Random.Range (0, femaleHairNames.Length)]);
-			
-		AssignHairColor (hairColorNames[Random.Range(0,hairColorNames.Length)]);
-		AssignEyesColor (eyesColorNames[Random.Range(0,eyesColorNames.Length)]);
+
+		AssignHairColor (hairColorNames[Random.Range (0, hairColorNames.Length)]);
+		AssignEyesColor (eyesColorNames[Random.Range (0, eyesColorNames.Length)]);
 
 	}
 
