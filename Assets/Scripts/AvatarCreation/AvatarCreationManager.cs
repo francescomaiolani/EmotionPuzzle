@@ -24,7 +24,8 @@ public class AvatarCreationManager : MonoBehaviour
 	private GameObject genderSelectionPanel, skinColorPanel, hairStylePanel, hairColorPanel, eyesColorPanel, hairStyleMale, hairStyleFemale;
 
 	//le avatar settings assegnate da salvare con l'utente
-	public static AvatarSettings avatarSettings;
+	//public static gameSessionSettings.avatarSettings gameSessionSettings.avatarSettings;
+	private GameSessionSettings gameSessionSettings;
 	public Avatar avatarFace;
 
 	//messaggio in alto per indicare all'utente cosa fare
@@ -34,6 +35,7 @@ public class AvatarCreationManager : MonoBehaviour
 
 	void Start ()
 	{
+		gameSessionSettings = GameObject.Find ("GameSessionSettings").GetComponent<GameSessionSettings>();
 		//istanziazione della mano
 		Instantiate (Resources.Load<GameObject> ("Prefab/HandSelection"), Vector2.zero, Quaternion.identity);
 		//inizializzo i pannelli che serviranno nella lista
@@ -61,8 +63,6 @@ public class AvatarCreationManager : MonoBehaviour
 	//assegna all'avatar dei valori di default
 	void CreateAvatarFaceAndDefaultIt ()
 	{
-		//settaggio avatar da salvare successivamente
-		avatarSettings = new AvatarSettings ();
 		GameObject facePrefab = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), new Vector3 (-4, -1, 0), Quaternion.identity);
 		avatarFace = facePrefab.GetComponent<Avatar> ();
 		AssignDefaultFaceValues ();
@@ -100,12 +100,12 @@ public class AvatarCreationManager : MonoBehaviour
 			if (panels[currentPanelIndex] == hairStylePanel)
 			{
 				//controllo se sei un maschio o una femmina per lo stile di capelli giusto
-				if (avatarSettings.gender == Gender.Male)
+				if (gameSessionSettings.avatarSettings.gender == Gender.Male)
 				{
 					hairStyleMale.SetActive (true);
 					hairStyleFemale.SetActive (false);
 				}
-				else if (avatarSettings.gender == Gender.Female)
+				else if (gameSessionSettings.avatarSettings.gender == Gender.Female)
 				{
 					hairStyleMale.SetActive (false);
 					hairStyleFemale.SetActive (true);
@@ -137,15 +137,15 @@ public class AvatarCreationManager : MonoBehaviour
 
 		if (gender == "Male")
 		{
-			avatarSettings.gender = Gender.Male;
+			gameSessionSettings.avatarSettings.gender = Gender.Male;
 			avatarFace.AssignHairStyle (Gender.Male, "Ciuffo");
-			avatarSettings.hairStyle = "Ciuffo";
+			gameSessionSettings.avatarSettings.hairStyle = "Ciuffo";
 		}
 		else
 		{
-			avatarSettings.gender = Gender.Female;
+			gameSessionSettings.avatarSettings.gender = Gender.Female;
 			avatarFace.AssignHairStyle (Gender.Female, "RicciCorti");
-			avatarSettings.hairStyle = "RicciCorti";
+			gameSessionSettings.avatarSettings.hairStyle = "RicciCorti";
 		}
 		// siccome il genere e' la prima cosa che si setta appena ho finito vai al panel successivo
 		ShowNextPanel ();
@@ -159,25 +159,25 @@ public class AvatarCreationManager : MonoBehaviour
 	public void AssignAvatarSkinColor (string skinColorName)
 	{
 		avatarFace.AssignSkinColor (skinColorName);
-		avatarSettings.skinColor = skinColorName;
+		gameSessionSettings.avatarSettings.skinColor = skinColorName;
 	}
 
 	public void AssignAvatarHairStyle (string hairName)
 	{
-		avatarFace.AssignHairStyle (avatarSettings.gender, hairName);
-		avatarSettings.hairStyle = hairName;
+		avatarFace.AssignHairStyle (gameSessionSettings.avatarSettings.gender, hairName);
+		gameSessionSettings.avatarSettings.hairStyle = hairName;
 	}
 
 	public void AssignAvatarHairColor (string hairColorName)
 	{
 		avatarFace.AssignHairColor (hairColorName);
-		avatarSettings.hairColor = hairColorName;
+		gameSessionSettings.avatarSettings.hairColor = hairColorName;
 	}
 
 	public void AssignAvatarEyesColor (string eyesColorName)
 	{
 		avatarFace.AssignEyesColor (eyesColorName);
-		avatarSettings.eyesColor = eyesColorName;
+		gameSessionSettings.avatarSettings.eyesColor = eyesColorName;
 	}
 
 	void ActivateNextPanelButton ()

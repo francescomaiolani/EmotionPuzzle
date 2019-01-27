@@ -20,6 +20,11 @@ public abstract class SelectionGameManager : MinigameManager
 
     protected virtual void Start ()
     {
+        if (GameObject.FindObjectOfType<GameSessionSettings> () == null)
+        {
+            GameObject gameSessionSettings = Instantiate (new GameObject (), transform.position, Quaternion.identity);
+            gameSessionSettings.AddComponent<GameSessionSettings> ();
+        }
         //istanzia la mano per la selezione
         GameObject selectionHand = Resources.Load<GameObject> ("Prefab/HandSelection");
         Instantiate (selectionHand, Vector2.zero, Quaternion.identity);

@@ -10,29 +10,26 @@ public class GuessExpressionManager : SelectionGameManager
     public Text emotionType;
     private AvatarSettings avatarSettings;
 
-    protected override void Start ()
+    private void Awake ()
     {
-        base.Start ();
-        //avatarSettings = AvatarCreationManager.avatarSettings;
+        if (GameObject.FindObjectOfType<GameSessionSettings> () != null)
+            avatarSettings = GameObject.FindObjectOfType<GameSessionSettings> ().GetComponent<GameSessionSettings> ().avatarSettings;
     }
 
     protected override void SetupCentralEmotion ()
     {
         emotionType.text = ConvertInCorrectText (GetEmotionString ());
     }
-    /*   
-      protected override GameObject InstantiateEmotionElement (string emotionString, Vector3 position)
-      {
-          GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/SelectableObject/Faces/face" + emotionString), position, Quaternion.identity);
-          return obj;
-      } */
 
     protected override GameObject InstantiateEmotionElement (string emotionString, Vector3 position)
     {
+        if (GameObject.FindObjectOfType<GameSessionSettings> () != null)
+            avatarSettings = GameObject.FindObjectOfType<GameSessionSettings> ().GetComponent<GameSessionSettings> ().avatarSettings;
+
         GameObject face = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), position, Quaternion.identity);
         //face.GetComponent<Avatar> ().CreateCompleteFace (MinigameManager.ConvertTextInEmotion (emotionString), avatarSettings.gender, avatarSettings.skinColor, avatarSettings.hairStyle, avatarSettings.hairColor, avatarSettings.eyesColor);
-        face.GetComponent<Avatar> ().CreateCompleteFace (MinigameManager.ConvertTextInEmotion (emotionString), Gender.Male,
-            "White", "Ciuffo", "DarkBrown", "Black");
+        face.GetComponent<Avatar> ().CreateCompleteFace (MinigameManager.ConvertTextInEmotion (emotionString), avatarSettings.gender,
+            avatarSettings.skinColor, avatarSettings.hairStyle, avatarSettings.hairColor, avatarSettings.eyesColor);
         face.transform.localScale = new Vector3 (1, 1, 1);
         face.AddComponent<CircleCollider2D> ().radius = 0.5f;
         face.GetComponent<CircleCollider2D> ().isTrigger = true;

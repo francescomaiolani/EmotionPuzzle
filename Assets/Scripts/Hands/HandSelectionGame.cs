@@ -42,18 +42,12 @@ public class HandSelectionGame : Hand
 		//se sono posizionato con la mano sopra un'oggetto selzionabile e ho cliccato allora invia il messaggio che ho selezionato 
 		if (objectSelected != null)
 		{
-			Debug.Log ("Ho selezionato" + objectSelected.name);
 			SelectableObjectClicked (objectSelected);
 		}
-
-		else
-			Debug.Log ("nessun oggetto selezionato");
-
 	}
 
 	protected override void OnTriggerEnter2D (Collider2D collision)
 	{
-		Debug.Log ("Entrato in un selectable");
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)
@@ -66,8 +60,6 @@ public class HandSelectionGame : Hand
 
 	protected override void OnTriggerExit2D (Collider2D collision)
 	{
-		Debug.Log ("Uscito in un selectable");
-
 		if (!dragging)
 		{
 			if (collision.gameObject.GetComponent<SelectableObject> () != null)
