@@ -5,8 +5,9 @@ using UnityEngine;
 public class Avatar : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes, mouth;
+	private GameObject face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes, mouth, eyesLight;
 	private Emotion emotion;
+	private Gender gender;
 
 	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE MA CON VALORI ASSEGNATI DALL'ESTERNO
 	public void CreateCompleteFace (Emotion emotion, Gender gender, string skinColor, string hairStyle, string hairColor, string eyesColor)
@@ -25,6 +26,7 @@ public class Avatar : MonoBehaviour
 	{
 		Gender[] genders = new Gender[] { Gender.Male, Gender.Female };
 		Gender randomGender = genders[Random.Range (0, 2)];
+		gender = randomGender;
 
 		AssignGender (randomGender.ToString ());
 		string skinColor = AvatarData.skinColorNames[Random.Range (0, AvatarData.skinColorNames.Length)];
@@ -59,15 +61,28 @@ public class Avatar : MonoBehaviour
 	{
 		this.emotion = emotion;
 		mouth.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Mouth/" + emotion.ToString ());
-		/* eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + emotion.ToString ());
+		eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + gender.ToString () + emotion.ToString ());
 		if (emotion == Emotion.Disgusto)
-			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/" + emotion.ToString ()); */
-
+		{
+			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/" + emotion.ToString ());
+			eyesLight.SetActive (false);
+			lashes.SetActive (false);
+		}
+		else
+		{
+			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/Default");
+			eyesLight.SetActive (true);
+		}
 	}
 
 	//METODI CHE ASSEGNANO I VALORI GIUSTI ALLE COMPONENTI
 	public void AssignGender (string gender)
 	{
+		if (gender == "Male")
+			this.gender = Gender.Male;
+		else
+			this.gender = Gender.Female;
+
 		face.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Face/" + gender);
 		if (gender == "Male")
 		{
@@ -79,7 +94,7 @@ public class Avatar : MonoBehaviour
 			earRing.SetActive (true);
 			lashes.SetActive (true);
 		}
-		eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + gender);
+		eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + gender + emotion.ToString ());
 	}
 
 	public void AssignSkinColor (string skinColorName)

@@ -139,4 +139,19 @@ public abstract class MinigameManager : MonoBehaviour
             return emotion;
     }
 
+    public static Emotion ConvertTextInEmotion (string emotionText)
+    {
+        if (emotionText == "Felicità")
+            return Emotion.Felicità;
+        else if (emotionText == "Tristezza")
+            return Emotion.Tristezza;
+        else if (emotionText == "Rabbia")
+            return Emotion.Rabbia;
+        else if (emotionText == "Disgusto")
+            return Emotion.Disgusto;
+        else if (emotionText == "Paura")
+            return Emotion.Paura;
+        else
+            return Emotion.Felicità;
+    }
 }

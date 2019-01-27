@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public struct AvatarSettings
 {
 	public Gender gender;
 	public string skinColor, hairColor, hairStyle, eyesColor;
 }
+
 public enum Gender { Male, Female }
 
 public class AvatarCreationManager : MonoBehaviour
@@ -22,7 +24,7 @@ public class AvatarCreationManager : MonoBehaviour
 	private GameObject genderSelectionPanel, skinColorPanel, hairStylePanel, hairColorPanel, eyesColorPanel, hairStyleMale, hairStyleFemale;
 
 	//le avatar settings assegnate da salvare con l'utente
-	AvatarSettings avatarSettings;
+	public static AvatarSettings avatarSettings;
 	public Avatar avatarFace;
 
 	//messaggio in alto per indicare all'utente cosa fare
@@ -30,19 +32,30 @@ public class AvatarCreationManager : MonoBehaviour
 	private TextMeshProUGUI message;
 	private Dictionary<GameObject, string> panelMessage;
 
-
-	#region methods
-
 	void Start ()
 	{
-		//inizializza la faccia avatar a uno stato di default
-		CreateAvatarFaceAndDefaultIt ();
-
+		//istanziazione della mano
 		Instantiate (Resources.Load<GameObject> ("Prefab/HandSelection"), Vector2.zero, Quaternion.identity);
 		//inizializzo i pannelli che serviranno nella lista
 		InitialzePanels ();
 		//inizializza i messaggi da dire quando cambi pannello
 		InitializeDictionary ();
+		//inizializza la faccia avatar a uno stato di default
+		CreateAvatarFaceAndDefaultIt ();
+
+	}
+
+	//METODO CHE METTE TUTTI I PANNELLI IN UNA LISTA IN ORDINE DI APPARIZIONE
+	//CAMBIARE ORDINE DI INSERIMENTO SE SI VUOLE CAMBIARE ORDINE DEI PANNELLI
+	void InitialzePanels ()
+	{
+		panels = new List<GameObject> ();
+		//i pannelli devono rimanere in quest'ordine se si vuole manetenere l'ordine attuale
+		panels.Add (genderSelectionPanel);
+		panels.Add (skinColorPanel);
+		panels.Add (hairStylePanel);
+		panels.Add (hairColorPanel);
+		panels.Add (eyesColorPanel);
 	}
 
 	//assegna all'avatar dei valori di default
@@ -57,6 +70,7 @@ public class AvatarCreationManager : MonoBehaviour
 
 	public void AssignDefaultFaceValues ()
 	{
+		AssignAvatarEmotion (Emotion.Felicità);
 		AssignAvatarGender ("Male");
 		AssignAvatarSkinColor ("White");
 		AssignAvatarEyesColor ("Brown");
@@ -75,20 +89,8 @@ public class AvatarCreationManager : MonoBehaviour
 		panelMessage.Add (eyesColorPanel, "Di che colore hai gli occhi?");
 	}
 
-	void InitialzePanels ()
-	{
-		panels = new List<GameObject> ();
-		//i pannelli devono rimanere in quest'ordine se si vuole manetenere l'ordine attuale
-		panels.Add (genderSelectionPanel);
-		panels.Add (skinColorPanel);
-		panels.Add (hairStylePanel);
-		panels.Add (hairColorPanel);
-		panels.Add (eyesColorPanel);
-	}
-
 	public void ShowNextPanel ()
 	{
-
 		//prima disattivo tutti i pannelli attivi nel caso
 		DeactivateAllPanels ();
 		//se l'indice del pannello e' in uno della lista 
@@ -116,7 +118,7 @@ public class AvatarCreationManager : MonoBehaviour
 		}
 		else
 		{
-			//vai alla schermata successiva
+			SceneManager.LoadSceneAsync ("MinigameSelection");
 		}
 	}
 
@@ -125,6 +127,8 @@ public class AvatarCreationManager : MonoBehaviour
 		foreach (GameObject g in panels)
 			g.SetActive (false);
 	}
+
+	#region METODI PER ASSEGNARE TUTTE LE CARATTERISTICHE DELLA FACCIA
 
 	//METODI CHE ASSEGNANO I COLORI GIUSTI ALLE COMPONENTI DELLA AVATAR FACE E SALVANO IN STRUCT I VALORI
 	public void AssignAvatarGender (string gender)
@@ -147,6 +151,10 @@ public class AvatarCreationManager : MonoBehaviour
 		ShowNextPanel ();
 	}
 
+	public void AssignAvatarEmotion (Emotion emotion)
+	{
+		avatarFace.AssignEmotion (emotion);
+	}
 
 	public void AssignAvatarSkinColor (string skinColorName)
 	{
@@ -177,4 +185,5 @@ public class AvatarCreationManager : MonoBehaviour
 		nextPanelButton.SetActive (true);
 	}
 	#endregion
+
 }

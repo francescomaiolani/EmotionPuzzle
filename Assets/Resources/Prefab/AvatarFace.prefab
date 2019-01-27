@@ -195,7 +195,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1587546296357078}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0586443, y: 0.061831534, z: 0}
+  m_LocalPosition: {x: 5.5462165, y: -0.733618, z: 0}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1}
   m_Children:
   - {fileID: 4830255414861336}
@@ -362,6 +362,7 @@ MonoBehaviour:
   earRing: {fileID: 1377642010736024}
   lashes: {fileID: 1710157825053228}
   mouth: {fileID: 1033673778857922}
+  eyesLight: {fileID: 1542176491957770}
 --- !u!212 &212101502450925010
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -667,7 +668,7 @@ SpriteRenderer:
   m_SortingLayerID: -185708581
   m_SortingLayer: 1
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f9ff5a7803a095447a90519f5a99c629, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3995e73601de83a4598be05c238aca04, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
