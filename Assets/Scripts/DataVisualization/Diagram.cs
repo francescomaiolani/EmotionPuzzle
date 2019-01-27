@@ -18,6 +18,7 @@ public class Diagram : MonoBehaviour {
     {
         totalErrors = GetTotalErrors();
         SetRectValues();
+        DatabaseManager.GetTotalErrorsByEmotion("Felicita");
     }
 
     private void SetRectValues()

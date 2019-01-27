@@ -75,5 +75,26 @@ public class DatabaseManager: MonoBehaviour {
         return flag;
     }
 
+    public static void GetTotalErrorsByEmotion(string emotion)
+    {
+        int total = 0;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Emotion = (\"{0}\")", emotion);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                Debug.Log("Count: " + reader.GetInt32(0));
+            }
+            dbConnection.Close();
+        }
+        return;
+    }
+
 
 }
