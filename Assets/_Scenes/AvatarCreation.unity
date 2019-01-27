@@ -3678,6 +3678,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e228ff108c5a8144b9ac54ceb5b0bbfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextPanelButton: {fileID: 1640094230}
   genderSelectionPanel: {fileID: 1266311850}
   skinColorPanel: {fileID: 924146256}
   hairStylePanel: {fileID: 592848782}
