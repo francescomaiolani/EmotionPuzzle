@@ -14,6 +14,9 @@ public class CompositionManager : MinigameManager
     private bool[] eyesPositioned = new bool[2];
     readonly int maxPiecesNumber = 4;
 
+    [SerializeField]
+    private Avatar centralFace;
+
     //prende le emozioni scelte dall'utente e le immagazzina qui
     [SerializeField]
     protected Emotion eyesEmotionChosen;
@@ -21,8 +24,9 @@ public class CompositionManager : MinigameManager
     protected Emotion mouthEmotionChosen;
 
 
-    void Start ()
+    protected override void Start ()
     {
+        base.Start ();
         UIManager = FindObjectOfType<UICompositionManager> ();
         HandCompositionGame.piecePositioned += CheckIfMinigameCompleted;
         answerObjectSpawned = new List<GameObject> ();
@@ -39,6 +43,7 @@ public class CompositionManager : MinigameManager
         PickNewEmotion ();
         UIManager.UpdateUI (this);
         SpawnSceneObjects ();
+        AssignCentralFace ();
     }
 
     private void ResetLights ()
@@ -112,6 +117,14 @@ public class CompositionManager : MinigameManager
         UIManager.EndRoundUI (roundResult);
     }
 
+    //ASSEGNA AL VOLTO IN MEZZO LE FATTEZZE DEL TUO AVATAR E DISATTIVO GLI ELEMENTI DELLA FACCIA CHE NON DEVONO ESSERE VISIBILI
+    void AssignCentralFace ()
+    {
+        AvatarSettings referenceAvatar = gameSessionSettings.avatarSettings;
+        centralFace.CreateCompleteFace (GetMainEmotion (), referenceAvatar.gender, referenceAvatar.skinColor, referenceAvatar.hairStyle, referenceAvatar.hairColor, referenceAvatar.eyesColor);
+        centralFace.DeactivateFaceElements ();
+    }
+
     void SpawnCorrectElement ()
     {
         //  SPAWN DELLA BOCCA
@@ -120,14 +133,14 @@ public class CompositionManager : MinigameManager
         //questo posto e' stato occupato
         mouthPositioned[indexOfMouth] = true;
         //assegna l'emozione scelta alla faccia
-        mouth.GetComponent<DraggableFacePart> ().SetFacePartEmotion (mainEmotion);
+        mouth.GetComponent<DraggableFacePart> ().SetFacePartEmotion (mainEmotion, gameSessionSettings.avatarSettings);
 
         //SPAWN DEGLI OCCHI
         int indexOfEyes = Random.Range (0, 2);
         GameObject eyes = Instantiate (Resources.Load<GameObject> ("Prefab/DraggableObject/FacePieces/Eyes"), spawnPointPositions[indexOfEyes + 2].localPosition, Quaternion.identity);
         //questo posto e' stato occupato
         eyesPositioned[indexOfEyes] = true;
-        eyes.GetComponent<DraggableFacePart> ().SetFacePartEmotion (mainEmotion);
+        eyes.GetComponent<DraggableFacePart> ().SetFacePartEmotion (mainEmotion, gameSessionSettings.avatarSettings);
     }
 
     //crea le altre bocche e occhi in modo che siano sbagliati
@@ -139,7 +152,7 @@ public class CompositionManager : MinigameManager
             {
                 GameObject mouth = Instantiate (Resources.Load<GameObject> ("Prefab/DraggableObject/FacePieces/Mouth"), spawnPointPositions[i].localPosition, Quaternion.identity);
                 mouthPositioned[i] = true;
-                mouth.GetComponent<DraggableFacePart> ().SetFacePartEmotion (PickNotMainEmotion (mainEmotion));
+                mouth.GetComponent<DraggableFacePart> ().SetFacePartEmotion (PickNotMainEmotion (mainEmotion), gameSessionSettings.avatarSettings);
             }
         }
         for (int i = 0; i < eyesPositioned.Length; i++)
@@ -148,7 +161,7 @@ public class CompositionManager : MinigameManager
             {
                 GameObject eyes = Instantiate (Resources.Load<GameObject> ("Prefab/DraggableObject/FacePieces/Eyes"), spawnPointPositions[i + 2].localPosition, Quaternion.identity);
                 eyesPositioned[i] = true;
-                eyes.GetComponent<DraggableFacePart> ().SetFacePartEmotion (PickNotMainEmotion (mainEmotion));
+                eyes.GetComponent<DraggableFacePart> ().SetFacePartEmotion (PickNotMainEmotion (mainEmotion), gameSessionSettings.avatarSettings);
             }
         }
     }

@@ -9,7 +9,10 @@ public class PhotographicEmotionManager : SelectionGameManager
 
     protected override GameObject InstantiateEmotionElement (string emotionString, Vector3 position)
     {
-        GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/SelectableObject/Faces/face" + emotionString), position, Quaternion.identity);
+        AvatarSettings ava = gameSessionSettings.avatarSettings;
+        GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), position, Quaternion.identity);
+        obj.GetComponent<Avatar> ().CreateCompleteFace (ConvertTextInEmotion (emotionString), ava.gender, ava.skinColor, ava.hairStyle, ava.hairColor, ava.eyesColor);
+        obj.GetComponent<Avatar> ().MakeAvatarSelectableObject ();
         return obj;
     }
 

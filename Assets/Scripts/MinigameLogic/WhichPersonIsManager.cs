@@ -5,21 +5,19 @@ using UnityEngine;
 public class WhichPersonIsManager : MinigameManager
 {
 
-    [Header ("gameObject della bocca principale e deglio occhi principali")]
-    public GameObject mainMouth;
-    public GameObject mainEyes;
-
     //array che viene riempito man mano che si creano le facce delle varie persone, Serve a sapere quali posizioni sono state occupate
     Emotion?[] facesCreated;
     //numero di facce corrette create
     int numberOfCorrectFaces;
-
+    public Transform facePosition;
     List<GameObject> facesSelected;
+    GameObject centralFace;
 
     UIWhichPersonIsManager UIManager;
 
-    private void Start ()
+    protected override void Start ()
     {
+        base.Start ();
         //istanzia la mano per la selezione
         GameObject selectionHand = Resources.Load<GameObject> ("Prefab/HandSelection");
         Instantiate (selectionHand, Vector2.zero, Quaternion.identity);
@@ -56,19 +54,9 @@ public class WhichPersonIsManager : MinigameManager
 
     void CreateMainFace ()
     {
-        //crea 2 game Object con solo un'immagine attaccata
-        AssignFacePartSprite (mainMouth.GetComponent<SpriteRenderer> (), FaceParts.Mouth, mainEmotion);
-        AssignFacePartSprite (mainEyes.GetComponent<SpriteRenderer> (), FaceParts.Eyes, mainEmotion);
-    }
-    //metodo che assegna agli occhi o alla bocca dalla main face l'immagine dell'emozione giusta 
-    void AssignFacePartSprite (SpriteRenderer spr, FaceParts facePartType, Emotion emotion)
-    {
-        spr.sprite = Resources.Load<Sprite> ("Sprite/FacePieces/" + facePartType.ToString () + "/" + facePartType.ToString () + emotion.ToString ());
-    }
-    // da cambiare nel momento in cui avremo le facce di tutte le persone
-    void AssignFaceSprite (SpriteRenderer spr, Emotion emotion)
-    {
-        spr.sprite = Resources.Load<Sprite> ("Sprite/CompleteFaces/" + "face" + emotion.ToString ());
+        AvatarSettings a = gameSessionSettings.avatarSettings;
+        centralFace = Instantiate (Resources.Load<GameObject> ("Prefab/AvatarFace"), facePosition.position, Quaternion.identity);
+        centralFace.GetComponent<Avatar> ().CreateCompleteFace (GetMainEmotion (), a.gender, a.skinColor, a.hairStyle, a.hairColor, a.eyesColor);
     }
 
     void CreateFacesOfDifferentPeople ()
@@ -167,6 +155,8 @@ public class WhichPersonIsManager : MinigameManager
 
     protected override void DestroySceneObjects ()
     {
+        if (centralFace != null)
+            Destroy (centralFace.gameObject);
         facesCreated = new Emotion?[] { null, null, null, null };
         facesSelected.Clear ();
 

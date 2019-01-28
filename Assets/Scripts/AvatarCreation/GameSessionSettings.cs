@@ -16,21 +16,24 @@ public class GameSessionSettings : MonoBehaviour
 			instance = this;
 		else
 			Destroy (this.gameObject);
+
+		if (avatarSettings.skinColor==null)
+			AssignDefaultAvatarSettings ();
+
 	}
 
 	private void Start ()
 	{
 		DontDestroyOnLoad (gameObject);
-		AssignDefaultAvatarSettings ();
 	}
 
 	void AssignDefaultAvatarSettings ()
 	{
 		avatarSettings.gender = Gender.Male;
+		avatarSettings.skinColor = "White";
 		avatarSettings.hairStyle = "Ciuffo";
 		avatarSettings.eyesColor = "Black";
 		avatarSettings.hairColor = "DarkBrown";
-		avatarSettings.skinColor = "White";
 	}
 
 }

@@ -11,15 +11,35 @@ public class DraggableFacePart : DraggableObject
     Emotion emotion;
 
     //setta i parametri di emozione e tipo di pezzo della faccia
-    public void SetFacePartEmotion (Emotion emo)
+    public void SetFacePartEmotion (Emotion emo, AvatarSettings avatar)
     {
         emotion = emo;
-        AssignFacePartSprite ();
+        AssignFacePartSprite (avatar);
     }
 
-    void AssignFacePartSprite ()
+    void AssignFacePartSprite (AvatarSettings avatar)
     {
-        GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Sprite/FacePieces/" + facePartType.ToString () + "/" + facePartType.ToString () + emotion.ToString ());
+        if (facePartType == FaceParts.Mouth)
+        {
+            GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/" + facePartType.ToString () + "/" + emotion.ToString ());
+        }
+
+        else if (facePartType == FaceParts.Eyes)
+        {
+            transform.Find ("Eyes").GetComponent<SpriteRenderer> ().color = AvatarData.eyesColorDictionary[avatar.eyesColor];
+            transform.Find ("Eyes").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/" + facePartType.ToString () + "/Default");
+
+            if (emotion.ToString () == "Disgusto")
+            {
+                transform.Find ("Eyes").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/" + facePartType.ToString () + "/Disgusto");
+                transform.Find ("EyesLight").gameObject.SetActive (false);
+            }
+
+            transform.Find ("Eyebrow").GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + avatar.gender.ToString () + emotion.ToString ());
+            transform.Find ("Eyebrow").GetComponent<SpriteRenderer> ().color = AvatarData.hairColorDictionary[avatar.hairColor];
+
+
+        }
     }
 
     //metodo per checkare se hai posizionato il pezzo della faccia sulla giusta droppable area

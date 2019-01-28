@@ -30,6 +30,8 @@ public abstract class MinigameManager : MonoBehaviour
     //Lista che tiene i game object degli oggetti risposta creati nell'endGame e che vengono cancellate all'inizio di un nuovo round
     public List<GameObject> answerObjectSpawned;
 
+    public GameSessionSettings gameSessionSettings;
+
     // verosimilmente in ogni minigioco degli oggetti andranno spawnati 
     //ossia tutti quei pezzi tra cui scegliere ecc..
     protected abstract void SpawnSceneObjects ();
@@ -38,6 +40,15 @@ public abstract class MinigameManager : MonoBehaviour
     protected abstract void EndRound ();
     //protected abstract void CheckIfMinigameCompleted();
 
+    protected virtual void Start ()
+    {
+        if (GameObject.FindObjectOfType<GameSessionSettings> () == null)
+        {
+            gameSessionSettings = Instantiate (new GameObject (), transform.position, Quaternion.identity).AddComponent<GameSessionSettings> ();
+        }
+        else
+            gameSessionSettings = GameObject.FindObjectOfType<GameSessionSettings> ();
+    }
     //Metodo per scegliere un'emozione tra quelle disponibili
     protected void PickNewEmotion ()
     {

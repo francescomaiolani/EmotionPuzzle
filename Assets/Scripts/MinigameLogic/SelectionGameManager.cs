@@ -18,13 +18,9 @@ public abstract class SelectionGameManager : MinigameManager
     //Metodo che prepara l'emozione centrale (da indovinare) in base al minigame che si sta giocando
     protected abstract void SetupCentralEmotion ();
 
-    protected virtual void Start ()
+    protected override void Start ()
     {
-        if (GameObject.FindObjectOfType<GameSessionSettings> () == null)
-        {
-            GameObject gameSessionSettings = Instantiate (new GameObject (), transform.position, Quaternion.identity);
-            gameSessionSettings.AddComponent<GameSessionSettings> ();
-        }
+        base.Start ();
         //istanzia la mano per la selezione
         GameObject selectionHand = Resources.Load<GameObject> ("Prefab/HandSelection");
         Instantiate (selectionHand, Vector2.zero, Quaternion.identity);

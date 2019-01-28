@@ -21,6 +21,17 @@ public class Avatar : MonoBehaviour
 		AssignEyesColor (eyesColor);
 	}
 
+	//METODO PER CREARE UNA FACCIA COMPLETA QUALUNQUE, NEL CASO IN CUI TU ABBIA 2 EMOZIONI DIVERSE PER OCCHI E BOCCA
+	public void CreateCompleteFace (Emotion mouthEmotion, Emotion eyesEmotion, Gender gender, string skinColor, string hairStyle, string hairColor, string eyesColor)
+	{
+		AssignGender (gender.ToString ());
+		AssignEmotion (mouthEmotion, eyesEmotion);
+		AssignSkinColor (skinColor);
+		AssignHairStyle (gender, hairStyle);
+		AssignHairColor (hairColor);
+		AssignEyesColor (eyesColor);
+	}
+
 	//METODO CHE CREA UNA FACCIA CASUALE MA SENZA ASSEGNARE UN'EMOZIONE
 	public void CreateRandomFace ()
 	{
@@ -75,6 +86,25 @@ public class Avatar : MonoBehaviour
 		}
 	}
 
+	//METODO CHE ASSEGNA UN'EMOZIONE ALLA FACCIA CAMBIANDO I COMPONENTI DA CAMBIARE: OCCHI, SOPRACCIGLIA E BOCCA
+	//USARE QUESTO IN CASO IN CUI SI ABBIA UN'EMOZIONE DIVERSA PER GLI OCCHI O LA BOCCA
+	public void AssignEmotion (Emotion mouthEmotion, Emotion eyesEmotion)
+	{
+		mouth.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Mouth/" + mouthEmotion.ToString ());
+		eyebrow.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyebrow/" + gender.ToString () + eyesEmotion.ToString ());
+		if (eyesEmotion == Emotion.Disgusto)
+		{
+			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/" + eyesEmotion.ToString ());
+			eyesLight.SetActive (false);
+			lashes.SetActive (false);
+		}
+		else
+		{
+			eyes.GetComponent<SpriteRenderer> ().sprite = Resources.Load<Sprite> ("Avatar/Eyes/Default");
+			eyesLight.SetActive (true);
+		}
+
+	}
 	//METODI CHE ASSEGNANO I VALORI GIUSTI ALLE COMPONENTI
 	public void AssignGender (string gender)
 	{
@@ -119,5 +149,35 @@ public class Avatar : MonoBehaviour
 	public void AssignEyesColor (string eyesColorName)
 	{
 		eyes.GetComponent<SpriteRenderer> ().color = AvatarData.eyesColorDictionary[eyesColorName];
+	}
+
+	//metodo che cambia l'opacita' di tutta la faccia per quando hai sbagliato a indovinare
+	public void ChangeFaceOpacity (float value)
+	{
+		GameObject[] componenti = new GameObject[] { face, eyes, hair, eyebrow, earInsideLeft, earInsideRight, nose, earRing, lashes, mouth, eyesLight };
+		foreach (GameObject comp in componenti)
+		{
+			SpriteRenderer spr = comp.GetComponent<SpriteRenderer> ();
+			spr.color = new Color (spr.color.r, spr.color.g, spr.color.b, value / 255);
+		}
+	}
+
+	//nel composition Game serve disattivare alcune parti della faccia
+	public void DeactivateFaceElements ()
+	{
+		eyes.SetActive (false);
+		eyebrow.SetActive (false);
+		eyesLight.SetActive (false);
+		lashes.SetActive (false);
+		mouth.SetActive (false);
+	}
+
+	//RENDE UN AVATAR UN SELECTABLE OBJECT AGGIUNGENDO UN  CIRCLE COLLIDER E UN SELECTABLEOBJECT COMPONENT
+	public void MakeAvatarSelectableObject ()
+	{
+		transform.localScale = new Vector3 (1, 1, 1);
+		this.gameObject.AddComponent<CircleCollider2D> ().radius = 0.5f;
+		GetComponent<CircleCollider2D> ().isTrigger = true;
+		gameObject.AddComponent<SelectableObject> ().SetEmotionType (emotion);
 	}
 }
