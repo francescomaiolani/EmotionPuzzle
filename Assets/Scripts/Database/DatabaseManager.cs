@@ -75,7 +75,7 @@ public class DatabaseManager: MonoBehaviour {
         return flag;
     }
 
-    public static void GetTotalErrorsByEmotion(string emotion)
+    public static int GetTotalErrorsByEmotion(string username, string emotion)
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
@@ -84,16 +84,81 @@ public class DatabaseManager: MonoBehaviour {
             //Open connection to the database
             dbConnection.Open();
             IDbCommand dbCommand = dbConnection.CreateCommand();
-            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Emotion = (\"{0}\")", emotion);
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Name = (\"{0}\") AND Emotion = (\"{1}\") AND Result = 0", username, emotion);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                total = reader.GetInt32(0);
+            }
+            dbConnection.Close();
+        }
+        return total;
+    }
+
+    public static int GetTotalErrorsByGame(string username, string game)
+    {
+        int total = 0;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Name = (\"{0}\") AND Game = (\"{1}\") AND Result = 0", username, game);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                total = reader.GetInt32(0);
+            }
+            dbConnection.Close();
+        }
+        return total;
+    }
+
+    public static int GetTotalErrors(string username)
+    {
+        int total = 0;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Name = (\"{0}\") AND Result = 0", username);
             dbCommand.CommandText = sqlQuery;
             IDataReader reader = dbCommand.ExecuteReader();
             if (reader.Read())
             {
                 Debug.Log("Count: " + reader.GetInt32(0));
+                total = reader.GetInt32(0);
             }
             dbConnection.Close();
         }
-        return;
+        return total;
+    }
+
+    //Metodo utilizzato per vedere se nel database è gia presente un certo username: return true se il nome esiste già
+    public static bool CheckIfAlreadyExistInResult(string username)
+    {
+        bool flag = false;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT * FROM Results WHERE Name = (\"{0}\")", username);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                flag = true;
+            }
+            dbConnection.Close();
+        }
+        return flag;
     }
 
 
