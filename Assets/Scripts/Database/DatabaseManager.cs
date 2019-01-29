@@ -96,6 +96,27 @@ public class DatabaseManager: MonoBehaviour {
         return total;
     }
 
+    public static int GetTotalRoundsByEmotion(string username, string emotion)
+    {
+        int total = 0;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Name = (\"{0}\") AND Emotion = (\"{1}\")", username, emotion);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                total = reader.GetInt32(0);
+            }
+            dbConnection.Close();
+        }
+        return total;
+    }
+
     public static int GetTotalErrorsByGame(string username, string game)
     {
         int total = 0;
@@ -116,6 +137,29 @@ public class DatabaseManager: MonoBehaviour {
         }
         return total;
     }
+
+    public static int GetTotalRoundsByGame(string username, string game)
+    {
+        int total = 0;
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("SELECT count(*) FROM Results WHERE Name = (\"{0}\") AND Game = (\"{1}\")", username, game);
+            dbCommand.CommandText = sqlQuery;
+            IDataReader reader = dbCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                total = reader.GetInt32(0);
+            }
+            dbConnection.Close();
+        }
+        return total;
+    }
+
+
 
     public static int GetTotalErrors(string username)
     {

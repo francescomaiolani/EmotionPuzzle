@@ -10,15 +10,17 @@ public class Diagram : MonoBehaviour {
 
     public InputField username;
     public GameObject type;
+    public GameObject canvas;
+    public float maxScale;
 
+    private List<GameObject> rects;
     private string targetName;
     private string targetType;
-    private int totalErrors;
-    private int targetErrors;
+    private float errorPercentage;
 
     private void Start()
     {
-        
+        rects = new List<GameObject>();
     }
 
     private void SetType()
@@ -32,40 +34,59 @@ public class Diagram : MonoBehaviour {
     //METODO CHE VIENE CHIAMATO QUANDO VIENE PREMUTO IL TASTO MOSTRA RISULTATI
     public void SetDiagram()
     {
+        if (rects.Count != 0)
+            foreach (GameObject r in rects)
+                Destroy(r);
+
         SetType();
+
         if (CheckUsername())
         {
-            totalErrors = DatabaseManager.GetTotalErrors(targetName);
-            Debug.Log("Gli errori totali del soggetto sono: " + totalErrors);
+
+            string[] targets;
             if (targetType == "Emozione")
+                targets = System.Enum.GetNames(typeof(Emotion));
+            else
+                targets = System.Enum.GetNames(typeof(Games));
+
+            int i;
+            float offset;
+            for (i = 0, offset = 0; i < targets.Length; i++, offset += 2.5f)
             {
-                string[] emotions = System.Enum.GetNames(typeof(Emotion));
-                for (int i = 0; i < emotions.Length; i++)
+                int totalRounds, totalErrors;
+                targets[i] = ConvertInDatabaseFormat(targets[i]);
+
+                if (targetType == "Emozione")
                 {
-                    if (emotions[i] == "Felicità")
-                        emotions[i] = "Felicita";
-                    Debug.Log("Gli errori per " + emotions[i] + " sono:" + DatabaseManager.GetTotalErrorsByEmotion(targetName, emotions[i]));
+                    totalRounds = DatabaseManager.GetTotalRoundsByEmotion(targetName, targets[i]);
+                    totalErrors = DatabaseManager.GetTotalErrorsByEmotion(targetName, targets[i]);
                 }
-            }
-            
-            if (targetType == "Gioco")
-            {
-                string[] games = System.Enum.GetNames(typeof(Games));
-                for (int i = 0; i < games.Length; i++)
+                else
                 {
-                    if (games[i] == "1. Indovina l'emozione")
-                        games[i] = "GuessExpression";
-                    if (games[i] == "2. Come ti senti?")
-                        games[i] = "HowDoYouFeel";
-                    if (games[i] == "3. Quale persona è...")
-                        games[i] = "WhichPersonIs";
-                    if (games[i] == "4. Componi la faccia")
-                        games[i] = "Composition";
-                    if (games[i] == "5. Emozione Fotografica")
-                        games[i] = "PhotographicEmotion";
-                    Debug.Log("Gli errori per " + games[i] + " sono:" + DatabaseManager.GetTotalErrorsByGame(targetName, games[i]));
+                    totalRounds = DatabaseManager.GetTotalRoundsByGame(targetName, targets[i]);
+                    totalErrors = DatabaseManager.GetTotalErrorsByGame(targetName, targets[i]);
                 }
+
+                GameObject rect = Instantiate(Resources.Load<GameObject>("Prefab/DataVisualization/DiagramRect"), new Vector3(-4.5f + offset, -3.2f, 0), Quaternion.identity, canvas.transform);
+                rects.Add(rect);
+
+                Debug.Log("Errori " + targets[i] + ":" + totalErrors + " Round " + targets[i] + ": " + totalRounds);
+
+                if (totalRounds == 0)
+                {
+                    errorPercentage = 0;
+                }
+                else
+                {
+                    errorPercentage = ((float) totalErrors / totalRounds) * 100;
+                }
+                Vector3 newScale = new Vector3(rect.transform.localScale.x, (errorPercentage * maxScale) / 100, rect.transform.localScale.z);
+                rect.transform.Find("RectImage").transform.localScale = newScale;
+                targets[i] = ConvertInDiagramFormat(targets[i]);
+
+                rect.transform.Find("DataText").GetComponent<Text>().text = targets[i] + "\n" + errorPercentage + "%";
             }
+               
         }
 
         
@@ -80,48 +101,43 @@ public class Diagram : MonoBehaviour {
         }
         else
         {
+
             return false;
             //Errore
         }
     }
 
-    //    //Inserisci quanti errori sono stati fatti per emozione
-    //    public int[] errorValues;
+   private string ConvertInDatabaseFormat(string s)
+    {
+        if (s == "Felicità")
+            s = "Felicita";
+        if (s == "1. Indovina l'emozione")
+            s = "GuessExpression";
+        if (s == "2. Come ti senti?")
+            s = "HowDoYouFeel";
+        if (s == "3. Quale persona è...")
+            s = "WhichPersonIs";
+        if (s == "4. Componi la faccia")
+            s = "Composition";
+        if (s == "5. Emozione Fotografica")
+            s = "PhotographicEmotion";
+        return s;
+    }
 
-    //    public GameObject[] rects;
-
-    //    public float maxSize;
-
-    //    private int totalErrors;
-
-    //    void Start()
-    //    {
-    //        totalErrors = GetTotalErrors();
-    //        SetRectValues();
-    //        DatabaseManager.GetTotalErrorsByEmotion("Felicita");
-    //    }
-
-    //    private void SetRectValues()
-    //    {
-    //        float perc;
-    //        float value;
-
-    //        if (errorValues.Length != rects.Length)
-    //            Debug.LogError("Numero differente tra rettangoli e valori");
-    //        for (int i = 0; i < errorValues.Length; i++)
-    //        {
-    //            value = (errorValues[i] * maxSize) / totalErrors;
-    //            rects[i].transform.localScale = new Vector3(rects[i].transform.localScale.x, value, rects[i].transform.localScale.z);
-    //        }
-    //    }
-
-    //    private int GetTotalErrors()
-    //    {
-    //        int sum = 0;
-    //        foreach(int v in errorValues)
-    //        {
-    //            sum += v;
-    //        }
-    //        return sum;
-    //    }
+    private string ConvertInDiagramFormat(string s)
+    {
+        if (s == "Felicita")
+            s = "Felicità";
+        if (s == "GuessExpression")
+            s = "1. Indovina l'emozione";
+        if (s == "HowDoYouFeel")
+            s = "2. Come ti senti?";
+        if (s == "WhichPersonIs")
+            s = "3. Quale persona è...";
+        if (s == "Composition")
+            s = "4. Componi la faccia";
+        if (s == "PhotographicEmotion")
+            s = "5. Emozione Fotografica";
+        return s;
+    }
 }
