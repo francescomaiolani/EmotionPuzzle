@@ -33,10 +33,10 @@ public class HandCompositionGame : Hand
             AddCampionamento(currentSkeleton.GetRightHandDistance());
             Debug.Log(MediaCampionamento());
             //se sto cliccando >>> Inizia il drag
-            if (MediaCampionamento() < 0.075f)
+            if (MediaCampionamento() < 0.08f)
                 Drag();
             //Quando sollevo il mouse >>> inizio drop
-            else if (MediaCampionamento() > 0.075f)
+            else if (MediaCampionamento() > 0.08f)
                 Drop();
         }
         //se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
