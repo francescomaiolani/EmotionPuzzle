@@ -38,7 +38,7 @@ public class Hand : MonoBehaviour
 
     // Nella routine di ogni mano devono essere eseguiti gli step di :
     //segui mouse o mano reale
-    void FixedUpdate()
+    void Update()
     {
         FollowMouseOrKinectHand();
         CheckInputs();
