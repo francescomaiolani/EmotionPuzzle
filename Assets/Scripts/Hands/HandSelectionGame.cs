@@ -5,66 +5,66 @@ using UnityEngine;
 public class HandSelectionGame : Hand
 {
 
-	public delegate void OnSelectableObjectClicked (SelectableObject selectableObject);
+	public delegate void OnSelectableObjectClicked(SelectableObject selectableObject);
 	public static event OnSelectableObjectClicked SelectableObjectClicked;
 
-	public delegate void OnSelectableObjectEnter (SelectableObject selectableObject);
+	public delegate void OnSelectableObjectEnter(SelectableObject selectableObject);
 	public static event OnSelectableObjectEnter SelectableObjectEnter;
 
-	public delegate void OnSelectableObjectExit (SelectableObject selectableObject);
+	public delegate void OnSelectableObjectExit(SelectableObject selectableObject);
 	public static event OnSelectableObjectExit SelectableObjectExit;
 
 	[SerializeField]
 	private SelectableObject objectSelected;
 
 	//gli inputs vanno overridati perhe' non e' piu' un drag 
-	protected override void CheckInputs ()
+	protected override void CheckInputs()
 	{
-
 		//non bella soluzione ma serve a noi per differenziare se siamo nella magic room o no
 		if (inMagicRoom)
 		{
+			Debug.Log(currentSkeleton);
 			//se sto cliccando >>> Inizia il drag
-			if (currentSkeleton.isRightHandClosed (0.1f))
-				SelectObject ();
+			if (currentSkeleton.isRightHandClosed(0.1f))
+				SelectObject();
 		}
 		//se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
 		else
 		{
-			if (Input.GetMouseButtonDown (0))
-				SelectObject ();
+			if (Input.GetMouseButtonDown(0))
+				SelectObject();
 		}
 	}
 
 	//da implementare ancora
-	protected void SelectObject ()
+	protected void SelectObject()
 	{
 		//se sono posizionato con la mano sopra un'oggetto selzionabile e ho cliccato allora invia il messaggio che ho selezionato 
 		if (objectSelected != null)
 		{
-			SelectableObjectClicked (objectSelected);
+			SelectableObjectClicked(objectSelected);
 		}
 	}
 
-	protected override void OnTriggerEnter2D (Collider2D collision)
+	protected override void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (!dragging)
 		{
-			if (collision.gameObject.GetComponent<SelectableObject> () != null)
+			if (collision.gameObject.GetComponent<SelectableObject>() != null)
 			{
-				objectSelected = collision.gameObject.GetComponent<SelectableObject> ();
-				SelectableObjectEnter (objectSelected);
+				objectSelected = collision.gameObject.GetComponent<SelectableObject>();
+				SelectableObjectEnter(objectSelected);
 			}
 		}
 	}
 
-	protected override void OnTriggerExit2D (Collider2D collision)
+	protected override void OnTriggerExit2D(Collider2D collision)
 	{
 		if (!dragging)
 		{
-			if (collision.gameObject.GetComponent<SelectableObject> () != null)
+			if (collision.gameObject.GetComponent<SelectableObject>() != null)
 			{
-				SelectableObjectExit (objectSelected);
+				SelectableObjectExit(objectSelected);
 				objectSelected = null;
 			}
 		}
