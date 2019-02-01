@@ -25,10 +25,9 @@ public class HandSelectionGame : Hand
 		{
 			Debug.Log(currentSkeleton);
 			//se sto cliccando >>> Inizia il drag
-			if (currentSkeleton.isRightHandClosed(0.1f))
+			if (currentSkeleton.isRightHandClosed(0.075f))
 			{
 				Debug.Log("Hand is close");
-				Debug.Log();
 				SelectObject();
 
 			}

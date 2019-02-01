@@ -26,10 +26,10 @@ public class HandCompositionGame : Hand
         if (inMagicRoom)
         {
             //se sto cliccando >>> Inizia il drag
-            if (currentSkeleton.isRightHandClosed (0.1f))
+            if (currentSkeleton.isRightHandClosed (0.075f))
                 Drag ();
             //Quando sollevo il mouse >>> inizio drop
-            else if (!currentSkeleton.isRightHandClosed (0.1f))
+            else if (!currentSkeleton.isRightHandClosed (0.075f))
                 Drop ();
         }
         //se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
@@ -132,40 +132,4 @@ public class HandCompositionGame : Hand
                 droppableArea.Remove (collision.GetComponent<DroppableArea> ());
         }
     }
-
-    //disambigua la scelta tra bocca e occhi e da' un consiglio giusto
-    /* protected override void ChooseProperAdvice (string type)
-    {
-        if (type == "EYES")
-            GiveAdvice ("Prova posizionando gli occhi sopra al naso");
-        else if (type == "MOUTH")
-            GiveAdvice ("Prova posizionando la bocca sotto al naso");
-    }
- */
-    //DETECT COLLISION DA NON USARE ANCORA
-    /* protected override void DetectCollision () 
-    {
-        RaycastHit2D[] hit = Physics2D.CircleCastAll (transform.position, 0.5f, Vector2.up, 0, layerToDetectCollision);
-
-        foreach (RaycastHit2D hitShape in hit)
-        {
-            if (!dragging)
-            {
-                if (hitShape.collider.gameObject.tag == "FacePiece")
-                    pieceTaken = hitShape.collider.gameObject;
-            }
-            else
-            {
-                //se sono entrato in una droppable area
-                if (hitShape.collider.gameObject.tag == "DroppableArea")
-                {
-                    AddDroppableArea (hitShape.collider.gameObject.GetComponent<DroppableArea> ());
-                }
-            }
-
-            Debug.Log (hitShape.collider.gameObject.name);
-
-        }
-    }*/
-
 }

@@ -42,7 +42,6 @@ public class Hand : MonoBehaviour
     {
         FollowMouseOrKinectHand();
         CheckInputs();
-        //DetectCollision ();
     }
 
     //la mano segue il mouse 
@@ -97,16 +96,4 @@ public class Hand : MonoBehaviour
         d.SetContainedPiece(draggableComponent.gameObject);
         d.SetOccupied(true);
     }
-
-    /*  //aggiunge una droppable area quando passi sopra ad una. Non piu' utile
-     protected void AddDroppableArea (DroppableArea area)
-     {
-         if (droppableArea.Contains (area))
-             return;
-
-         else
-             droppableArea.Add (area);
-     } */
-
-
 }
