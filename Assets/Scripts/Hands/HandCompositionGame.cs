@@ -31,6 +31,7 @@ public class HandCompositionGame : Hand
         if (inMagicRoom)
         {
             AddCampionamento(currentSkeleton.GetRightHandDistance());
+            Debug.Log(MediaCampionamento());
             //se sto cliccando >>> Inizia il drag
             if (MediaCampionamento() < 0.075f)
                 Drag();
@@ -127,6 +128,7 @@ public class HandCompositionGame : Hand
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("Sono entrato in " + collision.gameObject.name);
         if (!dragging)
         {
             if (collision.gameObject.tag == "FacePiece")
