@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public enum Games { GuessExpression, HowDoYouFeel, WhichPersonIs, Composition, PhotographicEmotion }
 
-public class Diagram : MonoBehaviour {
+public class Diagram : MonoBehaviour
+{
 
     public InputField username;
     public GameObject type;
@@ -17,6 +18,9 @@ public class Diagram : MonoBehaviour {
     private string targetName;
     private string targetType;
     private float errorPercentage;
+
+    [SerializeField]
+    private Color[] colori = new Color[3];
 
     private void Start()
     {
@@ -68,6 +72,7 @@ public class Diagram : MonoBehaviour {
                 }
 
                 GameObject rect = Instantiate(Resources.Load<GameObject>("Prefab/DataVisualization/DiagramRect"), new Vector3(-4.5f + offset, -3.2f, 0), Quaternion.identity, canvas.transform);
+                rect.GetComponentInChildren<Image>().color = colori[2];
                 rects.Add(rect);
 
                 Debug.Log("Errori " + targets[i] + ":" + totalErrors + " Round " + targets[i] + ": " + totalRounds);
@@ -86,10 +91,10 @@ public class Diagram : MonoBehaviour {
 
                 rect.transform.Find("DataText").GetComponent<Text>().text = targets[i] + "\n" + errorPercentage + "%";
             }
-               
+
         }
 
-        
+
     }
 
     private bool CheckUsername()
@@ -107,7 +112,7 @@ public class Diagram : MonoBehaviour {
         }
     }
 
-   private string ConvertInDatabaseFormat(string s)
+    private string ConvertInDatabaseFormat(string s)
     {
         if (s == "Felicità")
             s = "Felicita";
