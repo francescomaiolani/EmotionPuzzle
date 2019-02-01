@@ -296,7 +296,7 @@ IEnumerator sendCommand()
     /// </summary>
     /// <param name="json"></param>    
 public void setSkeletons(string json) {
-        Debug.Log(json);
+        //Debug.Log(json);
         json = "{\"skeletons\" : " + json + "}";
         json = json.Replace("X", "x");
         json = json.Replace("Y", "y");

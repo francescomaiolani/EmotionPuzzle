@@ -26,7 +26,12 @@ public class HandSelectionGame : Hand
 			Debug.Log(currentSkeleton);
 			//se sto cliccando >>> Inizia il drag
 			if (currentSkeleton.isRightHandClosed(0.1f))
+			{
+				Debug.Log("Hand is close");
+				Debug.Log();
 				SelectObject();
+
+			}
 		}
 		//se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
 		else
