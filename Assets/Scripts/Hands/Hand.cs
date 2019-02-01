@@ -51,6 +51,7 @@ public class Hand : MonoBehaviour
         Vector2 mousePositionInWorldCoordinates;
         if (inMagicRoom)
         {
+            currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
             if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
                 mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
             else
