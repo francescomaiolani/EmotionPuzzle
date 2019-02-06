@@ -30,6 +30,7 @@ public class HandSelectionGame : Hand
 				ChangeHandSprite("close");
 				Debug.Log("Hand is close");
 				SelectObject();
+				
 
 			}
 			else

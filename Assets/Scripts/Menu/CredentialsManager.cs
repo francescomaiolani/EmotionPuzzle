@@ -22,7 +22,7 @@ public class CredentialsManager : MonoBehaviour
     private void Start()
     {
         LoginButtonClick();
-        
+
         MagicRoomKinectV2Manager.instance.setUpKinect(10, 1);
 
         if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
@@ -66,7 +66,7 @@ public class CredentialsManager : MonoBehaviour
         {
             if (DatabaseManager.GetTherapist(usernameField.text, passwordField.text))
             {
-                SceneManager.LoadScene("ModeSelection");
+                SceneManager.LoadScene("PlayOrData");
             }
             else
             {
@@ -87,7 +87,7 @@ public class CredentialsManager : MonoBehaviour
             //Se l'inserimento è andato a buon fine allora andiamo nella selezione dei minigame altrimenti mandiamo un messaggio di errore
             if (DatabaseManager.InsertTherapist(usernameField.text, passwordField.text))
             {
-                SceneManager.LoadScene("MinigameSelection");
+                SceneManager.LoadScene("PlayOrData");
             }
             else
             {
