@@ -11,9 +11,8 @@ public class HowDoYouFeelManager : SelectionGameManager
 
     protected override GameObject InstantiateEmotionElement (string emotionString, Vector3 position)
     {
-        GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/SelectableObject/RiquadriEmozione/RiquadroEmozione"), position, Quaternion.identity) as GameObject;
+        GameObject obj = Instantiate (Resources.Load<GameObject> ("Prefab/SelectableObject/RiquadriEmozione/RiquadroEmozione"), position, Quaternion.identity, GameObject.Find("TextContainer").transform) as GameObject;
         obj.GetComponent<TextMeshProUGUI> ().text = ConvertInCorrectText (emotionString);
-        obj.transform.SetParent(FindObjectOfType<Canvas> ().transform);
         obj.transform.localScale = new Vector3 (1, 1, 1);
         return obj;
     }

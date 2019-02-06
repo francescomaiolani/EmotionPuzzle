@@ -8,77 +8,88 @@ public abstract class SelectionGameManager : MinigameManager
 
     //Lista che viene utilizzare per tenere traccia delle emozioni già scelte per i SelectableObject
     private List<Emotion> emotionUsed;
+    [SerializeField]
     private SelectableObject[] selectableObjects;
     private UIEndRoundManager UIManager;
     //Array che tiene conto di quali spawn points sono già stati occupati
     private bool[] occupiedPosition;
 
+    private SelectableObject answerGiven;
     //Metodo utilizato per instanziare gli elementi di scena in base al minigame che si sta giocando
-    protected abstract GameObject InstantiateEmotionElement (string emotionString, Vector3 position);
+    protected abstract GameObject InstantiateEmotionElement(string emotionString, Vector3 position);
     //Metodo che prepara l'emozione centrale (da indovinare) in base al minigame che si sta giocando
-    protected abstract void SetupCentralEmotion ();
+    protected abstract void SetupCentralEmotion();
 
-    protected override void Start ()
+    protected override void Start()
     {
-        base.Start ();
+        base.Start();
         //istanzia la mano per la selezione
-        GameObject selectionHand = Resources.Load<GameObject> ("Prefab/HandSelection");
-        Instantiate (selectionHand, Vector2.zero, Quaternion.identity);
+        GameObject selectionHand = Resources.Load<GameObject>("Prefab/HandSelection");
+        Instantiate(selectionHand, Vector2.zero, Quaternion.identity);
 
-        Debug.Log ("Percorso attivo: " + pathEnabled);
-        emotionUsed = new List<Emotion> ();
+        Debug.Log("Percorso attivo: " + pathEnabled);
+        emotionUsed = new List<Emotion>();
         occupiedPosition = new bool[spawnPointPositions.Length];
-        UIManager = FindObjectOfType<UIEndRoundManager> ();
+        UIManager = FindObjectOfType<UIEndRoundManager>();
         SelectableObject.objectSelectedEvent += HandleSelection;
-        StartNewRound ();
+        StartNewRound();
     }
 
     //Metodo che gestisce la logica del singolo round
-    public override void StartNewRound ()
+    public override void StartNewRound()
     {
-        DestroyAnswerObjectSpawned ();
-
         //Disabilita schermata di fine round
-        endRoundPanel.SetActive (false);
-        //Aumentiamo il contatore dei round
-        UpdateRound ();
-        Debug.Log ("Siamo al round #" + currentRound);
-        //Resettiamo la lista delle emozioni usate
-        emotionUsed.Clear ();
-        //Facciamo visualizzare la main emotion al centro
-        ChooseMainEmotion ();
-        //Spawn dei SelectableObjects in basso
-        SpawnSceneObjects ();
-        //Ci salviamo tutti i selectable objects spawnati
-        selectableObjects = FindObjectsOfType<SelectableObject> ();
+        endRoundPanel.SetActive(false);
+        Debug.Log("Siamo al round #" + currentRound);
+        //in ogni caso distruggi le risposte create nell'end round panel
+        DestroyAnswerObjectSpawned();
+
+        if (roundResult)
+        {
+            //Aumentiamo il contatore dei round
+            UpdateRound();
+            //Resettiamo la lista delle emozioni usate
+            emotionUsed.Clear();
+            //Facciamo visualizzare la main emotion al centro
+            ChooseMainEmotion();
+            //Spawn dei SelectableObjects in basso
+            SpawnSceneObjects();
+            //Ci salviamo tutti i selectable objects spawnati
+            selectableObjects = FindObjectsOfType<SelectableObject>();
+        }
+        else
+        {
+            RepeatRound();
+        }
+
     }
 
     //Metodo che sceglie l'emozione principale del round
-    private void ChooseMainEmotion ()
+    private void ChooseMainEmotion()
     {
-        PickNewEmotion ();
-        emotionUsed.Add (mainEmotion);
-        SetupCentralEmotion ();
+        PickNewEmotion();
+        emotionUsed.Add(mainEmotion);
+        SetupCentralEmotion();
     }
 
     //Metodo che si occupa della logica di posizionamento dei principali elementi di scena
-    protected override void SpawnSceneObjects ()
+    protected override void SpawnSceneObjects()
     {
-        SpawnCorrectElement ();
-        SpawnOtherElements ();
+        SpawnCorrectElement();
+        SpawnOtherElements();
     }
 
     //Metodo che si occupa di spawnare le facce sbagliate
-    private void SpawnOtherElements ()
+    private void SpawnOtherElements()
     {
         for (int i = 0; i < spawnPointPositions.Length; i++)
         {
             if (occupiedPosition[i] == false)
             {
-                Emotion e = PickNextEmotion ();
-                GameObject face = InstantiateEmotionElement (e.ToString (), spawnPointPositions[i].position);
-                SelectableObject so = face.GetComponent<SelectableObject> ();
-                so.SetEmotionType (e);
+                Emotion e = PickNextEmotion();
+                GameObject face = InstantiateEmotionElement(e.ToString(), spawnPointPositions[i].position);
+                SelectableObject so = face.GetComponent<SelectableObject>();
+                so.SetEmotionType(e);
                 occupiedPosition[i] = true;
             }
         }
@@ -89,73 +100,87 @@ public abstract class SelectionGameManager : MinigameManager
     }
 
     //Metodo che si occupa di spawnare la faccia corrispondente all'emozione del round corrente
-    private void SpawnCorrectElement ()
+    private void SpawnCorrectElement()
     {
-        int positionIndex = UnityEngine.Random.Range (0, spawnPointPositions.Length);
-        GameObject face = InstantiateEmotionElement (GetEmotionString (), spawnPointPositions[positionIndex].position);
-        SelectableObject so = face.GetComponent<SelectableObject> ();
-        so.SetEmotionType (mainEmotion);
+        int positionIndex = UnityEngine.Random.Range(0, spawnPointPositions.Length);
+        GameObject face = InstantiateEmotionElement(GetEmotionString(), spawnPointPositions[positionIndex].position);
+        SelectableObject so = face.GetComponent<SelectableObject>();
+        so.SetEmotionType(mainEmotion);
         occupiedPosition[positionIndex] = true;
     }
 
     //Metodo che si occupa di scegliere una nuova emozione differente da quelle già scelte
-    private Emotion PickNextEmotion ()
+    private Emotion PickNextEmotion()
     {
-        int randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        int randomEmotion = UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
         Emotion chosenEmotion = (Emotion) randomEmotion;
 
-        while (emotionUsed.Contains (chosenEmotion))
+        while (emotionUsed.Contains(chosenEmotion))
         {
-            randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+            randomEmotion = UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
             chosenEmotion = (Emotion) randomEmotion;
         }
 
-        emotionUsed.Add (chosenEmotion);
+        emotionUsed.Add(chosenEmotion);
 
         return chosenEmotion;
     }
 
     //Metodo che si occupa di distruggere tutti gli oggetti di scena prima del round successivo
-    protected override void DestroySceneObjects ()
+    protected override void DestroySceneObjects()
     {
         foreach (SelectableObject s in selectableObjects)
         {
             if (s != null)
-                Destroy (s.gameObject);
+                Destroy(s.gameObject);
         }
     }
 
     //Metodo che viene chiamato nel momento in cui un oggetto viene selezionato
-    private void HandleSelection (GameObject objectSelected)
+    private void HandleSelection(GameObject objectSelected)
     {
+        answerGiven = objectSelected.GetComponent<SelectableObject>();
         foreach (SelectableObject s in selectableObjects)
         {
             if (s != null)
             {
                 //Disabilitiamo i collider in modo tale da non triggerare più OnMouseOver ecc
-                s.GetComponent<Collider2D> ().enabled = false;
+                s.GetComponent<Collider2D>().enabled = false;
                 //Se troviamo l'oggetto selezionato allora andiamo a settare la risposta al gioco
-                if (s.GetEmotionType () == objectSelected.GetComponent<SelectableObject> ().GetEmotionType ())
+                if (s.GetEmotionType() == objectSelected.GetComponent<SelectableObject>().GetEmotionType())
                 {
-                    Debug.Log ("E' stata selezionata " + s.GetEmotionType ());
-                    SetAnswer (s.GetEmotionType ());
+                    Debug.Log("E' stata selezionata " + s.GetEmotionType());
+                    SetAnswer(s.GetEmotionType());
                 }
             }
         }
-        roundResult = CheckAnswer ();
+        roundResult = CheckAnswer();
         UpdateResultDB();
-        EndRound ();
+        EndRound();
+    }
+
+    protected override void RepeatRound()
+    {
+        foreach (SelectableObject s in selectableObjects)
+        {
+            //Riabilitiamo i collider 
+            s.GetComponent<Collider2D>().enabled = true;
+            //disabilita la possibilita' di selezionare la risposta sbagliata
+            answerGiven.DeactivateSelectableObject();
+        }
     }
 
     //Metodo che gestisce la schermata di fine round
-    protected override void EndRound ()
+    protected override void EndRound()
     {
-        DestroySceneObjects ();
-        endRoundPanel.SetActive (true);
-        UIManager.EndRoundUI (roundResult);
+        //se non devo ripetere il round allora posso azzerare tutto e ricominciare
+        if (roundResult)
+            DestroySceneObjects();
+        endRoundPanel.SetActive(true);
+        UIManager.EndRoundUI(roundResult);
     }
 
-    private void OnDestroy ()
+    private void OnDestroy()
     {
         SelectableObject.objectSelectedEvent -= HandleSelection;
     }

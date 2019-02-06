@@ -9,13 +9,13 @@ public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura }
 public abstract class MinigameManager : MonoBehaviour
 {
 
-    [Header ("true se siamo in magicRoom")]
+    [Header("true se siamo in magicRoom")]
     public bool inMagicRoom;
-    [Header ("Punti dove saranno spawnati gli oggeti de spostare")]
+    [Header("Punti dove saranno spawnati gli oggeti de spostare")]
     public Transform[] spawnPointPositions;
-    [Header ("Inserire il pannello di fine round")]
+    [Header("Inserire il pannello di fine round")]
     public GameObject endRoundPanel;
-    [Header ("Numero di round totali")]
+    [Header("Numero di round totali")]
     public int totalRounds;
 
     //Variabile statica che tiene conto della scelta del percoso o del minigioco singolo
@@ -27,47 +27,50 @@ public abstract class MinigameManager : MonoBehaviour
     //Risposta scelta dall'utente
     protected Emotion emotionAnswer;
     protected int currentRound = 0;
-    protected bool roundResult;
+    //risultato dell'ultimo round effettuato, inizializzato a true perche' parte da subito
+    protected bool roundResult = true;
     //public GameObject[] spawnableObjectsPrefab;
     //Lista che tiene i game object degli oggetti risposta creati nell'endGame e che vengono cancellate all'inizio di un nuovo round
-    public List<GameObject> answerObjectSpawned;
+    [SerializeField]
+    public List<GameObject> endRoundObjectSpawned;
 
     public GameSessionSettings gameSessionSettings;
 
     // verosimilmente in ogni minigioco degli oggetti andranno spawnati 
     //ossia tutti quei pezzi tra cui scegliere ecc..
-    protected abstract void SpawnSceneObjects ();
-    protected abstract void DestroySceneObjects ();
-    public abstract void StartNewRound ();
-    protected abstract void EndRound ();
+    protected abstract void SpawnSceneObjects();
+    protected abstract void DestroySceneObjects();
+    public abstract void StartNewRound();
+    protected abstract void RepeatRound();
+    protected abstract void EndRound();
     //protected abstract void CheckIfMinigameCompleted();
 
-    protected virtual void Start ()
+    protected virtual void Start()
     {
-        if (GameObject.FindObjectOfType<GameSessionSettings> () == null)
+        if (GameObject.FindObjectOfType<GameSessionSettings>() == null)
         {
-            gameSessionSettings = Instantiate (new GameObject (), transform.position, Quaternion.identity).AddComponent<GameSessionSettings> ();
+            gameSessionSettings = Instantiate(new GameObject(), transform.position, Quaternion.identity).AddComponent<GameSessionSettings>();
         }
         else
-            gameSessionSettings = GameObject.FindObjectOfType<GameSessionSettings> ();
+            gameSessionSettings = GameObject.FindObjectOfType<GameSessionSettings>();
     }
     //Metodo per scegliere un'emozione tra quelle disponibili
-    protected void PickNewEmotion ()
+    protected void PickNewEmotion()
     {
         //seleziona un'emozione a caso
-        int randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        int randomEmotion = UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
         mainEmotion = (Emotion) randomEmotion;
     }
 
     //metodo che ritorna un'emozione che non e' quella corretta in modo da assegnare un'emozione random agli altri pezzi sbagliati
-    protected Emotion PickNotMainEmotion (Emotion main)
+    protected Emotion PickNotMainEmotion(Emotion main)
     {
-        int randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        int randomEmotion = UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
         Emotion chosenEmotion = (Emotion) randomEmotion;
 
         while (chosenEmotion == mainEmotion)
         {
-            randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+            randomEmotion = UnityEngine.Random.Range(0, System.Enum.GetNames(typeof(Emotion)).Length);
             chosenEmotion = (Emotion) randomEmotion;
         }
 
@@ -75,13 +78,13 @@ public abstract class MinigameManager : MonoBehaviour
     }
 
     //Metodo che aumenta il contatore dei round
-    protected void UpdateRound ()
+    protected void UpdateRound()
     {
         currentRound += 1;
     }
 
     //Metodo che si occupa di controllare l'esito della selezione di una risposta
-    public virtual bool CheckAnswer ()
+    public virtual bool CheckAnswer()
     {
         if (emotionAnswer == mainEmotion)
             return true;
@@ -90,15 +93,37 @@ public abstract class MinigameManager : MonoBehaviour
     }
 
     // metodo che distrugge tutte le istanze delle risposte create. Da invocare ad ogni start round
-    protected void DestroyAnswerObjectSpawned ()
+    protected void DestroyAnswerObjectSpawned()
     {
-        if (answerObjectSpawned.Count != 0)
+        if (endRoundObjectSpawned.Count != 0)
         {
-            for (int i = 0; i < answerObjectSpawned.Count; i++)
+            for (int i = 0; i < endRoundObjectSpawned.Count; i++)
             {
-                Destroy (answerObjectSpawned[i]);
+                Destroy(endRoundObjectSpawned[i]);
             }
-            answerObjectSpawned.Clear ();
+            endRoundObjectSpawned.Clear();
+        }
+    }
+
+    //aggiorna gli oggetti quando il round viene ripetuto
+    protected void UpdateObjectsWhenRepeatRound(List<GameObject> wrongAnswers)
+    {
+        //per ogni oggetto restituito come risposta sbagliata
+        foreach (GameObject answer in wrongAnswers)
+        {
+            //se e' un avatar
+            if (answer.GetComponent<Avatar>() != null)
+            {
+                //opacizza di meno la faccia dell'avatar
+                answer.GetComponent<Avatar>().ChangeFaceOpacity(100);
+            }
+            //altrimenti e' una scritta
+            else
+            {
+
+            }
+            //disabilita la possibilita' di selezione per l'oggetto
+            answer.GetComponent<SelectableObject>().enabled = false;
         }
     }
 
@@ -106,7 +131,7 @@ public abstract class MinigameManager : MonoBehaviour
     protected void UpdateResultDB()
     {
         string game = GetGameMode();
-        string emotion =mainEmotion.ToString();
+        string emotion = mainEmotion.ToString();
         if (emotion == "Felicità")
             emotion = "Felicita";
         int result;
@@ -134,48 +159,48 @@ public abstract class MinigameManager : MonoBehaviour
     }
 
     //Metodo che salva la risposta data dall'utente
-    public void SetAnswer (Emotion e)
+    public void SetAnswer(Emotion e)
     {
         emotionAnswer = e;
     }
 
-    public string GetEmotionString ()
+    public string GetEmotionString()
     {
-        return mainEmotion.ToString ();
+        return mainEmotion.ToString();
     }
 
-    public Emotion GetMainEmotion ()
+    public Emotion GetMainEmotion()
     {
         return mainEmotion;
     }
 
-    public string GetEmotionAnswerString ()
+    public string GetEmotionAnswerString()
     {
-        return emotionAnswer.ToString ();
+        return emotionAnswer.ToString();
     }
 
-    public Emotion GetEmotionAnswer ()
+    public Emotion GetEmotionAnswer()
     {
         return emotionAnswer;
     }
 
-    public int GetCurrentRound ()
+    public int GetCurrentRound()
     {
         return currentRound;
     }
 
-    public int GetTotalRounds ()
+    public int GetTotalRounds()
     {
         return totalRounds;
     }
 
-    public bool IsPathEnabled ()
+    public bool IsPathEnabled()
     {
         return pathEnabled;
     }
 
     //il font non ha la a con l'accento quindi converto con l'apostrofo
-    public string ConvertInCorrectText (string emotion)
+    public string ConvertInCorrectText(string emotion)
     {
         if (emotion == "Felicità")
             return "Felicita'";
@@ -183,7 +208,7 @@ public abstract class MinigameManager : MonoBehaviour
             return emotion;
     }
 
-    public static Emotion ConvertTextInEmotion (string emotionText)
+    public static Emotion ConvertTextInEmotion(string emotionText)
     {
         if (emotionText == "Felicità")
             return Emotion.Felicità;
