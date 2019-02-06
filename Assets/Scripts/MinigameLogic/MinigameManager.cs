@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum Emotion { Felicità, Tristezza, Disgusto, Rabbia, Paura }
 
@@ -53,19 +55,19 @@ public abstract class MinigameManager : MonoBehaviour
     protected void PickNewEmotion ()
     {
         //seleziona un'emozione a caso
-        int randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        int randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
         mainEmotion = (Emotion) randomEmotion;
     }
 
     //metodo che ritorna un'emozione che non e' quella corretta in modo da assegnare un'emozione random agli altri pezzi sbagliati
     protected Emotion PickNotMainEmotion (Emotion main)
     {
-        int randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+        int randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
         Emotion chosenEmotion = (Emotion) randomEmotion;
 
         while (chosenEmotion == mainEmotion)
         {
-            randomEmotion = Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
+            randomEmotion = UnityEngine.Random.Range (0, System.Enum.GetNames (typeof (Emotion)).Length);
             chosenEmotion = (Emotion) randomEmotion;
         }
 
@@ -98,6 +100,37 @@ public abstract class MinigameManager : MonoBehaviour
             }
             answerObjectSpawned.Clear ();
         }
+    }
+
+    //Metodo che inserisce il risultato di un round nel database
+    protected void UpdateResultDB()
+    {
+        string game = GetGameMode();
+        string emotion =mainEmotion.ToString();
+        if (emotion == "Felicità")
+            emotion = "Felicita";
+        int result;
+        if (roundResult)
+            result = 1;
+        else
+            result = 0;
+        DatabaseManager.InsertResult(PlayerPrefs.GetString("PlayerName"), emotion, game, result);
+    }
+
+    private string GetGameMode()
+    {
+        string s = "";
+        if (SceneManager.GetActiveScene().name == "1_GuessExpression")
+            s = "GuessExpression";
+        else if (SceneManager.GetActiveScene().name == "2_HowDoYouFeel")
+            s = "HowDoYouFeel";
+        else if (SceneManager.GetActiveScene().name == "3_WhichPersonIsGame")
+            s = "WhichPersonIs";
+        else if (SceneManager.GetActiveScene().name == "4_CompositionGame")
+            s = "Composition";
+        else if (SceneManager.GetActiveScene().name == "5_PhotographicEmotion")
+            s = "PhotographicEmotion";
+        return s;
     }
 
     //Metodo che salva la risposta data dall'utente

@@ -29,6 +29,22 @@ public class DatabaseManager: MonoBehaviour {
         return true;
     }
 
+    public static void InsertResult(string username, string emotion, string game, int result)
+    {
+        //Effettuiamo la query di inserimento
+        string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
+        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        {
+            //Open connection to the database
+            dbConnection.Open();
+            IDbCommand dbCommand = dbConnection.CreateCommand();
+            string sqlQuery = string.Format("INSERT INTO Results (Name, Emotion, Game, Result) VALUES (\"{0}\", \"{1}\", \"{2}\", \"{3}\")", username, emotion, game, result);
+            dbCommand.CommandText = sqlQuery;
+            dbCommand.ExecuteScalar();
+            dbConnection.Close();
+        }
+    }
+
     //Metodo che vede se nel database è presente uno username con una data password
     public static bool GetTherapist(string username, string password)
     {

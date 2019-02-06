@@ -118,7 +118,7 @@ public class AvatarCreationManager : MonoBehaviour
 		}
 		else
 		{
-			SceneManager.LoadSceneAsync ("MinigameSelection");
+			SceneManager.LoadSceneAsync ("ModeSelection");
 		}
 	}
 

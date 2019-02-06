@@ -89,7 +89,7 @@ public class Diagram : MonoBehaviour
                 rect.transform.Find("RectImage").transform.localScale = newScale;
                 targets[i] = ConvertInDiagramFormat(targets[i]);
 
-                rect.transform.Find("DataText").GetComponent<Text>().text = targets[i] + "\n" + errorPercentage + "%";
+                rect.transform.Find("DataText").GetComponent<Text>().text = targets[i] + "\n" + errorPercentage.ToString("n1") + "%";
             }
 
         }
