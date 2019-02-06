@@ -46,8 +46,6 @@ public abstract class SelectionGameManager : MinigameManager
 
         if (roundResult)
         {
-            //Aumentiamo il contatore dei round
-            UpdateRound();
             //Resettiamo la lista delle emozioni usate
             emotionUsed.Clear();
             //Facciamo visualizzare la main emotion al centro
@@ -57,11 +55,8 @@ public abstract class SelectionGameManager : MinigameManager
             //Ci salviamo tutti i selectable objects spawnati
             selectableObjects = FindObjectsOfType<SelectableObject>();
         }
-        else
-        {
+        else  
             RepeatRound();
-        }
-
     }
 
     //Metodo che sceglie l'emozione principale del round
@@ -175,7 +170,10 @@ public abstract class SelectionGameManager : MinigameManager
     {
         //se non devo ripetere il round allora posso azzerare tutto e ricominciare
         if (roundResult)
+        {
             DestroySceneObjects();
+            UpdateRound();
+        }
         endRoundPanel.SetActive(true);
         UIManager.EndRoundUI(roundResult);
     }

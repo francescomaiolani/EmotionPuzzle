@@ -52,7 +52,6 @@ public class SelectableObject : MonoBehaviour
     //Metodo che viene chiamato nel momento in cui si seleziona un oggetto
     private void ObjectSelected(SelectableObject obj)
     {
-        Debug.Log("Event received");
         if (obj == this && !selected)
         {
             selected = true;

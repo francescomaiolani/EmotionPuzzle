@@ -10,8 +10,11 @@ public class WhichPersonIsManager : MinigameManager
     //numero di facce corrette create
     int numberOfCorrectFaces;
     public Transform facePosition;
-    List<GameObject> facesSelected;
+    //risposte date 
+    List<SelectableObject> facesSelected;
     GameObject centralFace;
+
+    private SelectableObject[] selectableObjects;
 
     UIWhichPersonIsManager UIManager;
 
@@ -23,7 +26,7 @@ public class WhichPersonIsManager : MinigameManager
         Instantiate(selectionHand, Vector2.zero, Quaternion.identity);
 
         UIManager = FindObjectOfType<UIWhichPersonIsManager>();
-        facesSelected = new List<GameObject>();
+        facesSelected = new List<SelectableObject>();
         SelectableObject.objectSelectedEvent += CheckIfGameCompleted;
         StartNewRound();
     }
@@ -31,17 +34,30 @@ public class WhichPersonIsManager : MinigameManager
     public override void StartNewRound()
     {
         DestroyAnswerObjectSpawned();
-        DestroySceneObjects();
         //Disabilita schermata di fine round
         endRoundPanel.SetActive(false);
-        //Aumentiamo il contatore dei round
-        UpdateRound();
-        //scglie l'espressione della faccia principale
-        PickNewEmotion();
         //aggiorna la UI
         FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
+        if (roundResult)
+        {
+            DestroySceneObjects();
+            //scglie l'espressione della faccia principale
+            PickNewEmotion();
+            SpawnSceneObjects();
+        }
+        else
+            RepeatRound();
+    }
 
-        SpawnSceneObjects();
+    protected override void RepeatRound()
+    {
+        foreach (SelectableObject s in facesSelected)
+        {
+            if (s.GetEmotionType() != mainEmotion)
+                s.DeactivateSelectableObject();
+        }
+        //togli le risposte precedentemente date
+        facesSelected.Clear();
     }
 
     protected override void SpawnSceneObjects()
@@ -61,7 +77,7 @@ public class WhichPersonIsManager : MinigameManager
 
     void CreateFacesOfDifferentPeople()
     {
-
+        selectableObjects = new SelectableObject[4];
         facesCreated = new Emotion?[4] { null, null, null, null };
         AssignFaceOfCorrectPeople();
         AssignFaceOfIncorrectPeople();
@@ -76,7 +92,8 @@ public class WhichPersonIsManager : MinigameManager
         while (i < 4)
         {
             yield return new WaitForSeconds(0.25f);
-            InstantiateFace(facesCreated[i], i);
+            SelectableObject face = InstantiateFace(facesCreated[i], i);
+            selectableObjects[i] = face;
             i++;
         }
     }
@@ -84,26 +101,36 @@ public class WhichPersonIsManager : MinigameManager
     //controllo sul fatto che hai selezionato tutte le facce corrette o hai sbagliato
     void CheckIfGameCompleted(GameObject objectSelected)
     {
-        SelectableObject selectebleObject = objectSelected.GetComponent<SelectableObject>();
+        SelectableObject selectableObject = objectSelected.GetComponent<SelectableObject>();
+        facesSelected.Add(selectableObject);
+        SetAnswer(selectableObject.GetEmotionType());
 
-        if (selectebleObject.GetEmotionType() == mainEmotion)
+        //se la risposta e' cannata ripeti il round senza altre storie
+        if (selectableObject.GetEmotionType() != mainEmotion)
         {
-            SetAnswer(selectebleObject.GetEmotionType());
-            facesSelected.Add(objectSelected);
-        }
-        else
-        {
-            SetAnswer(selectebleObject.GetEmotionType());
             roundResult = false;
             UpdateResultDB();
             Invoke("EndRound", 0.1f);
-
         }
-        if (facesSelected.Count == numberOfCorrectFaces)
+        //altrimenti controlla le precedenti risposte date
+        else
         {
-            roundResult = true;
-            UpdateResultDB();
-            Invoke("EndRound", 0.1f);
+            int correct = 0;
+            //per ogni risposta data
+            foreach (SelectableObject s in facesSelected)
+            {
+                //se l'emozione e' giusta allora segnalo
+                if (s.GetEmotionType() == mainEmotion)
+                    correct++;
+
+                //se ho tante emozioni giuste quante quelle date
+                if (correct == numberOfCorrectFaces)
+                {
+                    roundResult = true;
+                    UpdateResultDB();
+                    Invoke("EndRound", 0.1f);
+                }
+            }
         }
     }
 
@@ -140,7 +167,7 @@ public class WhichPersonIsManager : MinigameManager
     }
 
     //metodo che istanzia una faccia delle 4 di persone random
-    void InstantiateFace(Emotion? emotion, int position)
+    SelectableObject InstantiateFace(Emotion? emotion, int position)
     {
         //GameObject face = Instantiate (Resources.Load<GameObject> ("Prefab/ImagePrefab/FacePrefab"), spawnPointPositions[position].transform.position, Quaternion.identity);
         //AssignFaceSprite (face.GetComponent<SpriteRenderer> (), face.GetComponent<SelectableObject> ().GetEmotionType ());
@@ -154,6 +181,7 @@ public class WhichPersonIsManager : MinigameManager
         face.AddComponent<SelectableObject>();
         face.AddComponent<CircleCollider2D>().radius = 0.5f;
         face.GetComponent<SelectableObject>().SetEmotionType((Emotion) emotion);
+        return face.GetComponent<SelectableObject>();
     }
 
     protected override void DestroySceneObjects()
@@ -168,15 +196,12 @@ public class WhichPersonIsManager : MinigameManager
             Destroy(selectableObjects[i].gameObject);
     }
 
-    protected override void RepeatRound()
-    {
-        
-    }
-
     protected override void EndRound()
     {
         endRoundPanel.SetActive(true);
         UIManager.EndRoundUI(roundResult);
+        if (roundResult)
+            UpdateRound();
     }
 
     private void OnDestroy()

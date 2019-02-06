@@ -105,28 +105,6 @@ public abstract class MinigameManager : MonoBehaviour
         }
     }
 
-    //aggiorna gli oggetti quando il round viene ripetuto
-    protected void UpdateObjectsWhenRepeatRound(List<GameObject> wrongAnswers)
-    {
-        //per ogni oggetto restituito come risposta sbagliata
-        foreach (GameObject answer in wrongAnswers)
-        {
-            //se e' un avatar
-            if (answer.GetComponent<Avatar>() != null)
-            {
-                //opacizza di meno la faccia dell'avatar
-                answer.GetComponent<Avatar>().ChangeFaceOpacity(100);
-            }
-            //altrimenti e' una scritta
-            else
-            {
-
-            }
-            //disabilita la possibilita' di selezione per l'oggetto
-            answer.GetComponent<SelectableObject>().enabled = false;
-        }
-    }
-
     //Metodo che inserisce il risultato di un round nel database
     protected void UpdateResultDB()
     {
