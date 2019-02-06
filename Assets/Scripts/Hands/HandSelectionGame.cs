@@ -33,7 +33,7 @@ public class HandSelectionGame : Hand
 
 			}
 			else
-				ChangeHandSprite("open");
+				ChangeHandSprite("open");	
 		}
 		//se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
 		else
@@ -69,6 +69,7 @@ public class HandSelectionGame : Hand
 			}
 		}
 	}
+
 	protected override void OnTriggerExit2D(Collider2D collision)
 	{
 		if (!dragging)

@@ -146,8 +146,7 @@ public class HandCompositionGame : Hand
 
     protected void OnTriggerStay2D(Collider2D collider)
     {
-        pieceTaken = collider.gameObject;
-        //Debug.Log(pieceTaken);
+        Debug.Log(pieceTaken);
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)

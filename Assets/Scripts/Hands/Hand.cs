@@ -19,6 +19,7 @@ public class Hand : MonoBehaviour
 
     protected Rigidbody2D rigid;
 
+
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
 
@@ -50,7 +51,6 @@ public class Hand : MonoBehaviour
         if (inMagicRoom)
         {
             currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
-            Debug.Log(currentSkeleton);
             if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
                 mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
             else
