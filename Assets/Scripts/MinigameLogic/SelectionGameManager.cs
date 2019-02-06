@@ -143,6 +143,7 @@ public abstract class SelectionGameManager : MinigameManager
             }
         }
         roundResult = CheckAnswer ();
+        UpdateResultDB();
         EndRound ();
     }
 

@@ -95,12 +95,15 @@ public class WhichPersonIsManager : MinigameManager
         {
             SetAnswer (selectebleObject.GetEmotionType ());
             roundResult = false;
-            Invoke ("EndRound", 0.5f);
+            UpdateResultDB();
+            Invoke ("EndRound", 0.1f);
+            
         }
         if (facesSelected.Count == numberOfCorrectFaces)
         {
             roundResult = true;
-            Invoke ("EndRound", 0.5f);
+            UpdateResultDB();
+            Invoke("EndRound", 0.1f);
         }
     }
 

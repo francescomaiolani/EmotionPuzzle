@@ -97,6 +97,7 @@ public class CompositionManager : MinigameManager
         }
 
         roundResult = CheckAnswer ();
+        UpdateResultDB();
         Invoke ("DestroySceneObjects", 1f);
         Invoke ("EndRound", 1f);
     }
