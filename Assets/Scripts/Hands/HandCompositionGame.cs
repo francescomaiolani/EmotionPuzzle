@@ -18,6 +18,7 @@ public class HandCompositionGame : Hand
     [SerializeField]
     int averageNumber = 5;
 
+
     protected override void Start()
     {
         base.Start();
@@ -30,7 +31,7 @@ public class HandCompositionGame : Hand
         if (inMagicRoom)
         {
             AddCampionamento(currentSkeleton.GetRightHandDistance());
-            //Debug.Log(MediaCampionamento());
+            Debug.Log(MediaCampionamento());
             //se sto cliccando >>> Inizia il drag
             if (MediaCampionamento() < 0.08f)
                 Drag();
@@ -142,11 +143,6 @@ public class HandCompositionGame : Hand
                 droppableArea.Add(collision.gameObject.GetComponent<DroppableArea>());
             }
         }
-    }
-
-    protected void OnTriggerStay2D(Collider2D collider)
-    {
-        Debug.Log(pieceTaken);
     }
 
     protected override void OnTriggerExit2D(Collider2D collision)
