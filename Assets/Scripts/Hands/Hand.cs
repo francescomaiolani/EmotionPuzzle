@@ -19,7 +19,6 @@ public class Hand : MonoBehaviour
 
     protected Rigidbody2D rigid;
 
-
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
 
@@ -28,12 +27,12 @@ public class Hand : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         layerToDetectCollision = LayerMask.GetMask("Default");
 
-        if (MagicRoomKinectV2Manager.instance != null)
+        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
             inMagicRoom = true;
         else
             inMagicRoom = false;
 
-        Debug.Log(MagicRoomKinectV2Manager.instance);
+        Debug.Log(MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active);
     }
 
     // Nella routine di ogni mano devono essere eseguiti gli step di :

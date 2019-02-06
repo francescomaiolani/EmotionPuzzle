@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CredentialsManager : MonoBehaviour {
+public class CredentialsManager : MonoBehaviour
+{
 
     public Button loginButton;
     public Button signupButton;
@@ -18,13 +19,17 @@ public class CredentialsManager : MonoBehaviour {
     public InputField passwordField;
     public InputField confirmPasswordField;
 
-
     private void Start()
     {
         LoginButtonClick();
-
+        
         MagicRoomKinectV2Manager.instance.setUpKinect(10, 1);
-        MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
+
+        if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
+        {
+            MagicRoomKinectV2Manager.instance.startSamplingKinect(KinectSamplingMode.Streaming);
+        }
+
     }
 
     public void SignupButtonClick()
@@ -33,7 +38,7 @@ public class CredentialsManager : MonoBehaviour {
         ClearForm();
         confirmPasswordField.gameObject.SetActive(true);
         mainButtonText.text = "REGISTRATI";
-        signupButton.image.color = new Color32(255,255,255,255);
+        signupButton.image.color = new Color32(255, 255, 255, 255);
         loginButton.image.color = new Color32(255, 255, 255, 120);
     }
 
@@ -56,13 +61,14 @@ public class CredentialsManager : MonoBehaviour {
             errorPanel.SetActive(true);
             return;
         }
-        
+
         if (mainButtonText.text == "ENTRA")
         {
             if (DatabaseManager.GetTherapist(usernameField.text, passwordField.text))
             {
                 SceneManager.LoadScene("ModeSelection");
-            } else
+            }
+            else
             {
                 errorMessage.text = "Lo username e/o la password sono sbagliati";
                 errorPanel.SetActive(true);
@@ -109,7 +115,7 @@ public class CredentialsManager : MonoBehaviour {
             return false;
         if (mainButtonText.text == "REGISTRATI")
             if (confirmPasswordField.text == "")
-                return false;      
+                return false;
         return true;
     }
 
