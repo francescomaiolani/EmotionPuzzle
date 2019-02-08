@@ -126,9 +126,16 @@ public class CompositionSelectionManager : MinigameManager
 	public override bool CheckAnswer()
 	{
 		if (eyesEmotionChosen != mainEmotion || mouthEmotionChosen != mainEmotion)
+		{
+			GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Fail");
+			GetComponent<AudioSource>().Play();
 			return false;
+		}
 
+		GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Trumpet");
+		GetComponent<AudioSource>().Play();
 		return true;
+
 	}
 
 	protected override void RepeatRound()

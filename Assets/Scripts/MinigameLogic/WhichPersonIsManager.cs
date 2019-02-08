@@ -109,6 +109,8 @@ public class WhichPersonIsManager : MinigameManager
         if (selectableObject.GetEmotionType() != mainEmotion)
         {
             roundResult = false;
+            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Fail");
+            GetComponent<AudioSource>().Play();
             UpdateResultDB();
             Invoke("EndRound", 0.1f);
         }
@@ -127,6 +129,8 @@ public class WhichPersonIsManager : MinigameManager
                 if (correct == numberOfCorrectFaces)
                 {
                     roundResult = true;
+                    GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Trumpet");
+                    GetComponent<AudioSource>().Play();
                     UpdateResultDB();
                     Invoke("EndRound", 0.1f);
                 }

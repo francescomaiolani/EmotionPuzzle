@@ -47,6 +47,8 @@ public abstract class MinigameManager : MonoBehaviour
 
     protected virtual void Start()
     {
+        gameObject.AddComponent<AudioSource>();
+
         if (GameObject.FindObjectOfType<GameSessionSettings>() == null)
         {
             gameSessionSettings = Instantiate(new GameObject(), transform.position, Quaternion.identity).AddComponent<GameSessionSettings>();
@@ -87,9 +89,17 @@ public abstract class MinigameManager : MonoBehaviour
     public virtual bool CheckAnswer()
     {
         if (emotionAnswer == mainEmotion)
+        {
+            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Trumpet");
+            GetComponent<AudioSource>().Play();
             return true;
+        }
         else
+        {
+            GetComponent<AudioSource>().clip = Resources.Load<AudioClip>("Fail");
+            GetComponent<AudioSource>().Play();
             return false;
+        }
     }
 
     // metodo che distrugge tutte le istanze delle risposte create. Da invocare ad ogni start round
