@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/_Scenes/ModeSelection.unity
     guid: 1cd6487fa613fc64f82559365efa5bf7
   - enabled: 1
+    path: Assets/_Scenes/TutorialSelection.unity
+    guid: f7d7d6a5c30f07f44a42bbd12c1fa13e
+  - enabled: 1
     path: Assets/_Scenes/MinigameSelection.unity
     guid: db6f925e3d763a7418f364d068b1558b
   - enabled: 1

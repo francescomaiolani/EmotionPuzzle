@@ -54,7 +54,7 @@ public class WhichPersonIsManager : MinigameManager
         foreach (SelectableObject s in facesSelected)
         {
             if (s.GetEmotionType() != mainEmotion)
-                s.DeactivateSelectableObject();
+                s.DeactivateSelectableObject(100);
         }
         //togli le risposte precedentemente date
         facesSelected.Clear();

@@ -161,7 +161,7 @@ public abstract class SelectionGameManager : MinigameManager
             //Riabilitiamo i collider 
             s.GetComponent<Collider2D>().enabled = true;
             //disabilita la possibilita' di selezionare la risposta sbagliata
-            answerGiven.DeactivateSelectableObject();
+            answerGiven.DeactivateSelectableObject(100);
         }
     }
 

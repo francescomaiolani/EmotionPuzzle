@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UIWhichPersonIsManager : UIEndRoundManager
 {
@@ -48,4 +49,5 @@ public class UIWhichPersonIsManager : UIEndRoundManager
             SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f, true);
         }
     }
+
 }

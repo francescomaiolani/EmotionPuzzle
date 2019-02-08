@@ -1,7 +1,4 @@
-- RIPROVA (difficile)
 - SUONI (vanno cercati)
-- TUTORIAL (faccio io)
 - TUTORIAL GARZOTTO DA NON FARE ( non si fa)
-- AGGIORNAMENTO DATABASE A FINE ROUND (fa tu)
 - BOTTONI NAVIGAZIONE ( faccio io)
 

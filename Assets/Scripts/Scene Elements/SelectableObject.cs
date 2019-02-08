@@ -67,7 +67,7 @@ public class SelectableObject : MonoBehaviour
     }
 
     //disattiva un selectable object in tutti i suoi aspetti e lo rende meno opaco
-    public void DeactivateSelectableObject()
+    public void DeactivateSelectableObject(int opacity)
     {
         //azzera tutto e annulla la possibilita' di selezioanre di nuovo
         transform.localScale = new Vector3(1, 1, 1);
@@ -76,11 +76,14 @@ public class SelectableObject : MonoBehaviour
         GetComponent<Collider2D>().enabled = false;
         //se e' una faccia metti l'opacita' piu' bassa
         if (GetComponent<Avatar>() != null)
-            GetComponent<Avatar>().ChangeFaceOpacity(100);
+        {
+            GetComponent<Avatar>().ChangeFaceOpacity(opacity);
+
+        }
 
         //se e' il tessto del minigame 2 mettilo meno opaco
         else if (GetComponent<TextMeshProUGUI>() != null)
-            GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, 100);
+            GetComponent<TextMeshProUGUI>().color = new Color32(255, 255, 255, (Byte) opacity);
 
     }
     //disattiva un selectable object in tutti i suoi aspetti e lo rende meno opaco

@@ -20,7 +20,7 @@ public class LevelSelectionManager : MonoBehaviour
 
     public void LoadTutorialMode()
     {
-        SceneManager.LoadScene("blablabla");
+        SceneManager.LoadScene("TutorialSelection");
     }
 
     public static void GoToModeSelection()

@@ -159,4 +159,10 @@ public abstract class UIEndRoundManager : MonoBehaviour
         }
 
     }
+
+    public void GoToModeSelection()
+    {
+        SceneManager.LoadSceneAsync("ModeSelection");
+    }
+
 }
