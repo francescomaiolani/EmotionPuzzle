@@ -36,10 +36,11 @@ public class HandSelectionGame : Hand
 			//se sto cliccando >>> Inizia il drag
 			if (currentSkeleton.isRightHandClosed(0.075f))
 			{
-				ChangeHandSprite("closed");
-				Debug.Log("Hand is close");
 				if (handState != "closed")
 					canvasRaycast.DoRaycast(Camera.main.WorldToScreenPoint(transform.position));
+				
+				ChangeHandSprite("closed");
+				Debug.Log("Hand is close");
 				SelectObject();
 			}
 			else
