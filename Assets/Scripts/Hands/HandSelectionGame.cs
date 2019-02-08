@@ -38,7 +38,8 @@ public class HandSelectionGame : Hand
 			{
 				ChangeHandSprite("closed");
 				Debug.Log("Hand is close");
-				canvasRaycast.DoRaycast(Camera.main.WorldToScreenPoint(transform.position));
+				if (handState != "closed")
+					canvasRaycast.DoRaycast(Camera.main.WorldToScreenPoint(transform.position));
 				SelectObject();
 			}
 			else
