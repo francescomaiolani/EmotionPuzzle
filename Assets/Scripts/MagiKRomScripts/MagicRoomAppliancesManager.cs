@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomAppliancesManager : MonoBehaviour {
+public class MagicRoomAppliancesManager : MonoBehaviour
+{
 
-/// <summary>
+    /// <summary>
     /// Singleton of the Script
     /// </summary>
     public static MagicRoomAppliancesManager instance;
@@ -27,8 +28,7 @@ public class MagicRoomAppliancesManager : MonoBehaviour {
     /// <summary>
     /// the command to be sent to the middleware
     /// </summary>    
-private SmartPlugCommand command;
-
+    private SmartPlugCommand command;
 
     // Use this for initialization
     void Awake()
@@ -45,11 +45,12 @@ private SmartPlugCommand command;
         StartCoroutine(sendConfigurationRequest());
     }
 
-/// <summary>
+    /// <summary>
     /// Encodes the request to import the list of associated names
     /// </summary>
     /// <returns></returns>
-    IEnumerator sendConfigurationRequest() {
+    IEnumerator sendConfigurationRequest()
+    {
         SmartPlugCommand cmd = new SmartPlugCommand();
         cmd.type = "SmartPlugDiscovery";
         string json = JsonUtility.ToJson(cmd);
@@ -70,14 +71,15 @@ private SmartPlugCommand command;
             conf = JsonUtility.FromJson<ServerSmartPlugConfiguration>(www.downloadHandler.text);
             listofAssociatedNames = conf.configuration;
             string log = "";
-            foreach (string s in listofAssociatedNames) {
+            foreach (string s in listofAssociatedNames)
+            {
                 log += "Found " + s + " on the network, ";
             }
             Logger.addToLogNewLine("ServerSP", log);
         }
     }
 
-/// <summary>
+    /// <summary>
     /// Send the command to change the state of a smart appliance
     /// </summary>
     /// <param name="appliance"> the name of the appliance you want to switch from the list of associated names</param>
@@ -100,7 +102,7 @@ private SmartPlugCommand command;
         StartCoroutine(sendCommand());
     }
 
- /// <summary>
+    /// <summary>
     /// check that the command is valid
     /// </summary>
     /// <param name="c"></param>
@@ -114,7 +116,7 @@ private SmartPlugCommand command;
         return true;
     }
 
-/// <summary>
+    /// <summary>
     /// send the http crequest to the smart appliance
     /// </summary>
     /// <returns></returns>
@@ -146,10 +148,9 @@ public class SmartPlugCommand
     public string command;
     public string id;
 }
+
 [Serializable]
 public class ServerSmartPlugConfiguration
 {
     public string[] configuration;
 }
-
-

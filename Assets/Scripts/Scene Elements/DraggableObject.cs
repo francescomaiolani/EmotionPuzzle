@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -32,28 +32,27 @@ public abstract class DraggableObject : MonoBehaviour
 
     public DraggableObjectType draggableObjectType;
 
-    private void Start ()
+    private void Start()
     {
         //offset del game object rispetto alla mano per renderlo distinguibile
-        offsetFromHandWhenDragging = new Vector3 (0, 0, 0);
+        offsetFromHandWhenDragging = new Vector3(0, 0, 0);
 
         //salva la posizione iniziale nel caso in cui droppi in una zona in cui non puoi droppare
         startingPosition = transform.position;
     }
 
-    private void Update ()
+    private void Update()
     {
         if (move)
-            MovePieceToPosition (dropAreaDestination);
+            MovePieceToPosition(dropAreaDestination);
     }
 
-    public void StartDragging (GameObject hand)
+    public void StartDragging(GameObject hand)
     {
-
 
         //disabilitare il composite collider che si crea parentando il game object come figlio della mano
         //il delay e' necessario altrimenti il collider fa scattare il trigget exit e annulla la reference all'oggetto draggato
-        Invoke ("DisableCollider", 0.01f);
+        Invoke("DisableCollider", 0.01f);
 
         //non e' piu' dropped
         move = false;
@@ -66,7 +65,7 @@ public abstract class DraggableObject : MonoBehaviour
 
         if (inCorrectPlace)
         {
-            droppableArea.GetComponent<DroppableArea> ().SetOccupied (false);
+            droppableArea.GetComponent<DroppableArea>().SetOccupied(false);
             inCorrectPlace = false;
         }
 
@@ -75,10 +74,10 @@ public abstract class DraggableObject : MonoBehaviour
     }
 
     //stop dragging ti dice gia' se la posizione e' droppable o no e l'eventuale destinazione
-    public virtual void StopDragging (bool correct, GameObject destination)
+    public virtual void StopDragging(bool correct, GameObject destination)
     {
 
-        GetComponent<CapsuleCollider2D> ().enabled = true;
+        GetComponent<CapsuleCollider2D>().enabled = true;
 
         //stacca dalla mano
         transform.parent = null;
@@ -99,44 +98,43 @@ public abstract class DraggableObject : MonoBehaviour
         }
     }
 
-    void DisableCollider ()
+    void DisableCollider()
     {
-        GetComponent<CapsuleCollider2D> ().enabled = false;
+        GetComponent<CapsuleCollider2D>().enabled = false;
     }
 
-    public abstract bool CheckIfCorrectDropArea (DraggableObjectType area, FaceParts subArea);
-    public abstract string GetSubType ();
+    public abstract bool CheckIfCorrectDropArea(DraggableObjectType area, FaceParts subArea);
+    public abstract string GetSubType();
 
-    public void MovePieceToPosition (Vector3 destination)
+    public void MovePieceToPosition(Vector3 destination)
     {
-        Vector3 newPosition = new Vector2 (Mathf.Lerp (transform.position.x, destination.x, lerpingFactor), Mathf.Lerp (transform.position.y, destination.y, lerpingFactor));
+        Vector3 newPosition = new Vector2(Mathf.Lerp(transform.position.x, destination.x, lerpingFactor), Mathf.Lerp(transform.position.y, destination.y, lerpingFactor));
         transform.position = newPosition;
     }
 
-
-    public bool GetInCorrectPlace ()
+    public bool GetInCorrectPlace()
     {
         return inCorrectPlace;
     }
 
-    public bool GetComesFromCorrectPosition ()
+    public bool GetComesFromCorrectPosition()
     {
         return comesFromCorrectPosition;
     }
 
-    public void SetDroppableArea (GameObject area)
+    public void SetDroppableArea(GameObject area)
     {
         droppableArea = area;
     }
 
-    public DroppableArea GetDroppableArea ()
+    public DroppableArea GetDroppableArea()
     {
         if (droppableArea != null)
-            return droppableArea.GetComponent<DroppableArea> ();
+            return droppableArea.GetComponent<DroppableArea>();
         else return null;
     }
 
-    public void SetDropAreaDestination (Vector3 area)
+    public void SetDropAreaDestination(Vector3 area)
     {
         dropAreaDestination = area;
     }

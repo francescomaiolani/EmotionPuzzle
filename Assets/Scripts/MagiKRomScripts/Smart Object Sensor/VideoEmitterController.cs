@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VideoEmitterController : MonoBehaviour {
+public class VideoEmitterController : MonoBehaviour
+{
     /// <summary>
     /// is the vidoeplayer actve?
     /// </summary>

@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightController : MonoBehaviour {
+public class LightController : MonoBehaviour
+{
     /// <summary>
     /// is the light controller active?
     /// </summary>
@@ -55,7 +56,8 @@ public class LightController : MonoBehaviour {
     /// <returns></returns>
     private Color ColorParse(string v)
     {
-        if (!v.StartsWith("#")) {
+        if (!v.StartsWith("#"))
+        {
             v = "#" + v;
         }
         Color myColor = new Color();
@@ -67,14 +69,17 @@ public class LightController : MonoBehaviour {
     /// return the list of lights available from the object
     /// </summary>
     /// <returns></returns>
-    public List<string> getConfigurationList() {
+    public List<string> getConfigurationList()
+    {
         List<string> conf = new List<string>();
-        foreach (ControllableLight l in lights) {
+        foreach (ControllableLight l in lights)
+        {
             conf.Add(l.name);
         }
         return (conf);
     }
 }
+
 [Serializable]
 public class ControllableLight
 {

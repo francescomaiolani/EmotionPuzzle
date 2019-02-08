@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomCarpetManager : MonoBehaviour {
+public class MagicRoomCarpetManager : MonoBehaviour
+{
 
-/// <summary>
+    /// <summary>
     /// Singleton of the script
     /// </summary>
     public static MagicRoomCarpetManager instance;
@@ -28,7 +29,6 @@ public class MagicRoomCarpetManager : MonoBehaviour {
     /// command to be sent at the middleware
     /// </summary>
     private CarpetCommand cmd;
-    
 
     // Use this for initialization
     void Awake()
@@ -40,7 +40,7 @@ public class MagicRoomCarpetManager : MonoBehaviour {
         MagicRoomCarpetManager_active = true;
     }
 
-/// <summary>
+    /// <summary>
     /// send a command to be actuated on the carpet
     /// </summary>
     /// <param name="command">the command to be sent to the carpet form the list of assocated names</param>
@@ -56,7 +56,7 @@ public class MagicRoomCarpetManager : MonoBehaviour {
         StartCoroutine(sendConfigurationRequest());
     }
 
-/// <summary>
+    /// <summary>
     /// send the http request to obtain all the carpet command available
     /// </summary>
     /// <returns></returns>
@@ -84,7 +84,7 @@ public class MagicRoomCarpetManager : MonoBehaviour {
         }
     }
 
-/// <summary>
+    /// <summary>
     /// send the command to the smart carpet
     /// </summary>
     /// <param name="command">the command form the list of associated names</param>
@@ -95,14 +95,13 @@ public class MagicRoomCarpetManager : MonoBehaviour {
             return;
         }
 
-
         cmd.type = "SmartCarpetCommand";
         cmd.command = command;
         Logger.addToLogNewLine("ServerCarpet", "Sent command: activate the effect on the carpet " + command);
         StartCoroutine(sendCommand());
     }
 
-/// <summary>
+    /// <summary>
     /// perform the http connaction to the middleware to send data
     /// </summary>
     /// <returns></returns>

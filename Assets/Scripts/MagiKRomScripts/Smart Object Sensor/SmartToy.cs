@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class SmartToy: MonoBehaviour{
+class SmartToy : MonoBehaviour
+{
     /// <summary>
     /// the name of the smart toy
     /// </summary>
@@ -68,24 +69,26 @@ class SmartToy: MonoBehaviour{
     }
 
     private void Start()
-    {
-    }
+    { }
 
     /// <summary>
     /// ecode the cofiguation for each objects
     /// </summary>
     /// <param name="conf"></param>
-    public void decodeConfiguration(SmartToyConfiguration conf) {
+    public void decodeConfiguration(SmartToyConfiguration conf)
+    {
         gameObject.name = conf.name;
         smartToyName = conf.name;
         if (conf.effects.Length > 0)
         {
             effectcontroller.setUpConfiguration(conf.effects);
         }
-        else {
+        else
+        {
             effectcontroller.enabled = false;
         }
-        if (conf.touch_config.Length > 0) {
+        if (conf.touch_config.Length > 0)
+        {
             touchsensor.setUpConfiguration(conf.touch_config);
         }
         if (conf.button_config.Length > 0)
@@ -144,7 +147,8 @@ class SmartToy: MonoBehaviour{
         {
             videoemitter.enabled = false;
         }
-        if (conf.acceleormeter_reader_name_config.Length > 0 || conf.gyroscope_reader_name_config.Length > 0) {
+        if (conf.acceleormeter_reader_name_config.Length > 0 || conf.gyroscope_reader_name_config.Length > 0)
+        {
             objectposition.setAccelerometers(conf.acceleormeter_reader_name_config);
             objectposition.setGyroscopes(conf.gyroscope_reader_name_config);
         }
@@ -154,17 +158,20 @@ class SmartToy: MonoBehaviour{
     {
         battery = conf.Devicestatusstate.battery;
         stream_frequency = conf.Devicestatusstate.streamFreq;
-        if (touchsensor != null && conf.Touchstate.isEnabled) {
+        if (touchsensor != null && conf.Touchstate.isEnabled)
+        {
             touchsensor.updateState(conf.Touchstate);
         }
         if (button != null && conf.Buttonstate.isEnabled)
         {
             button.updateState(conf.Buttonstate);
         }
-        if (rfidsensor != null && conf.RFIDstate.isEnabled) {
+        if (rfidsensor != null && conf.RFIDstate.isEnabled)
+        {
             rfidsensor.updateState(conf.RFIDstate);
         }
-        if (objectposition != null && conf.Positionstate.isEnabled) {
+        if (objectposition != null && conf.Positionstate.isEnabled)
+        {
             objectposition.updateState(conf.Positionstate);
         }
         if (lightcontroller != null && conf.LightControllerstate.isEnabled)
@@ -196,11 +203,13 @@ class SmartToy: MonoBehaviour{
     SmartToyGetStatus getstatus = null;
     void LateUpdate()
     {
-        if (MagicRoomSmartToyManager.instance.MagicRoomSmartToyManager_active) { 
-        //once I reach this the whole update frame has been computed
-            if (executecommand != null) {
+        if (MagicRoomSmartToyManager.instance.MagicRoomSmartToyManager_active)
+        {
+            //once I reach this the whole update frame has been computed
+            if (executecommand != null)
+            {
                 //send the data
-                string json = executecommand.ToJson();//JsonUtility.ToJson(executecommand);
+                string json = executecommand.ToJson(); //JsonUtility.ToJson(executecommand);
                 MagicRoomSmartToyManager.instance.sendCommandExecuteSmartToy(smartToyName, json);
                 //clean up executecommand
                 executecommand = null;
@@ -218,7 +227,8 @@ class SmartToy: MonoBehaviour{
     /// <summary>
     /// turn on the touch sensor
     /// </summary>
-    public void switchOnTouchSensor() {
+    public void switchOnTouchSensor()
+    {
         executeCommandTouchSensor(true);
     }
     /// <summary>
@@ -229,8 +239,10 @@ class SmartToy: MonoBehaviour{
         executeCommandTouchSensor(false);
     }
 
-    private void executeCommandTouchSensor(bool turnonsensor) {
-        if (executecommand == null) {
+    private void executeCommandTouchSensor(bool turnonsensor)
+    {
+        if (executecommand == null)
+        {
             executecommand = new SmartToyExecuteStatus();
         }
         executecommand.touch = turnonsensor;
@@ -338,7 +350,8 @@ class SmartToy: MonoBehaviour{
 
     internal void updateStateFromUDP(udpPackage pack)
     {
-        if (pack.accelerometer != null  && pack.accelerometer.Length == 3) {
+        if (pack.accelerometer != null && pack.accelerometer.Length == 3)
+        {
             objectposition.setAccelerometer(pack.accelerometer);
         }
         if (pack.gyroscope != null && pack.gyroscope.Length == 3)
@@ -349,34 +362,54 @@ class SmartToy: MonoBehaviour{
         {
             objectposition.setPosition(pack.position);
         }
-        foreach (UDPEvent e in pack.state) {
-            switch (e.typ) {
-                case "touchsensor": touchsensor.updateFromUDP(e.val, e.dur); break;
-                case "button": button.updateFromUDP(e.id, e.val, e.dur); break;
-                case "rfidsensor": rfidsensor.updateFromUDP(e.id, e.val, e.dur); break;
-                //case "accelerometer": objectposition.updateAccFromUDP(e.id, e.val, e.dur); break;
-                //case "gyroscope": objectposition.updateGyrFromUDP(e.id, e.val, e.dur); break;
-                case "position": objectposition.updatePosFromUDP(e.id, e.val, e.dur); break;
-                default: break;
+        foreach (UDPEvent e in pack.state)
+        {
+            switch (e.typ)
+            {
+                case "touchsensor":
+                    touchsensor.updateFromUDP(e.val, e.dur);
+                    break;
+                case "button":
+                    button.updateFromUDP(e.id, e.val, e.dur);
+                    break;
+                case "rfidsensor":
+                    rfidsensor.updateFromUDP(e.id, e.val, e.dur);
+                    break;
+                    //case "accelerometer": objectposition.updateAccFromUDP(e.id, e.val, e.dur); break;
+                    //case "gyroscope": objectposition.updateGyrFromUDP(e.id, e.val, e.dur); break;
+                case "position":
+                    objectposition.updatePosFromUDP(e.id, e.val, e.dur);
+                    break;
+                default:
+                    break;
             }
         }
     }
 
     internal void updateStateFromTCP(tcpPackage pack)
     {
-        
+
         foreach (UDPEvent e in pack.events)
         {
             Logger.addToLogNewLine(smartToyName, " sensor " + e.typ + " " + e.id + " value " + e.val + " " + e.dur);
             switch (e.typ)
             {
-                case "touchsensor": touchsensor.updateFromUDP(e.val, e.dur); break;
-                case "button": button.updateFromUDP(e.id, e.val, e.dur); break;
-                case "rfidsensor": rfidsensor.updateFromUDP(e.id, e.val, e.dur); break;
-                //case "accelerometer": objectposition.updateAccFromUDP(e.id, e.val, e.dur); break;
-                //case "gyroscope": objectposition.updateGyrFromUDP(e.id, e.val, e.dur); break;
-                case "position": objectposition.updatePosFromUDP(e.id, e.val, e.dur); break;
-                default: break;
+                case "touchsensor":
+                    touchsensor.updateFromUDP(e.val, e.dur);
+                    break;
+                case "button":
+                    button.updateFromUDP(e.id, e.val, e.dur);
+                    break;
+                case "rfidsensor":
+                    rfidsensor.updateFromUDP(e.id, e.val, e.dur);
+                    break;
+                    //case "accelerometer": objectposition.updateAccFromUDP(e.id, e.val, e.dur); break;
+                    //case "gyroscope": objectposition.updateGyrFromUDP(e.id, e.val, e.dur); break;
+                case "position":
+                    objectposition.updatePosFromUDP(e.id, e.val, e.dur);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -395,7 +428,7 @@ class SmartToy: MonoBehaviour{
         }
         executecommand.videoEmitterCommand = new videoEmitterSet();
         executecommand.videoEmitterCommand.repeat = repeat;
-        executecommand.videoEmitterCommand.state = state.ToString().Split('.')[1];
+        executecommand.videoEmitterCommand.state = state.ToString().Split('.') [1];
         executecommand.videoEmitterCommand.videoname = videoname;
 
     }
@@ -414,7 +447,7 @@ class SmartToy: MonoBehaviour{
         }
         executecommand.soundEmitterCommand = new soundEmitterSet();
         executecommand.soundEmitterCommand.repeat = repeat;
-        executecommand.soundEmitterCommand.state = state.ToString().Split('.')[1];
+        executecommand.soundEmitterCommand.state = state.ToString().Split('.') [1];
         executecommand.soundEmitterCommand.trackname = trackname;
     }
     /// <summary>
@@ -449,32 +482,35 @@ class SmartToy: MonoBehaviour{
             temp.Add(t);
             executecommand.motorControlCommands = temp.ToArray();
         }
-        else {
+        else
+        {
             MotorControllerSetter t = new MotorControllerSetter();
             t.code = motorcode;
             t.destination = value;
             executecommand.motorControlCommands = new MotorControllerSetter[1];
             executecommand.motorControlCommands[0] = t;
         }
-        
-        
+
     }
     /// <summary>
     /// ask to get the state of the touch sensor
     /// </summary>
-    public void getstateofTouchsensor() {
-        if (getstatus == null) {
+    public void getstateofTouchsensor()
+    {
+        if (getstatus == null)
+        {
             getstatus = new SmartToyGetStatus();
             getstatus.requestType = "get";
             getstatus.components = new string[1];
             getstatus.components[0] = "touch";
         }
-        else {
+        else
+        {
             List<string> s = getstatus.components.ToList<string>();
             s.Add("touch");
             getstatus.components = s.ToArray();
         }
-        
+
     }
     /// <summary>
     /// ask to get the state of the RFID reader
@@ -731,4 +767,3 @@ class SmartToy: MonoBehaviour{
         getstateofDeviceStatus();
     }
 }
-

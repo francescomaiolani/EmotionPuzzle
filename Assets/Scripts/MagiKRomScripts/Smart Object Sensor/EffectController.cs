@@ -1,8 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EffectController : MonoBehaviour {
+public class EffectController : MonoBehaviour
+{
     /// <summary>
     /// is the effect manager acive?
     /// </summary>

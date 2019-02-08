@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIPhotographicEmotionManager : UIEndRoundManager {
+public class UIPhotographicEmotionManager : UIEndRoundManager
+{
 
     protected override void SetQA(bool roundResult)
     {
         //photoImage.sprite = Resources.Load<Sprite>("Sprite/FotoEmozioni/blablablabla" + gameManager.emotionAnswer); Questa riga setta la foto nella schermata di fine round
-        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+        sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
 
         if (roundResult)
         {
@@ -21,7 +22,5 @@ public class UIPhotographicEmotionManager : UIEndRoundManager {
         }
 
     }
-
-
 
 }

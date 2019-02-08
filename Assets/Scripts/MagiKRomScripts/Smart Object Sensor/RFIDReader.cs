@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RFIDReader : MonoBehaviour {
+public class RFIDReader : MonoBehaviour
+{
 
     /// <summary>
     /// is the sensor active?
@@ -64,13 +65,15 @@ public class RFIDReader : MonoBehaviour {
                 p.read = true;
                 p.duration = duration;
             }
-            else {
+            else
+            {
                 p.read = false;
                 Debug.Log("turn false");
             }
         }
     }
 }
+
 [Serializable]
 public class RFIDcard
 {

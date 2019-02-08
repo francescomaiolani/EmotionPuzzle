@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -178,7 +178,7 @@ public abstract class MinigameManager : MonoBehaviour
     }
 
     //il font non ha la a con l'accento quindi converto con l'apostrofo
-    public string ConvertInCorrectText(string emotion)
+    public static string ConvertInCorrectText(string emotion)
     {
         if (emotion == "Felicità")
             return "Felicita'";

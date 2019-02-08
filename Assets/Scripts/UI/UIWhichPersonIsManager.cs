@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIWhichPersonIsManager : UIEndRoundManager {
+public class UIWhichPersonIsManager : UIEndRoundManager
+{
 
     public TextMeshProUGUI emotionText;
 
     public void UpdateUI(MinigameManager manager)
     {
-        emotionText.text = ChangeTextToRandomColors("Quali persone sono " + CovertEmotionToAdjective(manager.GetEmotionString()) + "?"); 
-        
+        emotionText.text = ChangeTextToRandomColors("Quali persone sono " + CovertEmotionToAdjective(manager.GetEmotionString()) + "?");
+
     }
 
-    string CovertEmotionToAdjective(string emotion) {
+    string CovertEmotionToAdjective(string emotion)
+    {
         switch (emotion)
         {
             case "Felicità":
@@ -35,7 +37,7 @@ public class UIWhichPersonIsManager : UIEndRoundManager {
     //Metodo utilizzato per settare la schermata di fine round, VEDI UIEndRoundManager
     protected override void SetQA(bool roundResult)
     {
-        sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+        sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
         if (roundResult)
         {
             SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f, true);

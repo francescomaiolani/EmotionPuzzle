@@ -1,10 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SwitchInputField : MonoBehaviour {
+public class SwitchInputField : MonoBehaviour
+{
 
     public InputField[] inputFields;
 

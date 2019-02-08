@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionReader : MonoBehaviour {
+public class PositionReader : MonoBehaviour
+{
     /// <summary>
     /// is the sensor active?
     /// </summary>
@@ -39,7 +40,8 @@ public class PositionReader : MonoBehaviour {
 
     internal void setAccelerometer(triplet[] sensarr)
     {
-        foreach (triplet sens in sensarr) { 
+        foreach (triplet sens in sensarr)
+        {
             this.accelerometer[accelerometerNames[sens.sensorId]] = new Vector3(sens.x, sens.y, sens.z);
         }
     }
@@ -54,7 +56,7 @@ public class PositionReader : MonoBehaviour {
 
     internal void setPosition(float[] position)
     {
-        this.position = new Vector3(position[0], position[1], position[2]); ;
+        this.position = new Vector3(position[0], position[1], position[2]);;
     }
 
     /*internal void updateAccFromUDP(string val, string act, int dur)
@@ -77,11 +79,13 @@ public class PositionReader : MonoBehaviour {
         string[] v = val.Split(',');
         setPosition(new float[] { float.Parse(v[0]), float.Parse(v[1]), float.Parse(v[2]) });
     }
-    public void setAccelerometers(string[] names) {
+    public void setAccelerometers(string[] names)
+    {
         accelerometer = new Vector3[names.Length];
         accelerometerNames = new Dictionary<string, int>();
         int i = 0;
-        foreach (string s in names) {
+        foreach (string s in names)
+        {
             accelerometerNames.Add(s, i);
             i++;
         }

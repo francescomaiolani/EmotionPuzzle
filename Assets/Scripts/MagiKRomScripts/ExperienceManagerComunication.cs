@@ -1,23 +1,27 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class ExperienceManagerComunication : MonoBehaviour {
+public class ExperienceManagerComunication : MonoBehaviour
+{
     public static ExperienceManagerComunication instance;
-	// Use this for initialization
-	void Awake () {
+    // Use this for initialization
+    void Awake()
+    {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else {
+        else
+        {
             GameObject.DestroyImmediate(this);
         }
-	}
+    }
 
-    public void SendReadyCommand() {
+    public void SendReadyCommand()
+    {
         StartCoroutine(sendCommand("Ready"));
     }
 

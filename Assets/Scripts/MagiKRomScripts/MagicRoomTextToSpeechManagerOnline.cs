@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
+public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour
+{
 
     string receivigCodeExpression = "speachtotext";
 
@@ -29,20 +30,21 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
     /// </summary>
     private SpeachToTextCommand command;
 
-
     public List<string> listOfCompletedFiles = new List<string>();
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         if (instance != null)
         {
             GameObject.DestroyImmediate(this);
         }
-        else {
+        else
+        {
             instance = this;
             MagicRoomSpeachToText_active = true;
             address = "http://192.168.31.214:7074";
         }
-	}
+    }
 
     void Start()
     {
@@ -51,17 +53,18 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
     }
 
     void Update()
-    {
-    }
+    { }
 
-    public void ReadyFile(string filename) {
+    public void ReadyFile(string filename)
+    {
 
         fileSysntesysstatus f = JsonUtility.FromJson<fileSysntesysstatus>(filename);
-        if(f.status == "OK")
-        listOfCompletedFiles.Add(f.filename);
+        if (f.status == "OK")
+            listOfCompletedFiles.Add(f.filename);
     }
 
-    public void getConfiguration() {
+    public void getConfiguration()
+    {
         if (!MagicRoomSpeachToText_active)
         {
             return;
@@ -70,7 +73,7 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
     }
     IEnumerator getConfigurationFromServer()
     {
-        
+
         command = new SpeachToTextCommand();
         command.action = "getVoicesList";
         string json = JsonUtility.ToJson(command);
@@ -110,7 +113,8 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
         {
             return;
         }
-        if (File.Exists(Application.streamingAssetsPath + "/audio/" + filename)) {
+        if (File.Exists(Application.streamingAssetsPath + "/audio/" + filename))
+        {
             return;
         }
         command = new SpeachToTextCommand();
@@ -153,7 +157,6 @@ public class MagicRoomTextToSpeechManagerOnline : MonoBehaviour {
     }
 }
 
-
 [Serializable]
 public class SpeachToTextCommand
 {
@@ -165,6 +168,7 @@ public class SpeachToTextCommand
     public string lang;
     public string voice;
 }
+
 [Serializable]
 public class SpeachToTextCommandConfiguration
 {
@@ -172,7 +176,8 @@ public class SpeachToTextCommandConfiguration
 }
 
 [Serializable]
-public class Voices {
+public class Voices
+{
     public string voiceName;
     public string voiceGender;
     public string voiceLang;

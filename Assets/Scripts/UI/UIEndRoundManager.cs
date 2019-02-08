@@ -90,7 +90,7 @@ public abstract class UIEndRoundManager : MonoBehaviour
     {
         GameObject textUI = Instantiate(Resources.Load<GameObject>("Prefab/ImagePrefab/RiquadroEmozioneUI"), position, Quaternion.identity);
         textUI.transform.SetParent(FindObjectOfType<Canvas>().transform, false);
-        textUI.GetComponent<TextMeshProUGUI>().text = gameManager.ConvertInCorrectText(emotion.ToString());
+        textUI.GetComponent<TextMeshProUGUI>().text = MinigameManager.ConvertInCorrectText(emotion.ToString());
         Image imageComponent = textUI.transform.Find("Correct").GetComponent<Image>();
         if (correct)
         {

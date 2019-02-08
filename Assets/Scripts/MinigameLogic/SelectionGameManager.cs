@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -55,7 +55,7 @@ public abstract class SelectionGameManager : MinigameManager
             //Ci salviamo tutti i selectable objects spawnati
             selectableObjects = FindObjectsOfType<SelectableObject>();
         }
-        else  
+        else
             RepeatRound();
     }
 

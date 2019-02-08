@@ -1,11 +1,12 @@
-﻿using Mono.Data.Sqlite;
+using Mono.Data.Sqlite;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
 
-public class DatabaseManager: MonoBehaviour {
+public class DatabaseManager : MonoBehaviour
+{
 
     //Metodo utilizzato per inserire un nuovo account nel database
     public static bool InsertTherapist(string username, string password)
@@ -16,7 +17,7 @@ public class DatabaseManager: MonoBehaviour {
 
         //Effettuiamo la query di inserimento
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -33,7 +34,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         //Effettuiamo la query di inserimento
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -50,7 +51,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         bool flag = false;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -68,13 +69,13 @@ public class DatabaseManager: MonoBehaviour {
         }
         return flag;
     }
-    
+
     //Metodo utilizzato per vedere se nel database è gia presente un certo username: return true se il nome esiste già
     public static bool CheckIfAlreadyExist(string username)
     {
-        bool flag = false ;
+        bool flag = false;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -95,7 +96,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -116,7 +117,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -137,7 +138,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -158,7 +159,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -175,13 +176,11 @@ public class DatabaseManager: MonoBehaviour {
         return total;
     }
 
-
-
     public static int GetTotalErrors(string username)
     {
         int total = 0;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -204,7 +203,7 @@ public class DatabaseManager: MonoBehaviour {
     {
         bool flag = false;
         string connectionString = "URI=file:" + Application.dataPath + "/EmotionPuzzleDB.s3db"; //Path to database
-        using (IDbConnection dbConnection = new SqliteConnection(connectionString))
+        using(IDbConnection dbConnection = new SqliteConnection(connectionString))
         {
             //Open connection to the database
             dbConnection.Open();
@@ -220,6 +219,5 @@ public class DatabaseManager: MonoBehaviour {
         }
         return flag;
     }
-
 
 }

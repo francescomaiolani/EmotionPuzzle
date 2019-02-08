@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonSensor : MonoBehaviour {
+public class ButtonSensor : MonoBehaviour
+{
     /// <summary>
     /// is the sensor active?
     /// </summary>

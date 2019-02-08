@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomSmartToyManager : MonoBehaviour {
+public class MagicRoomSmartToyManager : MonoBehaviour
+{
     /// <summary>
     /// singleton of the script
     /// </summary>
@@ -54,7 +55,8 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
     /// retrieve all the gameobject of the different smart toys
     /// </summary>
     /// <returns></returns>
-    public List<GameObject> getSmartToys() {
+    public List<GameObject> getSmartToys()
+    {
         List<GameObject> temp = new List<GameObject>();
         Transform t = transform.GetChild(1);
         for (int i = 0; i < t.childCount; i++)
@@ -150,7 +152,7 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
         Logger.addToLogNewLine("ServerToy", "Close stream UDP for smart object " + deviceName);
         UDPListenerForMagiKRoom.instance.StopReceiver();
     }
-    
+
     /// <summary>
     /// perform some execution command on a device
     /// </summary>
@@ -220,7 +222,7 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(json);
         UnityWebRequest www = UnityWebRequest.Put(address, myData);
         yield return www.Send();
-        
+
         if (www.isNetworkError)
         {
             if (www.error == "Cannot connect to destination host")
@@ -273,7 +275,8 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
                         SmartToyUpdateStatus conf = JsonUtility.FromJson<SmartToyUpdateStatus>(response);
                         for (int i = 0; i < transform.GetChild(1).childCount; i++)
                         {
-                            if (transform.GetChild(1).GetChild(i).name == conf.Devicestatusstate.id) {
+                            if (transform.GetChild(1).GetChild(i).name == conf.Devicestatusstate.id)
+                            {
                                 transform.GetChild(1).GetChild(i).GetComponent<SmartToy>().updateState(conf);
                             }
                         }
@@ -286,7 +289,8 @@ public class MagicRoomSmartToyManager : MonoBehaviour {
     /// update the device from udp stream
     /// </summary>
     /// <param name="pack"></param>
-    public void updatefromUDPmessage(udpPackage pack) {
+    public void updatefromUDPmessage(udpPackage pack)
+    {
         for (int i = 0; i < transform.GetChild(1).childCount; i++)
         {
             if (transform.GetChild(1).GetChild(i).name == pack.id)
@@ -323,6 +327,7 @@ public class SmartToyCommand
 }
 
 [Serializable]
-public class SmartToyConfigurationMessage {
+public class SmartToyConfigurationMessage
+{
     public SmartToyConfiguration[] configurations;
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Net;
 using System.Net.Sockets;
@@ -18,7 +18,6 @@ public class UDPListenerForMagiKRoom : MonoBehaviour
 
     // udpclient object
     static UdpClient client;
-
 
     // the data
     public string lastReceivedUDPPacket = "";
@@ -107,7 +106,6 @@ public class UDPListenerForMagiKRoom : MonoBehaviour
         client.BeginReceive(new AsyncCallback(ReceiveCallback), udpstate);
     }
 
-
     public void StopReceiver()
     {
         _stop = true;
@@ -139,6 +137,7 @@ public class udpPackage
     public float[] position;
     public UDPEvent[] state;
 }
+
 [Serializable]
 public class UDPEvent
 {

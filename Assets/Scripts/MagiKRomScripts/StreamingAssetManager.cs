@@ -1,11 +1,12 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using System.Linq;
 
-public class StreamingAssetManager : MonoBehaviour {
+public class StreamingAssetManager : MonoBehaviour
+{
     /// <summary>
     /// Singleton of the script
     /// </summary>
@@ -25,7 +26,6 @@ public class StreamingAssetManager : MonoBehaviour {
     /// list of pending audiosource to load
     /// </summary>
     private AudioSource _DestiantionAudio;
-    
 
     void Awake()
     {
@@ -40,7 +40,8 @@ public class StreamingAssetManager : MonoBehaviour {
     /// <param name="folder">the relative path f the folderfrm the streaming asset forler where the file is</param>
     /// <param name="filename">the name of the file (with extension)</param>
     /// <param name="destination">Audiosource where to load the audio file</param>
-    public void loadAudioClipFromStreamingAsset(string folder, string filename, AudioSource destination) {
+    public void loadAudioClipFromStreamingAsset(string folder, string filename, AudioSource destination)
+    {
         _DestiantionAudio = destination;
         Debug.Log(filename);
         DirectoryInfo directoryInfo = new DirectoryInfo(Application.streamingAssetsPath + "/" + folder);
@@ -96,7 +97,8 @@ public class StreamingAssetManager : MonoBehaviour {
     /// </summary>
     /// <param name="folder">folder where to search</param>
     /// <returns></returns>
-    public string[] getFilenamesFromFolderInStreamingAsset(string folder) {
+    public string[] getFilenamesFromFolderInStreamingAsset(string folder)
+    {
         List<string> names = new List<string>();
         DirectoryInfo directoryInfo = new DirectoryInfo(Application.streamingAssetsPath + "/" + folder);
         FileInfo[] allFiles = directoryInfo.GetFiles("*.*");
@@ -155,12 +157,11 @@ public class StreamingAssetManager : MonoBehaviour {
         }
         else
         {
-            
-                print(playerFile.FullName.ToString());
-                string wwwPlayerFilePath = "file://" + playerFile.FullName.ToString();
-                WWW www = new WWW(wwwPlayerFilePath);
-                yield return www;
 
+            print(playerFile.FullName.ToString());
+            string wwwPlayerFilePath = "file://" + playerFile.FullName.ToString();
+            WWW www = new WWW(wwwPlayerFilePath);
+            yield return www;
 
             if (playerFile.Name.Contains(".wav"))
             {
@@ -169,8 +170,8 @@ public class StreamingAssetManager : MonoBehaviour {
             if (playerFile.Name.Contains(".mp3"))
             {
 
-                _DestiantionAudio.clip = NAudioPlayer.FromMp3Data(www.bytes);//www.GetAudioClip();
-                
+                _DestiantionAudio.clip = NAudioPlayer.FromMp3Data(www.bytes); //www.GetAudioClip();
+
             }
             _DestiantionAudio.clip.name = playerFile.Name;
             _DestiantionAudio.Play();

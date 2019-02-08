@@ -1,11 +1,12 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class Logger : MonoBehaviour {
+public class Logger : MonoBehaviour
+{
     static string filepath;
     static List<string> log = new List<string>();
     static public string SessionID = "SA_PELPX4";
@@ -27,7 +28,8 @@ public class Logger : MonoBehaviour {
 
     public static void openlog()
     {
-        if (log.Count == 0) {
+        if (log.Count == 0)
+        {
             //empty log
             autoincrement = 0;
         }
@@ -35,7 +37,8 @@ public class Logger : MonoBehaviour {
         {
             //send log to db
             string js = "[";
-            foreach (string s in log) {
+            foreach (string s in log)
+            {
                 js += s + ",";
             }
             js = js.Substring(0, js.Length - 1);
@@ -106,10 +109,12 @@ public class Logger : MonoBehaviour {
         }
     }
 
-	public void sceneChange(int index) {
-        StartCoroutine(sendCommand (index));
+    public void sceneChange(int index)
+    {
+        StartCoroutine(sendCommand(index));
     }
-	IEnumerator sendCommand(int index) {
+    IEnumerator sendCommand(int index)
+    {
         string json = "{\"currentSceneIndex\": " + index + "}";
         Debug.Log(json);
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(json);

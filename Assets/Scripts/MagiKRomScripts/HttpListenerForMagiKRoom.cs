@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +41,6 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
         _requestHandlers[new Regex(@"^/speachtotextOffline$")] = HandleSpeachToTextOffline;
         _requestHandlers[new Regex(@"^.*$")] = HandleDefault;
 
-        
     }
 
     void Start()
@@ -68,7 +67,7 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
     /// <param name="result"></param>
     private void ListenerCallback(IAsyncResult result)
     {
-        HttpListener listener = (HttpListener)result.AsyncState;
+        HttpListener listener = (HttpListener) result.AsyncState;
         // Call EndGetContext to complete the asynchronous operation.
         HttpListenerContext context = listener.EndGetContext(result);
         HttpListenerRequest request = context.Request;
@@ -81,7 +80,7 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
             Match m = r.Match(request.Url.AbsolutePath);
             if (m.Success)
             {
-                (_requestHandlers[r])(m, response, contentread);
+                (_requestHandlers[r]) (m, response, contentread);
                 _listener.BeginGetContext(new AsyncCallback(ListenerCallback), _listener);
                 return;
             }
@@ -129,7 +128,7 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
         // You must close the output stream.
         output.Close();
     }
-    private static  string httpcontent;
+    private static string httpcontent;
     /// <summary>
     /// handler of the events when the message is directed to the smart toy event  
     /// </summary>
@@ -209,7 +208,8 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
 
     public static bool receivedconfig = false;
     public static bool receivedforcedCommand = false;
-    static string[] poolofsentencies = new string[]{
+    static string[] poolofsentencies = new string[]
+    {
         "#playername è il tuo turno!",
         "#playername adesso tocca a te!",
         "Forza #playername, giochiamo!",
@@ -232,10 +232,10 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
             if (content.Contains("type"))
             {
                 MessageFromExpManager m = JsonUtility.FromJson<MessageFromExpManager>(content);
-                
+
                 if (m.action == "commands")
                 {
-                    commandmessages msg = (commandmessages)Enum.Parse(typeof(commandmessages), m.payload);
+                    commandmessages msg = (commandmessages) Enum.Parse(typeof(commandmessages), m.payload);
                     Debug.Log(msg);
                     //force command
                     switch (msg)
@@ -262,7 +262,7 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
                             close = true;
                             break;
                     }
-                    
+
                 }
 
                 if (m.action == "turn")
@@ -275,11 +275,7 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
             else
             {
 
-
-
-               //DECODE THE GAME CONFIGURATION HERE
-
-
+                //DECODE THE GAME CONFIGURATION HERE
 
                 receivedconfig = true;
             }
@@ -325,8 +321,9 @@ public class HttpListenerForMagiKRoom : MonoBehaviour
     {
         ExperienceManagerComunication.instance.SendConcludedCommand();
     }
-    
-    public void signalStartToExperienceManager() {
+
+    public void signalStartToExperienceManager()
+    {
         ExperienceManagerComunication.instance.SendStartedCommand();
     }
 }
@@ -348,5 +345,11 @@ public class PlayerCommand
 
 public enum commandmessages
 {
-    pause, play, next, back, skip, repeat, close
+    pause,
+    play,
+    next,
+    back,
+    skip,
+    repeat,
+    close
 }

@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundEmitterController : MonoBehaviour {
+public class SoundEmitterController : MonoBehaviour
+{
 
     /// <summary>
     /// is the audio player active?
@@ -42,7 +43,8 @@ public class SoundEmitterController : MonoBehaviour {
     {
         sensorEnabled = soundEmitterstate.isEnabled;
         playingTrack = soundEmitterstate.trackName;
-        if (soundEmitterstate.state == "Play") {
+        if (soundEmitterstate.state == "Play")
+        {
             state = SoundAndVideoState.Play;
         }
         if (soundEmitterstate.state == "Stop")
@@ -57,7 +59,9 @@ public class SoundEmitterController : MonoBehaviour {
         repeat = soundEmitterstate.repeat;
     }
 }
-public enum SoundAndVideoState {
-    Play, Stop, Pause
+public enum SoundAndVideoState
+{
+    Play,
+    Stop,
+    Pause
 }
-

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -54,15 +54,14 @@ public class KinectBodySkeleton
 
     public string GestureMask;
 
-
     override public string ToString()
     {
-        return "SpineBase" + SpineBase.ToString() + "SpineMid" + SpineMid.ToString() + "Neck" + Neck.ToString() + "Head" + Head.ToString() + "ShoulderLeft" + ShoulderLeft.ToString()
-            + "ElbowLeft" + ElbowLeft.ToString() + "WristLeft" + WristLeft.ToString() + "HandLeft" + HandLeft.ToString() + "ShoulderRight" + ShoulderRight.ToString() + "ElbowRight" + ElbowRight.ToString()
-            + "WristRight" + WristRight.ToString() + "HandRight" + HandRight.ToString() + "HipLeft" + HipLeft.ToString() + "HipRight" + HipRight.ToString() + "KneeLeft" + KneeLeft.ToString() + "KneeRight"
-            + KneeRight.ToString() + "AnkleLeft" + AnkleLeft.ToString() + "AnkleRight" + AnkleRight.ToString() + "FootLeft" + FootLeft.ToString() + "FootRight" + FootRight.ToString()
-            + "SpineShoulder" + SpineShoulder.ToString() + "HandTipLeft" + HandTipLeft.ToString() + "HandTipRight" + HandTipRight.ToString() + "ThumbLeft" + ThumbLeft.ToString()
-            + "ThumbRight" + ThumbRight.ToString();
+        return "SpineBase" + SpineBase.ToString() + "SpineMid" + SpineMid.ToString() + "Neck" + Neck.ToString() + "Head" + Head.ToString() + "ShoulderLeft" + ShoulderLeft.ToString() +
+            "ElbowLeft" + ElbowLeft.ToString() + "WristLeft" + WristLeft.ToString() + "HandLeft" + HandLeft.ToString() + "ShoulderRight" + ShoulderRight.ToString() + "ElbowRight" + ElbowRight.ToString() +
+            "WristRight" + WristRight.ToString() + "HandRight" + HandRight.ToString() + "HipLeft" + HipLeft.ToString() + "HipRight" + HipRight.ToString() + "KneeLeft" + KneeLeft.ToString() + "KneeRight" +
+            KneeRight.ToString() + "AnkleLeft" + AnkleLeft.ToString() + "AnkleRight" + AnkleRight.ToString() + "FootLeft" + FootLeft.ToString() + "FootRight" + FootRight.ToString() +
+            "SpineShoulder" + SpineShoulder.ToString() + "HandTipLeft" + HandTipLeft.ToString() + "HandTipRight" + HandTipRight.ToString() + "ThumbLeft" + ThumbLeft.ToString() +
+            "ThumbRight" + ThumbRight.ToString();
     }
 
     public Vector3 getBodyPosition()

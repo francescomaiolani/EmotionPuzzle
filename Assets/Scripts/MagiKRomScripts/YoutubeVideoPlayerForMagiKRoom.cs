@@ -1,9 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class YoutubeVideoPlayerForMagiKRoom : MonoBehaviour {
+public class YoutubeVideoPlayerForMagiKRoom : MonoBehaviour
+{
 
     public static YoutubeVideoPlayerForMagiKRoom instance;
     public GameObject[] canvases;
@@ -12,8 +13,9 @@ public class YoutubeVideoPlayerForMagiKRoom : MonoBehaviour {
     public VideoPlayer player;
     public Camera[] cameras;
     string path;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         instance = this;
         playersimpleFront = GameObject.FindObjectOfType<SimplePlayback>();
         playerhighquality = GameObject.FindObjectOfType<HighQualityPlayback>();
@@ -30,7 +32,8 @@ public class YoutubeVideoPlayerForMagiKRoom : MonoBehaviour {
         {
             player.targetCamera = cameras[0];
         }
-        else {
+        else
+        {
             player.targetCamera = cameras[1];
         }
 
@@ -56,16 +59,15 @@ public class YoutubeVideoPlayerForMagiKRoom : MonoBehaviour {
             playerhighquality.unityVideoPlayer.loopPointReached += OnVideoFinished;
         }
 
-
         if (frontscreen)
         {
-            canvases[0].SetActive(false) ;
+            canvases[0].SetActive(false);
         }
         else
         {
             canvases[1].SetActive(false);
         }
-        
+
     }
 
     public bool deactvate = false;

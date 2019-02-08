@@ -1,44 +1,47 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomLightManager : MonoBehaviour {
- /// <summary>
+public class MagicRoomLightManager : MonoBehaviour
+{
+    /// <summary>
     /// Singleton of the Script
     /// </summary>
     public static MagicRoomLightManager instance;
-/// <summary>
+    /// <summary>
     /// True if the smart light middleware is open, false otherwise
     /// </summary>    
-public bool MagicRoomLightManager_active; 
+    public bool MagicRoomLightManager_active;
 
-/// <summary>
+    /// <summary>
     /// http address of the middleware
     /// </summary>    
-private string address;
- /// <summary>
+    private string address;
+    /// <summary>
     /// Object to comunicate with the iddleware
     /// </summary>    
-private static LightCommand command;
+    private static LightCommand command;
 
-/// <summary>
+    /// <summary>
     /// list of the smart light identified by the middleware
     /// </summary>    
-public string[] listofAssociatedNames;
+    public string[] listofAssociatedNames;
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         if (instance == null)
         {
             instance = this;
         }
-        else {
+        else
+        {
             GameObject.DestroyImmediate(this);
         }
         address = "http://localhost:7070";
-        
+
         MagicRoomLightManager_active = true;
     }
 
@@ -48,11 +51,11 @@ public string[] listofAssociatedNames;
         StartCoroutine(sendConfigurationRequest());
     }
 
- /// <summary>
+    /// <summary>
     /// Encodes the request to import the lst of associated names
     /// </summary>
     /// <returns></returns>    
-IEnumerator sendConfigurationRequest()
+    IEnumerator sendConfigurationRequest()
     {
         LightCommand cmd = new LightCommand();
         cmd.Action = "getConfiguration";
@@ -76,20 +79,23 @@ IEnumerator sendConfigurationRequest()
         }
     }
 
-/// <summary>
+    /// <summary>
     /// Send the command to the iddleware to change the room color.
     /// All the smart lights will take the color of your chose.
     /// </summary>
     /// <param name="color">the hexadecimal value of the colour preceded by #</param>
     /// <param name="brighness">the intensity of the light from 0 (switch off) to 255 (maxium brightness)</param>    
-public void sendColour(string color, int brighness) {
+    public void sendColour(string color, int brighness)
+    {
         command = new LightCommand();
         command.Action = "LightCommand";
-        if (!MagicRoomLightManager_active) {
+        if (!MagicRoomLightManager_active)
+        {
             return;
         }
         color = color.ToLower();
-        if (!(checkStringColour(color) && checkBrightness(brighness))) {
+        if (!(checkStringColour(color) && checkBrightness(brighness)))
+        {
             return;
         }
 
@@ -180,30 +186,30 @@ public void sendColour(string color, int brighness) {
     /// <returns> the integer value of the brightness between 0 and 255</returns>    
     private int ConvertBrightness(Color c)
     {
-        return (int)(c.a * 255);
+        return (int) (c.a * 255);
     }
 
-/// <summary>
+    /// <summary>
     /// Convert the color into the hexadecimal format
     /// </summary>
     /// <param name="c">color to convert</param>
     /// <returns> the hexadecimal format of the color preceeded by #</returns>    
-private string ConvertColor(Color c)
+    private string ConvertColor(Color c)
     {
         string col = "#";
-        col += ((int)(c.r * 255)).ToString("X2");
-        col += ((int)(c.g * 255)).ToString("X2");
-        col += ((int)(c.b * 255)).ToString("X2");
+        col += ((int) (c.r * 255)).ToString("X2");
+        col += ((int) (c.g * 255)).ToString("X2");
+        col += ((int) (c.b * 255)).ToString("X2");
         return col;
     }
 
-/// <summary>
+    /// <summary>
     /// Send the command to the iddleware to change the room color.
     /// </summary>
     /// <param name="color">the hexadecimal value of the colour preceded by #</param>
     /// <param name="brighness">the intensity of the light from 0 (switch off) to 255 (maxium brightness)</param>
     /// <param name="name">Name of the lght you want to change from the list of associated names</param>    
-public void sendColour(string color, int brighness, string name)
+    public void sendColour(string color, int brighness, string name)
     {
         command = new LightCommand();
         command.Action = "LightCommand";
@@ -224,7 +230,7 @@ public void sendColour(string color, int brighness, string name)
         StartCoroutine(sendCommand());
     }
 
-/// <summary>
+    /// <summary>
     /// Send the command to the iddleware to change the room color.
     /// </summary>
     /// <param name="colour">The color you want the lights to change alpha channel will be used to determine the brightness</param>
@@ -284,38 +290,45 @@ public void sendColour(string color, int brighness, string name)
     /// <returns></returns>    
     private bool checkBrightness(int b)
     {
-        if (b < 0 || b > 255) {
+        if (b < 0 || b > 255)
+        {
             return false;
         }
         return true;
     }
 
-/// <summary>
+    /// <summary>
     /// verify that the color string passed is a valid hexadeciaml colour
     /// </summary>
     /// <param name="c">the string to check</param>
     /// <returns></returns>    
-private bool checkStringColour(string c) {
-        if ((c.Length != 7 || !c.StartsWith("#"))) {
+    private bool checkStringColour(string c)
+    {
+        if ((c.Length != 7 || !c.StartsWith("#")))
+        {
             return false;
         }
-        c = c.Substring(1, c.Length-1);
+        c = c.Substring(1, c.Length - 1);
         c = c.ToLower();
-        foreach (char ch in c) {
-            if (!((ch >= 'a' && ch <= 'f') || (ch >= '0' && ch <= '9'))) {
+        foreach (char ch in c)
+        {
+            if (!((ch >= 'a' && ch <= 'f') || (ch >= '0' && ch <= '9')))
+            {
                 return false;
             }
         }
         return true;
     }
 
-/// <summary>
+    /// <summary>
     /// send the command to the middleware
     /// </summary>
     /// <returns></returns>    
-IEnumerator sendCommand() {
+    IEnumerator sendCommand()
+    {
         string json = JsonUtility.ToJson(command);
-        if (command.id == null || command.id == "") {
+        if (command.id == null || command.id == "")
+        {
             json = json.Substring(0, json.Length - 9) + "}";
         }
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(json);
@@ -323,16 +336,18 @@ IEnumerator sendCommand() {
         yield return www.Send();
         if (www.isNetworkError)
         {
-            if (www.error == "Cannot connect to destination host") {
+            if (www.error == "Cannot connect to destination host")
+            {
                 MagicRoomLightManager_active = false;
             }
-            
+
         }
     }
 }
 
 [Serializable]
-public class LightCommand {
+public class LightCommand
+{
     public string Action;
     public string Color;
     public string Brightness;

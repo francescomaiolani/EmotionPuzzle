@@ -1,12 +1,13 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomKinectV2Manager : MonoBehaviour {
+public class MagicRoomKinectV2Manager : MonoBehaviour
+{
 
-/// <summary>
+    /// <summary>
     /// Singleton of the script
     /// </summary>
     public static MagicRoomKinectV2Manager instance;
@@ -35,7 +36,7 @@ public class MagicRoomKinectV2Manager : MonoBehaviour {
     /// command to be sent to the middleware
     /// </summary>
     private KinectCommand command;
-    
+
     /// <summary>
     /// which mode set to read from the kinect
     /// </summary>
@@ -58,7 +59,7 @@ public class MagicRoomKinectV2Manager : MonoBehaviour {
     /// <summary>
     /// which mode set to read from the kinect
     /// </summary>    
-public KinectReadMode Kinectreadmode
+    public KinectReadMode Kinectreadmode
     {
         get
         {
@@ -84,7 +85,8 @@ public KinectReadMode Kinectreadmode
                 _recognizedCommand = "";
                 return temp;
             }
-            else {
+            else
+            {
                 return "";
             }
         }
@@ -105,7 +107,7 @@ public KinectReadMode Kinectreadmode
         Logger.addToLogNewLine("ServerKinect", "Searched Magic Room Kinect Server");
     }
 
-/// <summary>
+    /// <summary>
     /// last audio command recognized by the Kinet middleware for logging purpose only
     /// </summary>
     public string _lastreadedcommand;
@@ -116,18 +118,19 @@ public KinectReadMode Kinectreadmode
             readLastSamplingKinect(_kinectreadmode);
         }
 
-        if (_lastreadedcommand != "") {
+        if (_lastreadedcommand != "")
+        {
             Logger.addToLogNewLine("ServerKinect", "identified the world " + _lastreadedcommand + " from the Kinect.");
             _lastreadedcommand = "";
         }
     }
 
- /// <summary>
+    /// <summary>
     /// Define the kinect sampling capability
     /// </summary>
     /// <param name="frequency">number of sampling that have to be taken by the kinect (in streming mode)</param>
     /// <param name="window">the number of elements saved into the window</param>    
-public void setUpKinect(int frequency, int window)
+    public void setUpKinect(int frequency, int window)
     {
         string listeningaddress = HttpListenerForMagiKRoom.instance.address + ":" + HttpListenerForMagiKRoom.instance.port + "/" + receivigCodeExpression;
         if (!MagicRoomKinectV2Manager_active)
@@ -143,11 +146,11 @@ public void setUpKinect(int frequency, int window)
         Logger.addToLogNewLine("ServerKinect", "SetUp Kinekt V2 sampling frequency " + frequency + " and window " + window);
         StartCoroutine(sendCommand());
     }
-/// <summary>
+    /// <summary>
     /// Send the command to the middleware to start sampling
     /// </summary>
     /// <param name="samplingmode"></param>    
-public void startSamplingKinect(KinectSamplingMode samplingmode)
+    public void startSamplingKinect(KinectSamplingMode samplingmode)
     {
         if (!MagicRoomKinectV2Manager_active)
         {
@@ -161,15 +164,17 @@ public void startSamplingKinect(KinectSamplingMode samplingmode)
             command.option = "Polling";
             MagicRoomKinectV2Manager_sampling = true;
         }
-        else {
+        else
+        {
             command.option = "Streaming";
         }
         Logger.addToLogNewLine("ServerKinect", "Started Kinect sampling " + samplingmode.ToString());
         StartCoroutine(sendCommand());
-        
+
     }
 
-    public KinectBodySkeleton GetCloserSkeleton() {
+    public KinectBodySkeleton GetCloserSkeleton()
+    {
         float zIndex = Mathf.Infinity;
         int skeletonIndex = 0;
 
@@ -184,10 +189,10 @@ public void startSamplingKinect(KinectSamplingMode samplingmode)
         return skeletons[skeletonIndex];
     }
 
-/// <summary>
+    /// <summary>
     /// stop the sampling for the Kinect
     /// </summary>    
-public void stopSamplingKinect()
+    public void stopSamplingKinect()
     {
         if (!MagicRoomKinectV2Manager_active)
         {
@@ -200,11 +205,11 @@ public void stopSamplingKinect()
         StartCoroutine(sendCommand());
         MagicRoomKinectV2Manager_sampling = false;
     }
- /// <summary>
+    /// <summary>
     /// read the last sampling of the body parts obtined by the server
     /// </summary>
     /// <param name="readmode"></param>    
-public void readLastSamplingKinect(KinectReadMode readmode)
+    public void readLastSamplingKinect(KinectReadMode readmode)
     {
         if (!MagicRoomKinectV2Manager_active)
         {
@@ -224,11 +229,11 @@ public void readLastSamplingKinect(KinectReadMode readmode)
         StartCoroutine(sendCommand());
     }
 
-/// <summary>
+    /// <summary>
     /// define the gestures that are to be recognized by the kinect, if present in the database
     /// </summary>
     /// <param name="activegesture">key is the gesture name, value is the percentage of confidence</param>    
-public void setGestureRecognitionKinect(Dictionary<string, int> activegesture)
+    public void setGestureRecognitionKinect(Dictionary<string, int> activegesture)
     {
         if (!MagicRoomKinectV2Manager_active)
         {
@@ -238,18 +243,19 @@ public void setGestureRecognitionKinect(Dictionary<string, int> activegesture)
         command.type = "KinectCommand";
         command.command = "SetGesture";
         string formattedstring = "";
-        foreach (string key in activegesture.Keys) {
+        foreach (string key in activegesture.Keys)
+        {
             formattedstring += key + ":" + activegesture[key] + ",";
         }
         formattedstring = formattedstring.Substring(0, formattedstring.Length - 1);
         command.option = formattedstring;
         StartCoroutine(sendCommand());
     }
-/// <summary>
+    /// <summary>
     /// set up the audio command to be recognized
     /// </summary>
     /// <param name="worldtorecognize">list of terms to be recognized by the kinect</param>    
-public void setVoiceRecognitionKinect(List<string> worldtorecognize)
+    public void setVoiceRecognitionKinect(List<string> worldtorecognize)
     {
         if (!MagicRoomKinectV2Manager_active)
         {
@@ -269,11 +275,11 @@ public void setVoiceRecognitionKinect(List<string> worldtorecognize)
         StartCoroutine(sendCommand());
     }
 
-/// <summary>
+    /// <summary>
     /// send the http command to the middleware
     /// </summary>
     /// <returns></returns>    
-IEnumerator sendCommand()
+    IEnumerator sendCommand()
     {
         string json = JsonUtility.ToJson(command);
         Debug.Log(json);
@@ -283,7 +289,7 @@ IEnumerator sendCommand()
         yield return www.Send();
         if (www.isNetworkError)
         {
-            Debug.Log("Kinectmanager " + www.isNetworkError + " " +  www.error);
+            Debug.Log("Kinectmanager " + www.isNetworkError + " " + www.error);
             if (www.error == "Cannot connect to destination host")
             {
                 MagicRoomKinectV2Manager_active = false;
@@ -291,11 +297,12 @@ IEnumerator sendCommand()
         }
     }
 
-/// <summary>
+    /// <summary>
     /// transform the message from the middlewar into the data about the skeletons 
     /// </summary>
     /// <param name="json"></param>    
-public void setSkeletons(string json) {
+    public void setSkeletons(string json)
+    {
         //Debug.Log(json);
         json = "{\"skeletons\" : " + json + "}";
         json = json.Replace("X", "x");
@@ -306,11 +313,11 @@ public void setSkeletons(string json) {
         //Logger.addToLogNewLine("identified Skeletons from Kinect Server " + json);
     }
 
-/// <summary>
+    /// <summary>
     /// trasform the message from the middleware nto the data for audio recognition
     /// </summary>
     /// <param name="json"></param>    
-public void detectedAudio(string json)
+    public void detectedAudio(string json)
     {
         AudioEventFromKinectServer frame = JsonUtility.FromJson<AudioEventFromKinectServer>(json);
         _recognizedCommand = frame.world;
@@ -319,12 +326,15 @@ public void detectedAudio(string json)
 
 }
 
-public enum KinectSamplingMode {
-    Polling, Streaming
+public enum KinectSamplingMode
+{
+    Polling,
+    Streaming
 }
 public enum KinectReadMode
 {
-    Single, Window
+    Single,
+    Window
 }
 
 [Serializable]

@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class MagicRoomTextToSpeachManagerOffline : MonoBehaviour {
+public class MagicRoomTextToSpeachManagerOffline : MonoBehaviour
+{
 
     string receivigCodeExpression = "speachtotextOffline";
 
@@ -29,7 +30,7 @@ public class MagicRoomTextToSpeachManagerOffline : MonoBehaviour {
     private SpeachToTextOfflineCommand command;
 
     public bool isPlaying = false;
-    
+
     // Use this for initialization
     void Awake()
     {
@@ -45,7 +46,8 @@ public class MagicRoomTextToSpeachManagerOffline : MonoBehaviour {
         }
     }
 
-    public void isCompleted() {
+    public void isCompleted()
+    {
         Logger.addToLogNewLine("ServerTTSO", "endplay");
         isPlaying = false;
     }
@@ -54,7 +56,6 @@ public class MagicRoomTextToSpeachManagerOffline : MonoBehaviour {
     {
         getConfiguration();
     }
-    
 
     public void getConfiguration()
     {

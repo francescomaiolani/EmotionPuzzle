@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MotorController : MonoBehaviour {
+public class MotorController : MonoBehaviour
+{
     /// <summary>
     /// is the motor active?
     /// </summary>
@@ -48,6 +49,7 @@ public class MotorController : MonoBehaviour {
         }
     }
 }
+
 [Serializable]
 public class ControllableMotor
 {

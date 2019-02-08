@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 
 [Serializable]
-public class SmartToyConfiguration {
+public class SmartToyConfiguration
+{
     public string name;
     public string[] rfid_config;
     public string[] rfid_reader_name_config;
@@ -115,11 +116,13 @@ public class ButtonSerializedState
 }
 
 [Serializable]
-public class ButtonEvent {
+public class ButtonEvent
+{
     public string nam;
     public bool val;
     public int dur;
 }
+
 [Serializable]
 public class TouchEvent
 {
@@ -151,7 +154,8 @@ public class RFIDSerializedState
 }
 
 [Serializable]
-public class DeviceStatusSerializedState {
+public class DeviceStatusSerializedState
+{
     public int battery;
 
     public string id;
@@ -160,7 +164,8 @@ public class DeviceStatusSerializedState {
 }
 
 [Serializable]
-public class SmartToyExecuteStatus {
+public class SmartToyExecuteStatus
+{
     public bool? rfid;
 
     public bool? touch;
@@ -206,10 +211,12 @@ public class SmartToyExecuteStatus {
         effectnametoActivate = null;
 
         motorControlCommands = null;
-}
-    public string ToJson() {
+    }
+    public string ToJson()
+    {
         string json = "{";
-        if (rfid != null) {
+        if (rfid != null)
+        {
             json += "\"rfid\" : " + rfid.ToString().ToLower() + ", ";
         }
         if (button != null)
@@ -220,7 +227,8 @@ public class SmartToyExecuteStatus {
         {
             json += "\"touch\" : " + touch.ToString().ToLower() + ", ";
         }
-        if (gyroscope != null) {
+        if (gyroscope != null)
+        {
             json += " \"gyroscope\" : " + gyroscope.ToString().ToLower() + ", ";
         }
         if (accelerometer != null)
@@ -245,7 +253,8 @@ public class SmartToyExecuteStatus {
             for (int i = 0; i < lightsControllerCommand.Length; i++)
             {
                 json += UnityEngine.JsonUtility.ToJson(lightsControllerCommand[i]);
-                if (i < lightsControllerCommand.Length - 2) {
+                if (i < lightsControllerCommand.Length - 2)
+                {
                     json += ", ";
                 }
             }
@@ -266,7 +275,8 @@ public class SmartToyExecuteStatus {
 }
 
 [Serializable]
-public class soundEmitterSet {
+public class soundEmitterSet
+{
     public string trackname;
 
     public int volume;
@@ -275,6 +285,7 @@ public class soundEmitterSet {
 
     public string state;
 }
+
 [Serializable]
 public class videoEmitterSet
 {

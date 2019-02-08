@@ -32,13 +32,13 @@ public class UICompositionSelectionManager : UIEndRoundManager
 
 	public void UpdateUI(MinigameManager manager)
 	{
-		emotionText.text = manager.ConvertInCorrectText(manager.GetEmotionString());
+		emotionText.text = MinigameManager.ConvertInCorrectText(manager.GetEmotionString());
 		//fumettoText.text = fumettoPhrase.Values
 	}
 
 	protected override void SetQA(bool roundResult)
 	{
-		sentencesQA[0].text = gameManager.ConvertInCorrectText(gameManager.GetEmotionString());
+		sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
 
 		if (roundResult)
 		{

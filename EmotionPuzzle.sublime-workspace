@@ -1,0 +1,389 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Capsl",
+				"CapsuleCollider2D\tCapsuleCollider2D"
+			],
+			[
+				"Collider",
+				"Collider2D\tCollider2D"
+			],
+			[
+				"capsule",
+				"capsuleCollider\tcapsuleCollider"
+			],
+			[
+				"Cap",
+				"CapsuleCollider2D()\tCapsuleCollider2D()"
+			],
+			[
+				"capsul",
+				"capsuleCollider\tcapsuleCollider"
+			],
+			[
+				"caps",
+				"CapsuleCollider2D\tCapsuleCollider2D"
+			],
+			[
+				"Caps",
+				"CapsuleCollider2D\tCapsuleCollider2D"
+			],
+			[
+				"Boc",
+				"BoxCollider2D\tBoxCollider2D"
+			],
+			[
+				"Capsu",
+				"CapsuleCollider2D\tCapsuleCollider2D"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"contents": "using System.Collections;\nusing System.Collections.Generic;\nusing UnityEngine;\nusing UnityEngine.UI;\n\npublic class TutorialManager : MonoBehaviour {\n\n\tprivate GameObject facesPanel;\n\n\n\t// Use this for initialization\n\tvoid Start () {\n\t\tCreateFaces();\n\t\t\n\t}\n\t\n\tprivate void CreateFaces()\n\t{\n\t\t AvatarSettings avatarSettings = gameSessionSettings.avatarSettings;\n        GameObject face = Instantiate(Resources.Load<GameObject>(\"Prefab/AvatarFace\"), position, Quaternion.identity);\n        //face.GetComponent<Avatar> ().CreateCompleteFace (MinigameManager.ConvertTextInEmotion (emotionString), avatarSettings.gender, avatarSettings.skinColor, avatarSettings.hairStyle, avatarSettings.hairColor, avatarSettings.eyesColor);\n        face.GetComponent<Avatar>().CreateCompleteFace(MinigameManager.ConvertTextInEmotion(emotionString), avatarSettings.gender,\n            avatarSettings.skinColor, avatarSettings.hairStyle, avatarSettings.hairColor, avatarSettings.eyesColor);\n        face.GetComponent<Avatar>().MakeAvatarSelectableObject();\n        return face;\n\t}\n\t\n}\n",
+			"file": "Assets/TutorialManager.cs",
+			"file_size": 344,
+			"file_write_time": 131941325915847914,
+			"settings":
+			{
+				"buffer_size": 1062,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/AvatarCreation/AvatarCreationManager.cs",
+			"settings":
+			{
+				"buffer_size": 6012,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "Assets/Scripts/MinigameLogic/GuessExpressionManager.cs",
+			"settings":
+			{
+				"buffer_size": 1295,
+				"encoding": "UTF-8 with BOM",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Unity3D Build System/Unity.sublime-build",
+					""
+				],
+				[
+					"Packages/Unity3D Build System/Unity.sublime-build",
+					"Clean"
+				]
+			],
+			[
+				"Packages/Unity3D Build System/Unity.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Set Syntax: Git Rebase Todo"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 88.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/_Scenes",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts/AvatarCreation",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts/MinigameLogic"
+	],
+	"file_history":
+	[
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts/AvatarCreation/AvatarCreationManager.cs",
+		"/C/Users/franc/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts/AvatarCreation/GameSessionSettings.cs",
+		"/C/Users/franc/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/Assets/Scripts/MinigameLogic/HowDoYouFeelManager.cs",
+		"/C/Users/franc/Desktop/EmotionPuzzle/EmotionPuzzle/EmotionPuzzle.sublime-project",
+		"/C/Users/franc/AppData/Roaming/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/C/Users/franc/Desktop/prova 2019 da cancellare/prova.sublime-project",
+		"/C/Users/franc/AppData/Roaming/Sublime Text 3/Packages/User/Github Tools.sublime-settings",
+		"/C/Users/franc/Desktop/prova 2019 da cancellare/Assets/NewBehaviourScript.cs",
+		"/C/Users/franc/Desktop/prova 2019 da cancellare/Assets/newScrpit.cs",
+		"/C/Users/franc/Desktop/prova 2019 da cancellare/Assets/NewBehaviourScript.cs.meta",
+		"/C/Users/franc/Desktop/LoveGame/main.lua"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Assets/TutorialManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1062,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								327,
+								327
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Scripts/AvatarCreation/AvatarCreationManager.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6012,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2133.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/Scripts/MinigameLogic/GuessExpressionManager.cs",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1295,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								521,
+								1284
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Unity3D/UnityC#.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 32.0,
+						"translation.y": 211.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 47.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 127.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.variable_get":
+	{
+		"height": 218.0
+	},
+	"pinned_build_system": "Packages/Unity3D Build System/Unity.sublime-build",
+	"project": "EmotionPuzzle.sublime-project",
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"gdfg",
+				"Assets\\Scripts\\MinigameLogic\\HowDoYouFeelManager.cs"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 275.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
