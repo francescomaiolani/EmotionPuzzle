@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HandCompositionGame : Hand
 {
-
     [SerializeField]
     private List<DroppableArea> droppableArea;
     [Header("Reference al pezzo della faccia preso")]
@@ -17,7 +16,6 @@ public class HandCompositionGame : Hand
     List<float> campionamenti = new List<float>();
     [SerializeField]
     int averageNumber = 5;
-
 
     protected override void Start()
     {

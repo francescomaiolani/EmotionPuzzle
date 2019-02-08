@@ -44,9 +44,10 @@ public class Hand : MonoBehaviour
         Vector2 mousePositionInWorldCoordinates;
         if (inMagicRoom)
         {
+            Vector3 randomOffset = new Vector3(Random.Range(-0.001f, 0.001f), Random.Range(-0.001f, 0.001f), 0);
             currentSkeleton = MagicRoomKinectV2Manager.instance.GetCloserSkeleton();
             if (MagicRoomKinectV2Manager.instance.MagicRoomKinectV2Manager_active)
-                mousePositionInWorldCoordinates = MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11;
+                mousePositionInWorldCoordinates = (MagicRoomKinectV2Manager.instance.GetCloserSkeleton().HandRight * 11) + randomOffset;
             else
                 mousePositionInWorldCoordinates = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
         }
