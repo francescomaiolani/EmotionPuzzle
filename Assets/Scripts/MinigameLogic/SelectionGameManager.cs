@@ -132,7 +132,7 @@ public abstract class SelectionGameManager : MinigameManager
     }
 
     //Metodo che viene chiamato nel momento in cui un oggetto viene selezionato
-    private void HandleSelection(GameObject objectSelected)
+    protected virtual void HandleSelection(GameObject objectSelected)
     {
         answerGiven = objectSelected.GetComponent<SelectableObject>();
         foreach (SelectableObject s in selectableObjects)
