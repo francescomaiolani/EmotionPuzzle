@@ -129,7 +129,7 @@ public abstract class MinigameManager : MonoBehaviour
             s = "HowDoYouFeel";
         else if (SceneManager.GetActiveScene().name == "3_WhichPersonIsGame")
             s = "WhichPersonIs";
-        else if (SceneManager.GetActiveScene().name == "4_CompositionGame")
+        else if (SceneManager.GetActiveScene().name == "4_CompositionGameSelectable")
             s = "Composition";
         else if (SceneManager.GetActiveScene().name == "5_PhotographicEmotion")
             s = "PhotographicEmotion";

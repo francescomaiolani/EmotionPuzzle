@@ -102,7 +102,7 @@ public class CompositionSelectionManager : MinigameManager
 			mouthEmotionChosen = mainMouth.GetEmotionType();
 			mainMouth.transform.localScale = new Vector3(1, 1, 1);
 		}
-		else if (mainMouth != null && selectableObject.facePartType == FaceParts.Eyes)
+		else if (mainMouth != null && selectableObject.facePartType == FaceParts.Mouth)
 		{
 			mainMouth.transform.position = mainMouth.initialPosition;
 			mainMouth.ReactivateSelectableObject();

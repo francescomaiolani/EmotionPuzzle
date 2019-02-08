@@ -19,6 +19,8 @@ public class Hand : MonoBehaviour
 
     protected Rigidbody2D rigid;
 
+    public string handState = "open";
+
     public delegate void OnAdviceGiven(string advice);
     public static event OnAdviceGiven adviceGiven;
 
@@ -81,6 +83,7 @@ public class Hand : MonoBehaviour
             spriteRenderer.sprite = hands[1];
         else if (state == "open")
             spriteRenderer.sprite = hands[0];
+        handState = state;
     }
     //droppa nella droppable area il droppable object trascinato
     protected void DropItem(DroppableArea d, DraggableObject draggableComponent)

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class HandSelectionGame : Hand
 {
+	StartRaycast canvasRaycast;
 
 	public delegate void OnSelectableObjectClicked(SelectableObject selectableObject);
 	public static event OnSelectableObjectClicked SelectableObjectClicked;
@@ -17,6 +20,12 @@ public class HandSelectionGame : Hand
 	[SerializeField]
 	private SelectableObject objectSelected;
 
+	protected override void Start()
+	{
+		base.Start();
+		canvasRaycast = FindObjectOfType<StartRaycast>();
+
+	}
 	//gli inputs vanno overridati perhe' non e' piu' un drag 
 	protected override void CheckInputs()
 	{
@@ -27,21 +36,22 @@ public class HandSelectionGame : Hand
 			//se sto cliccando >>> Inizia il drag
 			if (currentSkeleton.isRightHandClosed(0.075f))
 			{
-				ChangeHandSprite("close");
+				ChangeHandSprite("closed");
 				Debug.Log("Hand is close");
+				canvasRaycast.DoRaycast(Camera.main.WorldToScreenPoint(transform.position));
 				SelectObject();
-				
-
 			}
 			else
-				ChangeHandSprite("open");	
+			{
+				ChangeHandSprite("open");
+			}
 		}
 		//se non sono nella magic room e quindi il controllo deve essere effettuato col mouse e basta
 		else
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
-				ChangeHandSprite("close");
+				ChangeHandSprite("closed");
 				SelectObject();
 			}
 			else
