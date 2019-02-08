@@ -25,7 +25,7 @@ public class MinigameSelectionManager : MonoBehaviour
     public void StartCompositionGame()
     {
         MinigameManager.pathEnabled = false;
-        SceneManager.LoadSceneAsync("4_CompositionGame");
+        SceneManager.LoadSceneAsync("4_CompositionGameSelectable");
     }
     public void StartPhotographicEmotion()
     {
