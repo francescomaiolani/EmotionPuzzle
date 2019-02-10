@@ -51,7 +51,6 @@
 			"settings":
 			{
 				"buffer_size": 1062,
-				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		},
@@ -59,18 +58,18 @@
 			"file": "Assets/Scripts/AvatarCreation/AvatarCreationManager.cs",
 			"settings":
 			{
-				"buffer_size": 6012,
+				"buffer_size": 6787,
 				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "Assets/Scripts/MinigameLogic/GuessExpressionManager.cs",
 			"settings":
 			{
-				"buffer_size": 1295,
+				"buffer_size": 1292,
 				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -236,7 +235,7 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6012,
+						"buffer_size": 6787,
 						"regions":
 						{
 						},
@@ -265,15 +264,15 @@
 					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 1295,
+						"buffer_size": 1292,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								521,
-								1284
+								0,
+								0
 							]
 						],
 						"settings":

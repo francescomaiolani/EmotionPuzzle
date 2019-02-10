@@ -19,6 +19,7 @@ public class PhotographicEmotionManager : SelectionGameManager
     protected override void SetupCentralEmotion()
     {
         photoSprite.sprite = Resources.Load<Sprite>("Sprite/Photos/" + mainEmotion + "/" + Random.Range(1, 5));
-        photoSprite.size = new Vector2(5f, 5f);
+        Vector2 dimension = new Vector2(5f / photoSprite.size.x, 5f / photoSprite.size.y);
+        photoSprite.transform.localScale = dimension;
     }
 }

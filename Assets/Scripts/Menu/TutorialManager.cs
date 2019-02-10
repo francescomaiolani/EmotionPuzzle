@@ -66,8 +66,10 @@ public class TutorialManager : MonoBehaviour
 	private void CreatePhoto(string emotionString)
 	{
 		cornicePhoto.SetActive(true);
+		photoSprite.gameObject.SetActive(true);
 		photoSprite.sprite = Resources.Load<Sprite>("Sprite/Photos/" + emotionString + "/" + Random.Range(1, 5));
-		photoSprite.size = new Vector2(5f, 5f);
+		Vector2 dimension = new Vector2(5f / photoSprite.size.x, 5f / photoSprite.size.y);
+		photoSprite.transform.localScale = dimension;
 	}
 
 	private void ShowTutorialEmotion(GameObject objectSelected)
