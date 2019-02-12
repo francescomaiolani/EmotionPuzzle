@@ -37,7 +37,6 @@ public class WhichPersonIsManager : MinigameManager
         //Disabilita schermata di fine round
         endRoundPanel.SetActive(false);
         //aggiorna la UI
-        FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
         if (roundResult)
         {
             DestroySceneObjects();
@@ -47,6 +46,9 @@ public class WhichPersonIsManager : MinigameManager
         }
         else
             RepeatRound();
+            
+        FindObjectOfType<UIWhichPersonIsManager>().UpdateUI(this);
+
     }
 
     protected override void RepeatRound()
