@@ -16,8 +16,7 @@ public class UIGuessExpressionManager : UIEndRoundManager
         }
         else
         {
-            SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f, true);
-            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f, true);
+            SpawnFace(new Vector3(0f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f, true);
         }
 
     }

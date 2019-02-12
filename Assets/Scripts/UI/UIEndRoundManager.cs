@@ -76,6 +76,7 @@ public abstract class UIEndRoundManager : MonoBehaviour
                 face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/OkIcon");
             else
             {
+                face.transform.Find("Correct").gameObject.SetActive(true);
                 face.transform.Find("Correct").GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprite/UI/NotOkIcon");
                 face.GetComponent<Avatar>().ChangeFaceOpacity(150);
             }
