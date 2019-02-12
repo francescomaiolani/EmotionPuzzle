@@ -130,6 +130,7 @@ public abstract class MinigameManager : MonoBehaviour
         DatabaseManager.InsertResult(PlayerPrefs.GetString("PlayerName"), emotion, game, result);
     }
 
+
     private string GetGameMode()
     {
         string s = "";

@@ -145,6 +145,14 @@ public abstract class UIEndRoundManager : MonoBehaviour
         return coloredString;
     }
 
+    protected void ResetMagicRoomLights()
+    {
+        Color c = Color.white;
+        c.a = 100 / 255f;
+        if (inMagicRoom)
+            MagicRoomLightManager.instance.sendColour(c);
+    }
+
     public void NextRound()
     {
         if (gameManager.GetCurrentRound() < gameManager.GetTotalRounds())
@@ -158,6 +166,7 @@ public abstract class UIEndRoundManager : MonoBehaviour
             else
                 LevelSelectionManager.GoToMinigameSelection();
         }
+        ResetMagicRoomLights();
 
     }
 

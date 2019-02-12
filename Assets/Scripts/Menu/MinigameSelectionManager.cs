@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 public class MinigameSelectionManager : MonoBehaviour
 {
 
+    public void GoToModeSelection()
+    {
+        SceneManager.LoadSceneAsync("ModeSelection");
+    }
     public void StartGuessExpression()
     {
         MinigameManager.pathEnabled = false;

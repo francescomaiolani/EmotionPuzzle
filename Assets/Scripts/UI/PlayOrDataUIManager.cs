@@ -12,6 +12,10 @@ public class PlayOrDataUIManager : MonoBehaviour
 	{
 		SceneManager.LoadSceneAsync("DataVisualization");
 	}
+	public void GoToLogin()
+	{
+		SceneManager.LoadSceneAsync("Login");
+	}
 	private void GoToGame()
 	{
 		SceneManager.LoadSceneAsync("AvatarCreation");

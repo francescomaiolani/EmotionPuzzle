@@ -72,6 +72,7 @@ public class TutorialManager : MonoBehaviour
 		photoSprite.transform.localScale = dimension;
 	}
 
+	//metodo che istanzia tutti gli oggetti di cui si ha bisogno per il tutorial
 	private void ShowTutorialEmotion(GameObject objectSelected)
 	{
 		//disattiva il pannello
@@ -84,11 +85,11 @@ public class TutorialManager : MonoBehaviour
 			topText.text = UIEndRoundManager.ChangeTextToRandomColors("Questo e' il " + MinigameManager.ConvertInCorrectText(emo.ToString()));
 
 		//crea tutti gli elementi
-		CreateFace("main", emo.ToString(), Vector3.zero, 1.5f, null, false);
-		CreateEmotionString(emo.ToString(), new Vector3(0, -160, 0));
-		GameObject face1 = CreateFace("random", emo.ToString(), new Vector3(5.5f, 2, 0), 1.2f, null, false);
+		CreateFace("main", emo.ToString(), new Vector3(0,-0.5f,0), 1.5f, null, false);
+		CreateEmotionString(emo.ToString(), new Vector3(0, -200, 0));
+		GameObject face1 = CreateFace("random", emo.ToString(), new Vector3(5.5f, 1f, 0), 1.2f, null, false);
 		face1.GetComponent<Avatar>().AssignEmotion(emo);
-		GameObject face2 = CreateFace("random", emo.ToString(), new Vector3(5.5f, -2, 0), 1.2f, null, false);
+		GameObject face2 = CreateFace("random", emo.ToString(), new Vector3(5.5f, -2.5f, 0), 1.2f, null, false);
 		face2.GetComponent<Avatar>().AssignEmotion(emo);
 		CreatePhoto(emo.ToString());
 	}

@@ -18,6 +18,10 @@ public class LevelSelectionManager : MonoBehaviour
         SceneManager.LoadSceneAsync("1_GuessExpression");
     }
 
+    public void GoToPlayOrData()
+    {
+        SceneManager.LoadScene("PlayOrData");
+    }
     public void LoadTutorialMode()
     {
         SceneManager.LoadScene("TutorialSelection");

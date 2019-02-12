@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum Games { GuessExpression, HowDoYouFeel, WhichPersonIs, Composition, PhotographicEmotion }
 
@@ -35,6 +36,10 @@ public class Diagram : MonoBehaviour
             targetType = "Gioco";
     }
 
+    public void GoToGameOrData()
+    {
+        SceneManager.LoadSceneAsync("PlayOrData");
+    }
     //METODO CHE VIENE CHIAMATO QUANDO VIENE PREMUTO IL TASTO MOSTRA RISULTATI
     public void SetDiagram()
     {
