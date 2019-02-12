@@ -13,15 +13,9 @@ public class UIPhotographicEmotionManager : UIEndRoundManager
         sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
 
         if (roundResult)
-        {
             SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), true, 1.4f, true);
-        }
+
         else
-        {
-            SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(), true, 1.4f, true);
-            SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), false, 1.4f, true);
-        }
-
+            SpawnFace(new Vector3(0f, -2, 0), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), gameManager.GetComponent<PhotographicEmotionManager>().GetEmotionAnswer(), false, 1.4f, true);
     }
-
 }

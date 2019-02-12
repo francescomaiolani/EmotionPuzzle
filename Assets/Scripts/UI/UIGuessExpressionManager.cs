@@ -11,14 +11,9 @@ public class UIGuessExpressionManager : UIEndRoundManager
     {
         sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
         if (roundResult)
-        {
             SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), true, 1.4f, true);
-        }
         else
-        {
             SpawnFace(new Vector3(0f, -2, 0), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), gameManager.GetComponent<MinigameManager>().GetEmotionAnswer(), false, 1.4f, true);
-        }
-
     }
 
 }

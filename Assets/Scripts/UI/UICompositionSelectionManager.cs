@@ -41,16 +41,11 @@ public class UICompositionSelectionManager : UIEndRoundManager
 	{
 		sentencesQA[0].text = MinigameManager.ConvertInCorrectText(gameManager.GetEmotionString());
 
-		if (roundResult)
-		{
+		if (roundResult)	
 			SpawnFace(new Vector3(0, -2, 0), gameManager.GetComponent<CompositionSelectionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionSelectionManager>().GetMouthEmotionChosen(), true, 1.4f, true);
-		}
+		
 		else
-		{
-			SpawnFace(new Vector3(-3f, -2, 0), gameManager.GetMainEmotion(), gameManager.GetMainEmotion(), true, 1.4f, true);
-			SpawnFace(new Vector3(3f, -2, 0), gameManager.GetComponent<CompositionSelectionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionSelectionManager>().GetMouthEmotionChosen(), false, 1.4f, true);
-		}
-
+			SpawnFace(new Vector3(0f, -2, 0), gameManager.GetComponent<CompositionSelectionManager>().GetEyesEmotionChosen(), gameManager.GetComponent<CompositionSelectionManager>().GetMouthEmotionChosen(), false, 1.4f, true);
 	}
 
 }

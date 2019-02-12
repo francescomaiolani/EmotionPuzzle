@@ -9,14 +9,10 @@ public class UIHowDoYouFeelManager : UIEndRoundManager
     {
         SpawnFace(new Vector3(0, -0.5f, 0), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), gameManager.GetComponent<MinigameManager>().GetMainEmotion(), true, 1.4f, false);
         if (roundResult)
-        {
             SpawnTextUI(new Vector2(0, -180), gameManager.GetEmotionAnswer(), true);
-        }
+        
         else
-        {
-            SpawnTextUI(new Vector2(-150, -180), gameManager.GetMainEmotion(), true);
-            SpawnTextUI(new Vector2(300, -180), gameManager.GetEmotionAnswer(), false);
-        }
+            SpawnTextUI(new Vector2(0, -180), gameManager.GetEmotionAnswer(), false);
     }
 
 }
